@@ -15,7 +15,7 @@
 
   <style>
     :root{
-      --bg:#FBFAF6;                 /* avorio molto chiaro */
+      --bg:#FBFAF6;
       --ink:#152B25;
       --muted:rgba(21,43,37,.72);
       --border:rgba(0,0,0,.10);
@@ -73,41 +73,49 @@
       letter-spacing:.2px;
     }
 
+    /* ✅ NO pills/boxes: simple links like a typewriter */
     .nav{
       display:flex;
-      gap:16px;
+      gap:18px;
       flex-wrap:wrap;
       align-items:center;
     }
     .nav a{
       text-decoration:none;
       font-size:14px;
-      padding:.35rem .55rem;
-      border-radius:999px;
-      background: rgba(255,255,255,.55);
-      border:1px solid rgba(0,0,0,.06);
-      backdrop-filter: blur(10px);
+      padding:0;
+      border:0;
+      background:transparent;
     }
-    .nav a:hover{ background: rgba(201,160,74,.12); }
+    .nav a:hover{
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
 
     .lang{
       display:flex;
-      gap:8px;
+      gap:12px;
       align-items:center;
     }
     .lang a{
       text-decoration:none;
       font-size:13px;
-      padding:.32rem .55rem;
-      border-radius:999px;
-      background: rgba(255,255,255,.55);
-      border:1px solid transparent;
-      backdrop-filter: blur(10px);
+      padding:0;
+      border:0;
+      background:transparent;
       font-family:"Special Elite", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      opacity:.85;
+    }
+    .lang a:hover{
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      opacity: 1;
     }
     .lang a.active{
-      border-color: rgba(201,160,74,.75);
-      box-shadow: 0 10px 26px rgba(201,160,74,.14);
+      opacity: 1;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 2px;
     }
 
     /* Names (NOT typewriter) */
@@ -124,7 +132,6 @@
       color: rgba(21,43,37,.95);
       text-shadow: 0 14px 34px rgba(0,0,0,.06);
     }
-    /* Date under names - bigger, typewriter */
     .names .meta{
       margin-top: 10px;
       font-size: 19px;
@@ -179,13 +186,13 @@
       text-underline-offset: 3px;
     }
 
-    /* Countdown: numbers only (no boxes) */
+    /* Countdown: numbers only */
     .countdown{
       margin-top: 14px;
       display:flex;
       justify-content:center;
       flex-wrap:wrap;
-      gap: 16px;
+      gap: 18px;
       align-items:baseline;
       letter-spacing: .06em;
     }
@@ -205,7 +212,7 @@
       margin-top: 18px;
       display:flex;
       justify-content:center;
-      gap: 10px;
+      gap: 14px;
       flex-wrap:wrap;
       font-family:"Special Elite", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
@@ -310,7 +317,7 @@
       <p>
         <b>Capo Santa Fortunata</b> · Sorrento, Italy ·
         <a href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">
-          
+          caposantafortunata.com
         </a>
       </p>
 
@@ -326,12 +333,17 @@
         <a class="button" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">
           Vedi la location
         </a>
+
+        <a class="button" href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=/maps/place//data%3D!4m2!3m1!1s0x133b9e986aa46351:0xbe2d4093f462f012%3Fsa%3DX%26ved%3D1t:8290%26ictx%3D111&ved=2ahUKEwjEjfHAo-iRAxU10wIHHSO2FGoQ4kB6BAgtEAM&usg=AOvVaw1gh97ZW31etVubnu-uzFdj"
+           target="_blank" rel="noopener noreferrer">
+          Come raggiungerci
+        </a>
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <!-- RSVP instead of Programma -->
+    <!-- RSVP block -->
     <section class="rsvp">
       <h3>Speriamo che tu possa partecipare</h3>
       <p>Per favore conferma la tua presenza</p>
@@ -347,7 +359,6 @@
   <!-- Countdown script (real-time) -->
   <script>
     (function(){
-      // Italy in late September is usually CEST (UTC+02:00)
       const wedding = new Date("2026-09-25T16:00:00+02:00");
 
       const elDays  = document.getElementById("cd-days");
