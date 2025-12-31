@@ -5,253 +5,234 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Joris & Francesca — Matrimonio</title>
 
-  <!-- Fonts (romantic names + clean text) -->
+  <!-- Romantic cursive for names + clean text -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- Keep your base files (ok even if style.css is simple) -->
   <link rel="stylesheet" href="../assets/style.css">
   <script defer src="../assets/app.js"></script>
 
-  <!-- Page style inspired by Soria: minimal top nav, big centered names, airy sections -->
+  <!-- Page style inspired by Squarespace "Soria" -->
   <style>
     :root{
-      --bg: #FDFBF7;
-      --ink: #17302A;
-      --muted: rgba(23,48,42,.75);
-      --card: rgba(255,255,255,.62);
-      --border: rgba(0,0,0,.08);
-      --shadow: 0 18px 55px rgba(0,0,0,.10);
-      --accent: rgba(214,162,74,.92);
+      --bg:#FDFBF7;
+      --ink:#17302A;
+      --muted:rgba(23,48,42,.75);
+      --card:rgba(255,255,255,.62);
+      --border:rgba(0,0,0,.08);
+      --shadow:0 18px 55px rgba(0,0,0,.10);
+      --accent:#D6A24A;
     }
 
     body{
       margin:0;
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--ink);
-      background: var(--bg);
+      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background:var(--bg);
     }
 
-    /* Asymmetric watercolor accents (not tiled/repeating) */
-    body::before, body::after{
+    /* Asymmetric watercolor accents */
+    body::before,
+    body::after{
       content:"";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: .65;
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:.65;
     }
+
     body::before{
-      /* top-left + mid-right soft watercolor */
       background:
         radial-gradient(340px 260px at 8% 12%, rgba(214,162,74,.16), transparent 62%),
         radial-gradient(360px 280px at 92% 28%, rgba(18,59,90,.10), transparent 64%),
         radial-gradient(260px 220px at 18% 44%, rgba(47,93,80,.10), transparent 66%);
-      filter: blur(1px);
     }
+
     body::after{
-      /* bottom-right soft watercolor */
       background:
         radial-gradient(460px 360px at 92% 92%, rgba(201,124,93,.14), transparent 66%),
         radial-gradient(260px 220px at 14% 88%, rgba(18,59,90,.08), transparent 68%);
-      filter: blur(1px);
     }
 
     .wrap{
-      position: relative;
-      z-index: 1;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 22px 18px 56px;
+      position:relative;
+      z-index:1;
+      max-width:1080px;
+      margin:0 auto;
+      padding:22px 18px 56px;
     }
 
-    /* TOP BAR (like Soria: simple, clean) */
+    /* TOP NAV */
     .topbar{
       display:flex;
-      align-items:center;
       justify-content:space-between;
+      align-items:center;
       gap:14px;
-      flex-wrap: wrap;
-      padding: 8px 0 10px;
+      flex-wrap:wrap;
+      padding:8px 0 12px;
     }
 
     .nav{
       display:flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
     }
+
     .nav a{
       text-decoration:none;
-      letter-spacing:.2px;
-      font-size: 14px;
-      padding: .35rem .55rem;
-      border-radius: 999px;
-      background: rgba(255,255,255,.55);
-      border: 1px solid rgba(0,0,0,.06);
-      backdrop-filter: blur(10px);
+      font-size:14px;
+      padding:.35rem .55rem;
+      border-radius:999px;
+      background:rgba(255,255,255,.55);
+      border:1px solid rgba(0,0,0,.06);
+      backdrop-filter:blur(10px);
     }
-    .nav a:hover{ background: rgba(214,162,74,.12); }
+
+    .nav a:hover{
+      background:rgba(214,162,74,.14);
+    }
 
     .lang{
       display:flex;
-      gap: 8px;
-      align-items:center;
+      gap:8px;
     }
+
     .lang a{
       text-decoration:none;
-      font-size: 13px;
+      font-size:13px;
       padding:.32rem .55rem;
       border-radius:999px;
-      background: rgba(255,255,255,.55);
-      border: 1px solid transparent;
-      backdrop-filter: blur(10px);
-    }
-    .lang a.active{
-      border-color: rgba(214,162,74,.75);
-      box-shadow: 0 10px 26px rgba(214,162,74,.14);
+      background:rgba(255,255,255,.55);
+      border:1px solid transparent;
+      backdrop-filter:blur(10px);
     }
 
-    /* NAMES (big + cursive + centered) */
+    .lang a.active{
+      border-color:rgba(214,162,74,.75);
+      box-shadow:0 10px 26px rgba(214,162,74,.14);
+    }
+
+    /* NAMES */
     .names{
       text-align:center;
-      margin: 22px auto 14px;
-      padding: 6px 0;
-    }
-    .names h1{
-      font-family: "Great Vibes", cursive;
-      font-weight: 400;
-      font-size: clamp(64px, 8vw, 108px);
-      line-height: 1;
-      margin: 0;
-      color: rgba(23,48,42,.92);
-      text-shadow: 0 12px 30px rgba(0,0,0,.06);
-    }
-    .names .meta{
-      margin-top: 10px;
-      font-size: 14px;
-      color: var(--muted);
-      letter-spacing: .2px;
+      margin:26px auto 14px;
     }
 
-    /* PHOTO (hero image) */
-    .photo{
-      width: min(900px, 100%);
-      margin: 14px auto 22px;
-      border-radius: 28px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.55);
-      box-shadow: var(--shadow);
+    .names h1{
+      font-family:"Great Vibes",cursive;
+      font-weight:400;
+      font-size:clamp(64px,8vw,108px);
+      line-height:1;
+      margin:0;
+      color:rgba(23,48,42,.92);
+      text-shadow:0 12px 30px rgba(0,0,0,.06);
     }
+
+    .names .meta{
+      margin-top:10px;
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    /* PHOTO */
+    .photo{
+      width:min(900px,100%);
+      margin:16px auto 22px;
+      border-radius:28px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.55);
+      box-shadow:var(--shadow);
+    }
+
     .photo img{
-      display:block;
       width:100%;
+      display:block;
       height:auto;
     }
 
-    /* MAIN SECTION (airy, centered, like Soria) */
+    /* MAIN SECTION */
     .section{
-      width: min(900px, 100%);
-      margin: 0 auto;
-      text-align: center;
-      padding: 22px 18px;
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 14px 40px rgba(0,0,0,.08);
+      width:min(900px,100%);
+      margin:0 auto;
+      text-align:center;
+      padding:22px 18px;
+      border-radius:22px;
+      border:1px solid var(--border);
+      background:var(--card);
+      backdrop-filter:blur(10px);
+      box-shadow:0 14px 40px rgba(0,0,0,.08);
     }
+
     .section h2{
-      margin: 0 0 10px;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: .2px;
-    }
-    .section p{
-      margin: 8px 0;
-      color: rgba(23,48,42,.88);
+      margin:0 0 10px;
+      font-size:22px;
+      font-weight:600;
     }
 
     .badges{
       display:flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 14px;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
     }
+
     .badge{
       display:inline-flex;
-      gap: 8px;
       align-items:center;
-      padding: .45rem .78rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,.10);
-      background: rgba(255,255,255,.60);
+      gap:8px;
+      padding:.45rem .78rem;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.10);
+      background:rgba(255,255,255,.6);
     }
+
     .badge::before{
       content:"";
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px rgba(214,162,74,.16);
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 3px rgba(214,162,74,.16);
     }
 
     .cta{
-      display:flex;
-      justify-content:center;
-      margin-top: 16px;
+      margin-top:16px;
     }
+
     .button{
       display:inline-flex;
-      align-items:center;
       justify-content:center;
+      align-items:center;
+      padding:.9rem 1.15rem;
+      border-radius:999px;
+      font-weight:650;
       text-decoration:none;
-      font-weight: 650;
-      padding: .9rem 1.15rem;
-      border-radius: 999px;
-      color: #1a1710;
-      background: linear-gradient(180deg, rgba(214,162,74,.96), rgba(214,162,74,.80));
-      border: 1px solid rgba(0,0,0,.10);
-      box-shadow: 0 16px 36px rgba(214,162,74,.18);
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-    .button:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 20px 42px rgba(214,162,74,.22);
+      color:#1a1710;
+      background:linear-gradient(180deg,rgba(214,162,74,.96),rgba(214,162,74,.80));
+      border:1px solid rgba(0,0,0,.10);
+      box-shadow:0 16px 36px rgba(214,162,74,.18);
     }
 
     .divider{
-      width: min(900px, 100%);
-      margin: 18px auto;
-      border-top: 1px solid rgba(0,0,0,.10);
-      opacity: .65;
+      width:min(900px,100%);
+      margin:20px auto;
+      border-top:1px solid rgba(0,0,0,.10);
     }
 
     .card{
-      width: min(900px, 100%);
-      margin: 0 auto;
+      width:min(900px,100%);
+      margin:0 auto;
       text-align:center;
-      padding: 18px 18px;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.56);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 28px rgba(0,0,0,.06);
-    }
-    .card h3{
-      margin: 0 0 10px;
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: .2px;
-    }
-
-    @media (max-width: 780px){
-      .topbar{ justify-content:center; }
-      .names{ margin-top: 14px; }
-      .photo{ border-radius: 22px; }
-      .section{ border-radius: 18px; }
+      padding:18px;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.56);
+      backdrop-filter:blur(10px);
+      box-shadow:0 10px 28px rgba(0,0,0,.06);
     }
   </style>
 </head>
@@ -259,16 +240,16 @@
 <body>
   <div class="wrap">
 
-    <!-- TOP: Home / Logistica / RSVP / Regalo + languages -->
+    <!-- TOP NAV -->
     <div class="topbar">
-      <nav class="nav" aria-label="Navigazione">
+      <nav class="nav">
         <a href="./">Home</a>
         <a href="./logistica.html">Logistica</a>
         <a href="./rsvp.html">RSVP</a>
         <a href="./regalo.html">Regalo</a>
       </nav>
 
-      <div class="lang" aria-label="Lingua">
+      <div class="lang">
         <a data-lang="it" href="../it/">IT</a>
         <a data-lang="lt" href="../lt/">LT</a>
         <a data-lang="en" href="../en/">EN</a>
@@ -282,9 +263,9 @@
       <div class="meta">25.09.2026 · Capo Santa Fortunata · Sorrento</div>
     </section>
 
-    <!-- PHOTO -->
+    <!-- PHOTO (Pic1.jpg is in root fv/) -->
     <div class="photo">
-      <img src="Pic1.jpg" alt="Joris e Francesca">
+      <img src="../Pic1.jpg" alt="Joris e Francesca">
     </div>
 
     <!-- MAIN INFO -->
