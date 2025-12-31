@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Joris and Francesca — Matrimonio</title>
 
-  <!-- Romantic cursive for names + clean text -->
+  <!-- Romantic name + clean editorial text -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -13,226 +13,267 @@
   <link rel="stylesheet" href="../assets/style.css">
   <script defer src="../assets/app.js"></script>
 
-  <!-- Page style inspired by Squarespace "Soria" -->
   <style>
     :root{
-      --bg:#FDFBF7;
-      --ink:#17302A;
-      --muted:rgba(23,48,42,.75);
-      --card:rgba(255,255,255,.62);
-      --border:rgba(0,0,0,.08);
-      --shadow:0 18px 55px rgba(0,0,0,.10);
-      --accent:#D6A24A;
+      --bg: #FBFAF6;                 /* avorio molto chiaro */
+      --ink: #152B25;                /* verde/nero elegante */
+      --muted: rgba(21,43,37,.72);
+      --border: rgba(0,0,0,.10);
+      --card: rgba(255,255,255,.68);
+      --shadow: 0 18px 60px rgba(0,0,0,.10);
+      --gold: #C9A04A;               /* oro soft */
     }
 
     body{
       margin:0;
       font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--ink);
-      background:var(--bg);
+      background: var(--bg);
     }
 
-    /* Asymmetric watercolor accents */
-    body::before,
-    body::after{
+    /* Acquerello asimmetrico (non ripetuto) */
+    body::before, body::after{
       content:"";
       position:fixed;
       inset:0;
       pointer-events:none;
       z-index:0;
-      opacity:.65;
+      opacity:.70;
     }
-
     body::before{
       background:
-        radial-gradient(340px 260px at 8% 12%, rgba(214,162,74,.16), transparent 62%),
-        radial-gradient(360px 280px at 92% 28%, rgba(18,59,90,.10), transparent 64%),
-        radial-gradient(260px 220px at 18% 44%, rgba(47,93,80,.10), transparent 66%);
+        radial-gradient(420px 320px at 10% 10%, rgba(201,160,74,.14), transparent 62%),
+        radial-gradient(420px 320px at 92% 20%, rgba(18,59,90,.10), transparent 64%),
+        radial-gradient(360px 280px at 18% 42%, rgba(47,93,80,.08), transparent 66%);
+      filter: blur(1px);
     }
-
     body::after{
       background:
-        radial-gradient(460px 360px at 92% 92%, rgba(201,124,93,.14), transparent 66%),
-        radial-gradient(260px 220px at 14% 88%, rgba(18,59,90,.08), transparent 68%);
+        radial-gradient(520px 420px at 92% 92%, rgba(201,124,93,.10), transparent 68%),
+        radial-gradient(340px 280px at 14% 88%, rgba(18,59,90,.07), transparent 70%);
+      filter: blur(1px);
     }
 
     .wrap{
       position:relative;
       z-index:1;
-      max-width:1080px;
+      max-width:1100px;
       margin:0 auto;
-      padding:22px 18px 56px;
+      padding:20px 18px 64px;
     }
 
-    /* TOP NAV */
+    /* Top nav (pulito, editoriale) */
     .topbar{
       display:flex;
       justify-content:space-between;
       align-items:center;
       gap:14px;
       flex-wrap:wrap;
-      padding:8px 0 12px;
+      padding: 8px 0 14px;
     }
-
     .nav{
       display:flex;
       gap:16px;
       flex-wrap:wrap;
+      align-items:center;
     }
-
     .nav a{
       text-decoration:none;
       font-size:14px;
+      letter-spacing:.18px;
       padding:.35rem .55rem;
       border-radius:999px;
-      background:rgba(255,255,255,.55);
+      background: rgba(255,255,255,.55);
       border:1px solid rgba(0,0,0,.06);
-      backdrop-filter:blur(10px);
+      backdrop-filter: blur(10px);
     }
-
-    .nav a:hover{
-      background:rgba(214,162,74,.14);
-    }
+    .nav a:hover{ background: rgba(201,160,74,.12); }
 
     .lang{
       display:flex;
       gap:8px;
+      align-items:center;
     }
-
     .lang a{
       text-decoration:none;
       font-size:13px;
       padding:.32rem .55rem;
       border-radius:999px;
-      background:rgba(255,255,255,.55);
+      background: rgba(255,255,255,.55);
       border:1px solid transparent;
-      backdrop-filter:blur(10px);
+      backdrop-filter: blur(10px);
     }
-
     .lang a.active{
-      border-color:rgba(214,162,74,.75);
-      box-shadow:0 10px 26px rgba(214,162,74,.14);
+      border-color: rgba(201,160,74,.75);
+      box-shadow: 0 10px 26px rgba(201,160,74,.14);
     }
 
-    /* NAMES */
+    /* Names */
     .names{
       text-align:center;
-      margin:26px auto 14px;
+      margin: 24px auto 14px;
     }
-
     .names h1{
-      font-family:"Great Vibes",cursive;
+      font-family:"Great Vibes", cursive;
       font-weight:400;
-      font-size:clamp(64px,8vw,108px);
+      font-size:clamp(68px, 8vw, 110px);
       line-height:1;
       margin:0;
-      color:rgba(23,48,42,.92);
-      text-shadow:0 12px 30px rgba(0,0,0,.06);
+      color: rgba(21,43,37,.95);
+      text-shadow: 0 14px 34px rgba(0,0,0,.06);
     }
-
+    /* data sotto i nomi: più grande */
     .names .meta{
-      margin-top:10px;
-      font-size:14px;
-      color:var(--muted);
+      margin-top: 10px;
+      font-size: 18px;
+      letter-spacing:.2px;
+      color: var(--muted);
     }
 
-    /* PHOTO */
+    /* Photo */
     .photo{
-      width:min(900px,100%);
-      margin:16px auto 22px;
-      border-radius:28px;
+      width:min(920px,100%);
+      margin: 16px auto 24px;
+      border-radius: 28px;
       overflow:hidden;
       border:1px solid var(--border);
-      background:rgba(255,255,255,.55);
-      box-shadow:var(--shadow);
+      background: rgba(255,255,255,.55);
+      box-shadow: var(--shadow);
     }
-
     .photo img{
-      width:100%;
       display:block;
+      width:100%;
       height:auto;
     }
 
-    /* MAIN SECTION */
+    /* Sections */
     .section{
-      width:min(900px,100%);
-      margin:0 auto;
-      text-align:center;
-      padding:22px 18px;
-      border-radius:22px;
+      width:min(920px,100%);
+      margin: 0 auto;
+      padding: 24px 20px;
+      border-radius: 22px;
       border:1px solid var(--border);
-      background:var(--card);
-      backdrop-filter:blur(10px);
-      box-shadow:0 14px 40px rgba(0,0,0,.08);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 16px 44px rgba(0,0,0,.08);
+      text-align:center;
     }
-
     .section h2{
       margin:0 0 10px;
-      font-size:22px;
-      font-weight:600;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+    .section p{
+      margin: 8px 0;
+      color: rgba(21,43,37,.88);
+    }
+    .section a{
+      color: inherit;
     }
 
-    .badges{
+    /* Countdown */
+    .countdown{
+      margin-top: 14px;
       display:flex;
-      justify-content:center;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:14px;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:.45rem .78rem;
-      border-radius:999px;
-      border:1px solid rgba(0,0,0,.10);
-      background:rgba(255,255,255,.6);
-    }
-
-    .badge::before{
-      content:"";
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:var(--accent);
-      box-shadow:0 0 0 3px rgba(214,162,74,.16);
-    }
-
-    .cta{
-      margin-top:16px;
-    }
-
-    .button{
-      display:inline-flex;
       justify-content:center;
       align-items:center;
-      padding:.9rem 1.15rem;
-      border-radius:999px;
-      font-weight:650;
-      text-decoration:none;
-      color:#1a1710;
-      background:linear-gradient(180deg,rgba(214,162,74,.96),rgba(214,162,74,.80));
+    }
+    .pill{
+      display:inline-flex;
+      gap:10px;
+      align-items:baseline;
+      padding: .6rem .9rem;
+      border-radius: 999px;
       border:1px solid rgba(0,0,0,.10);
-      box-shadow:0 16px 36px rgba(214,162,74,.18);
+      background: rgba(255,255,255,.62);
+    }
+    .pill .num{
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: .2px;
+    }
+    .pill .lbl{
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .subline{
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Buttons */
+    .cta{
+      margin-top: 18px;
+      display:flex;
+      justify-content:center;
+    }
+    .button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: .92rem 1.2rem;
+      border-radius: 999px;
+      text-decoration:none;
+      font-weight: 650;
+      color: #1a1710;
+      background: linear-gradient(180deg, rgba(201,160,74,.96), rgba(201,160,74,.80));
+      border:1px solid rgba(0,0,0,.10);
+      box-shadow: 0 16px 36px rgba(201,160,74,.20);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .button:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 20px 44px rgba(201,160,74,.24);
+    }
+    .button.secondary{
+      background: rgba(255,255,255,.70);
+      color: var(--ink);
     }
 
     .divider{
-      width:min(900px,100%);
-      margin:20px auto;
+      width:min(920px,100%);
+      margin: 22px auto;
       border-top:1px solid rgba(0,0,0,.10);
+      opacity:.7;
     }
 
-    .card{
-      width:min(900px,100%);
-      margin:0 auto;
-      text-align:center;
-      padding:18px;
-      border-radius:18px;
+    /* RSVP block instead of Programma */
+    .rsvp{
+      width:min(920px,100%);
+      margin: 0 auto;
+      padding: 22px 20px;
+      border-radius: 18px;
       border:1px solid var(--border);
-      background:rgba(255,255,255,.56);
-      backdrop-filter:blur(10px);
-      box-shadow:0 10px 28px rgba(0,0,0,.06);
+      background: rgba(255,255,255,.62);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.06);
+      text-align:center;
+    }
+    .rsvp h3{
+      margin:0 0 10px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing:.2px;
+    }
+    .rsvp p{
+      margin: 8px 0 0;
+      color: rgba(21,43,37,.88);
+    }
+
+    @media (max-width: 780px){
+      .topbar{ justify-content:center; }
+      .names{ margin-top: 14px; }
+      .names .meta{ font-size: 16px; }
+      .photo{ border-radius: 22px; }
+      .section{ border-radius: 18px; }
+      .pill .num{ font-size: 20px; }
     }
   </style>
 </head>
@@ -242,14 +283,14 @@
 
     <!-- TOP NAV -->
     <div class="topbar">
-      <nav class="nav">
+      <nav class="nav" aria-label="Navigazione">
         <a href="./">Home</a>
         <a href="./logistica.html">Logistica</a>
         <a href="./rsvp.html">RSVP</a>
         <a href="./regalo.html">Regalo</a>
       </nav>
 
-      <div class="lang">
+      <div class="lang" aria-label="Lingua">
         <a data-lang="it" href="../it/">IT</a>
         <a data-lang="lt" href="../lt/">LT</a>
         <a data-lang="en" href="../en/">EN</a>
@@ -263,7 +304,7 @@
       <div class="meta">25.09.2026</div>
     </section>
 
-    <!-- PHOTO (Pic2.jpg is in root fv/) -->
+    <!-- PHOTO (Pic2.jpg is in repo root, so from it/ use ../Pic2.jpg) -->
     <div class="photo">
       <img src="../Pic2.jpg" alt="Joris e Francesca">
     </div>
@@ -271,22 +312,92 @@
     <!-- MAIN INFO -->
     <section class="section">
       <h2>Ci sposiamo!</h2>
-      <p><b>25.09.2026</b> · ore <b>16:00</b></p>
-      <p><b>Capo Santa Fortunata</b> · Sorrento, Italy</p>
-      <p></p>
 
-      <div class="cta">
-        <a class="button" href="./rsvp.html">Conferma la presenza (RSVP)</a>
+      <p><b>25.09.2026</b> · ore <b>16:00</b></p>
+
+      <p>
+        <b>Capo Santa Fortunata</b> · Sorrento, Italy ·
+        <a href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">
+          sito della struttura
+        </a>
+      </p>
+
+      <!-- Countdown -->
+      <div class="countdown" aria-label="Countdown matrimonio">
+        <div class="pill"><span class="num" id="cd-days">—</span><span class="lbl">Giorni</span></div>
+        <div class="pill"><span class="num" id="cd-hours">—</span><span class="lbl">Ore</span></div>
+        <div class="pill"><span class="num" id="cd-mins">—</span><span class="lbl">Min</span></div>
+        <div class="pill"><span class="num" id="cd-secs">—</span><span class="lbl">Sec</span></div>
+      </div>
+      <div class="subline" id="cd-note">Manca sempre meno ✨</div>
+
+      <div class="cta" style="gap:10px; flex-wrap:wrap;">
+        <a class="button secondary" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">
+          Vedi la location
+        </a>
+        <a class="button" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank" rel="noopener noreferrer">
+          RSVP
+        </a>
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <section class="card">
-      <h3>Programma</h3>
-      <p><b>16:00</b> Cerimonia · a seguire ricevimento.</p>
+    <!-- RSVP section instead of Programma -->
+    <section class="rsvp">
+      <h3>Speriamo che tu possa partecipare</h3>
+      <p>Per favore conferma la tua presenza compilando il modulo RSVP.</p>
+      <div class="cta">
+        <a class="button" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank" rel="noopener noreferrer">
+          Compila RSVP
+        </a>
+      </div>
     </section>
 
   </div>
+
+  <!-- Countdown script (real-time) -->
+  <script>
+    (function(){
+      // Wedding date/time in Italy (CEST in September: UTC+02:00)
+      const wedding = new Date("2026-09-25T16:00:00+02:00");
+
+      const elDays  = document.getElementById("cd-days");
+      const elHours = document.getElementById("cd-hours");
+      const elMins  = document.getElementById("cd-mins");
+      const elSecs  = document.getElementById("cd-secs");
+      const elNote  = document.getElementById("cd-note");
+
+      function pad(n){ return String(n).padStart(2,"0"); }
+
+      function tick(){
+        const now = new Date();
+        let diff = wedding - now;
+
+        if(diff <= 0){
+          elDays.textContent = "0";
+          elHours.textContent = "00";
+          elMins.textContent = "00";
+          elSecs.textContent = "00";
+          elNote.textContent = "È oggi! 🎉";
+          return;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days  = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const mins  = Math.floor((totalSeconds % 3600) / 60);
+        const secs  = totalSeconds % 60;
+
+        elDays.textContent  = days;
+        elHours.textContent = pad(hours);
+        elMins.textContent  = pad(mins);
+        elSecs.textContent  = pad(secs);
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
 </body>
 </html>
