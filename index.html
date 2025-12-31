@@ -1,1 +1,15 @@
-ciao
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script>
+    (function(){
+      const l = (navigator.language||"it").slice(0,2).toLowerCase();
+      const ok = ["it","en","de","lt"];
+      location.replace("./"+(ok.includes(l)?l:"it")+"/");
+    })();
+  </script>
+</head>
+<body></body>
+</html>
+
