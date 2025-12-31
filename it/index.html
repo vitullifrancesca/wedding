@@ -5,33 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Joris and Francesca — Matrimonio</title>
 
-  <!-- Romantic name + clean editorial text -->
+  <!-- Fonts: cursive names + typewriter text -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Special+Elite&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../assets/style.css">
   <script defer src="../assets/app.js"></script>
 
   <style>
     :root{
-      --bg: #FBFAF6;                 /* avorio molto chiaro */
-      --ink: #152B25;                /* verde/nero elegante */
-      --muted: rgba(21,43,37,.72);
-      --border: rgba(0,0,0,.10);
-      --card: rgba(255,255,255,.68);
-      --shadow: 0 18px 60px rgba(0,0,0,.10);
-      --gold: #C9A04A;               /* oro soft */
+      --bg:#FBFAF6;                 /* avorio molto chiaro */
+      --ink:#152B25;
+      --muted:rgba(21,43,37,.72);
+      --border:rgba(0,0,0,.10);
+      --card:rgba(255,255,255,.66);
+      --shadow:0 18px 60px rgba(0,0,0,.10);
+      --gold:#C9A04A;
     }
 
     body{
       margin:0;
-      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--ink);
       background: var(--bg);
+      color: var(--ink);
     }
 
-    /* Acquerello asimmetrico (non ripetuto) */
+    /* Asymmetric watercolor accents */
     body::before, body::after{
       content:"";
       position:fixed;
@@ -62,15 +61,18 @@
       padding:20px 18px 64px;
     }
 
-    /* Top nav (pulito, editoriale) */
+    /* Top bar - typewriter style */
     .topbar{
       display:flex;
       justify-content:space-between;
       align-items:center;
       gap:14px;
       flex-wrap:wrap;
-      padding: 8px 0 14px;
+      padding:8px 0 14px;
+      font-family:"Special Elite", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      letter-spacing:.2px;
     }
+
     .nav{
       display:flex;
       gap:16px;
@@ -80,7 +82,6 @@
     .nav a{
       text-decoration:none;
       font-size:14px;
-      letter-spacing:.18px;
       padding:.35rem .55rem;
       border-radius:999px;
       background: rgba(255,255,255,.55);
@@ -102,16 +103,17 @@
       background: rgba(255,255,255,.55);
       border:1px solid transparent;
       backdrop-filter: blur(10px);
+      font-family:"Special Elite", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
     .lang a.active{
       border-color: rgba(201,160,74,.75);
       box-shadow: 0 10px 26px rgba(201,160,74,.14);
     }
 
-    /* Names */
+    /* Names (NOT typewriter) */
     .names{
       text-align:center;
-      margin: 24px auto 14px;
+      margin:24px auto 14px;
     }
     .names h1{
       font-family:"Great Vibes", cursive;
@@ -122,19 +124,20 @@
       color: rgba(21,43,37,.95);
       text-shadow: 0 14px 34px rgba(0,0,0,.06);
     }
-    /* data sotto i nomi: più grande */
+    /* Date under names - bigger, typewriter */
     .names .meta{
       margin-top: 10px;
-      font-size: 18px;
-      letter-spacing:.2px;
+      font-size: 19px;
+      letter-spacing:.18px;
       color: var(--muted);
+      font-family:"Special Elite", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
 
     /* Photo */
     .photo{
       width:min(920px,100%);
-      margin: 16px auto 24px;
-      border-radius: 28px;
+      margin:16px auto 24px;
+      border-radius:28px;
       overflow:hidden;
       border:1px solid var(--border);
       background: rgba(255,255,255,.55);
@@ -146,23 +149,25 @@
       height:auto;
     }
 
-    /* Sections */
+    /* Section - typewriter */
     .section{
       width:min(920px,100%);
-      margin: 0 auto;
-      padding: 24px 20px;
-      border-radius: 22px;
+      margin:0 auto;
+      padding:24px 20px;
+      border-radius:22px;
       border:1px solid var(--border);
       background: var(--card);
       backdrop-filter: blur(10px);
       box-shadow: 0 16px 44px rgba(0,0,0,.08);
       text-align:center;
+      font-family:"Special Elite", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      letter-spacing:.18px;
     }
     .section h2{
       margin:0 0 10px;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: .2px;
+      font-size:22px;
+      font-weight:400;
+      letter-spacing:.2px;
     }
     .section p{
       margin: 8px 0;
@@ -170,42 +175,29 @@
     }
     .section a{
       color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
-    /* Countdown */
+    /* Countdown: numbers only (no boxes) */
     .countdown{
       margin-top: 14px;
       display:flex;
-      flex-wrap:wrap;
-      gap:10px;
       justify-content:center;
-      align-items:center;
-    }
-    .pill{
-      display:inline-flex;
-      gap:10px;
+      flex-wrap:wrap;
+      gap: 16px;
       align-items:baseline;
-      padding: .6rem .9rem;
-      border-radius: 999px;
-      border:1px solid rgba(0,0,0,.10);
-      background: rgba(255,255,255,.62);
+      letter-spacing: .06em;
     }
-    .pill .num{
-      font-size: 22px;
-      font-weight: 650;
-      letter-spacing: .2px;
+    .countdown .num{
+      font-size: 34px;
+      font-weight: 400;
     }
-    .pill .lbl{
+    .countdown .lbl{
       font-size: 12px;
-      letter-spacing: .12em;
       text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .subline{
-      margin-top: 10px;
-      font-size: 14px;
-      color: var(--muted);
+      opacity: .70;
+      margin-left: 6px;
     }
 
     /* Buttons */
@@ -213,67 +205,67 @@
       margin-top: 18px;
       display:flex;
       justify-content:center;
+      gap: 10px;
+      flex-wrap:wrap;
+      font-family:"Special Elite", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
     .button{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding: .92rem 1.2rem;
-      border-radius: 999px;
+      padding:.9rem 1.2rem;
+      border-radius:999px;
       text-decoration:none;
-      font-weight: 650;
-      color: #1a1710;
-      background: linear-gradient(180deg, rgba(201,160,74,.96), rgba(201,160,74,.80));
+      font-weight:400;
+      color: var(--ink);
+      background: rgba(255,255,255,.70);
       border:1px solid rgba(0,0,0,.10);
-      box-shadow: 0 16px 36px rgba(201,160,74,.20);
-      transition: transform .12s ease, box-shadow .12s ease;
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      letter-spacing: .18px;
     }
     .button:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 20px 44px rgba(201,160,74,.24);
-    }
-    .button.secondary{
-      background: rgba(255,255,255,.70);
-      color: var(--ink);
+      background: rgba(201,160,74,.12);
+      border-color: rgba(201,160,74,.35);
     }
 
     .divider{
       width:min(920px,100%);
-      margin: 22px auto;
+      margin:22px auto;
       border-top:1px solid rgba(0,0,0,.10);
       opacity:.7;
     }
 
-    /* RSVP block instead of Programma */
+    /* RSVP block */
     .rsvp{
       width:min(920px,100%);
-      margin: 0 auto;
-      padding: 22px 20px;
-      border-radius: 18px;
+      margin:0 auto;
+      padding:22px 20px;
+      border-radius:18px;
       border:1px solid var(--border);
       background: rgba(255,255,255,.62);
       backdrop-filter: blur(10px);
       box-shadow: 0 10px 28px rgba(0,0,0,.06);
       text-align:center;
+      font-family:"Special Elite", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      letter-spacing:.18px;
     }
     .rsvp h3{
       margin:0 0 10px;
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing:.2px;
+      font-size:18px;
+      font-weight:400;
     }
     .rsvp p{
-      margin: 8px 0 0;
+      margin:8px 0 0;
       color: rgba(21,43,37,.88);
     }
 
     @media (max-width: 780px){
       .topbar{ justify-content:center; }
       .names{ margin-top: 14px; }
-      .names .meta{ font-size: 16px; }
+      .names .meta{ font-size: 17px; }
       .photo{ border-radius: 22px; }
       .section{ border-radius: 18px; }
-      .pill .num{ font-size: 20px; }
+      .countdown .num{ font-size: 30px; }
     }
   </style>
 </head>
@@ -304,7 +296,7 @@
       <div class="meta">25.09.2026</div>
     </section>
 
-    <!-- PHOTO (Pic2.jpg is in repo root, so from it/ use ../Pic2.jpg) -->
+    <!-- PHOTO (Pic2.jpg in repo root, from it/ use ../Pic2.jpg) -->
     <div class="photo">
       <img src="../Pic2.jpg" alt="Joris e Francesca">
     </div>
@@ -318,38 +310,34 @@
       <p>
         <b>Capo Santa Fortunata</b> · Sorrento, Italy ·
         <a href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">
-          sito della struttura
+          caposantafortunata.com
         </a>
       </p>
 
-      <!-- Countdown -->
+      <!-- Countdown (numbers only) -->
       <div class="countdown" aria-label="Countdown matrimonio">
-        <div class="pill"><span class="num" id="cd-days">—</span><span class="lbl">Giorni</span></div>
-        <div class="pill"><span class="num" id="cd-hours">—</span><span class="lbl">Ore</span></div>
-        <div class="pill"><span class="num" id="cd-mins">—</span><span class="lbl">Min</span></div>
-        <div class="pill"><span class="num" id="cd-secs">—</span><span class="lbl">Sec</span></div>
+        <div><span class="num" id="cd-days">—</span><span class="lbl">giorni</span></div>
+        <div><span class="num" id="cd-hours">—</span><span class="lbl">ore</span></div>
+        <div><span class="num" id="cd-mins">—</span><span class="lbl">min</span></div>
+        <div><span class="num" id="cd-secs">—</span><span class="lbl">sec</span></div>
       </div>
-      <div class="subline" id="cd-note">Manca sempre meno ✨</div>
 
-      <div class="cta" style="gap:10px; flex-wrap:wrap;">
-        <a class="button secondary" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">
+      <div class="cta">
+        <a class="button" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">
           Vedi la location
-        </a>
-        <a class="button" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank" rel="noopener noreferrer">
-          RSVP
         </a>
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <!-- RSVP section instead of Programma -->
+    <!-- RSVP instead of Programma -->
     <section class="rsvp">
       <h3>Speriamo che tu possa partecipare</h3>
-      <p>Per favore conferma la tua presenza compilando il modulo RSVP.</p>
+      <p>Per favore conferma la tua presenza compilando il modulo.</p>
       <div class="cta">
         <a class="button" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank" rel="noopener noreferrer">
-          Compila RSVP
+          Apri RSVP (Google Form)
         </a>
       </div>
     </section>
@@ -359,14 +347,13 @@
   <!-- Countdown script (real-time) -->
   <script>
     (function(){
-      // Wedding date/time in Italy (CEST in September: UTC+02:00)
+      // Italy in late September is usually CEST (UTC+02:00)
       const wedding = new Date("2026-09-25T16:00:00+02:00");
 
       const elDays  = document.getElementById("cd-days");
       const elHours = document.getElementById("cd-hours");
       const elMins  = document.getElementById("cd-mins");
       const elSecs  = document.getElementById("cd-secs");
-      const elNote  = document.getElementById("cd-note");
 
       function pad(n){ return String(n).padStart(2,"0"); }
 
@@ -379,7 +366,6 @@
           elHours.textContent = "00";
           elMins.textContent = "00";
           elSecs.textContent = "00";
-          elNote.textContent = "È oggi! 🎉";
           return;
         }
 
