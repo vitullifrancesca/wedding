@@ -3,20 +3,109 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Francesca & Joris — Matrimonio</title>
+  <title>Joris & Francesca — Matrimonio</title>
+
+  <!-- Romantic fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="../assets/style.css">
   <script defer src="../assets/app.js"></script>
+
+  <!-- Page-specific overrides (lighter background + watercolor flowers + centered title + photo) -->
+  <style>
+    /* Softer, brighter background */
+    body{
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background-color: #FBF9F3;
+      /* a few watercolor-ish flowers via inline SVG data-URI */
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520' viewBox='0 0 520 520'%3E%3Cg opacity='0.16'%3E%3Cg transform='translate(70 90)'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23D6A24A'/%3E%3Ccircle cx='6' cy='14' r='10' fill='%23C97C5D'/%3E%3Ccircle cx='26' cy='14' r='10' fill='%23C97C5D'/%3E%3Ccircle cx='16' cy='6' r='10' fill='%23C97C5D'/%3E%3Ccircle cx='16' cy='26' r='10' fill='%23C97C5D'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23F7F3EA'/%3E%3C/g%3E%3Cg transform='translate(390 130) scale(1.05)'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23123B5A'/%3E%3Ccircle cx='6' cy='14' r='10' fill='%232F5D50'/%3E%3Ccircle cx='26' cy='14' r='10' fill='%232F5D50'/%3E%3Ccircle cx='16' cy='6' r='10' fill='%232F5D50'/%3E%3Ccircle cx='16' cy='26' r='10' fill='%232F5D50'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23F7F3EA'/%3E%3C/g%3E%3Cg transform='translate(120 410) scale(.95)'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23D6A24A'/%3E%3Ccircle cx='6' cy='14' r='10' fill='%232F5D50'/%3E%3Ccircle cx='26' cy='14' r='10' fill='%232F5D50'/%3E%3Ccircle cx='16' cy='6' r='10' fill='%232F5D50'/%3E%3Ccircle cx='16' cy='26' r='10' fill='%232F5D50'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23F7F3EA'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 520px 520px; /* big tile = few flowers */
+    }
+
+    /* Centered romantic title block */
+    .top{
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 18px;
+    }
+
+    .names{
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 600;
+      font-size: clamp(44px, 6vw, 72px);
+      line-height: 1.0;
+      margin: 6px 0 10px;
+      letter-spacing: .2px;
+    }
+
+    .subtitle{
+      margin: 0;
+      opacity: .78;
+      font-size: 14px;
+    }
+
+    .photo{
+      margin: 18px auto 8px;
+      width: min(760px, 100%);
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 18px 50px rgba(0,0,0,.10);
+      background: rgba(255,255,255,.7);
+    }
+
+    .photo img{
+      display:block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Make header lighter + centered nav/lang under title */
+    .header{
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px 16px;
+      margin-top: 10px;
+      padding-bottom: 6px;
+    }
+
+    /* hide the small brand in header (we show big names above) */
+    .header > b{ display:none; }
+
+    /* Slightly tighten hero spacing since top block is prominent */
+    .hero{
+      margin-top: 10px;
+    }
+  </style>
 </head>
+
 <body>
   <div class="wrap">
+
+    <!-- Romantic centered title + photo -->
+    <section class="top">
+      <div class="names">Joris &amp; Francesca</div>
+      <p class="subtitle">25.09.2026 · Capo Santa Fortunata · Sorrento</p>
+
+      <!-- Put your photo here: save it as assets/images/couple.jpg -->
+      <div class="photo">
+        <img src="../assets/images/couple.jpg" alt="Joris e Francesca">
+      </div>
+    </section>
+
+    <!-- Navigation + language switch -->
     <div class="header">
-      <b>Francesca & Joris</b>
       <div class="nav">
         <a href="./">Home</a>
         <a href="./logistica.html">Logistica</a>
         <a href="./rsvp.html">RSVP</a>
         <a href="./regalo.html">Regalo</a>
       </div>
+
       <div class="lang">
         <a data-lang="it" href="../it/">IT</a>
         <a data-lang="lt" href="../lt/">LT</a>
@@ -25,25 +114,27 @@
       </div>
     </div>
 
+    <!-- Main hero info -->
     <div class="hero">
       <h1>Ci sposiamo!</h1>
       <p><b>25.09.2026</b> · ore <b>16:00</b></p>
       <p><b>Capo Santa Fortunata</b> · Sorrento, Italy</p>
       <p>Cerimonia e ricevimento nello stesso posto.</p>
 
-<div class="badges">
-  <div class="badge">Cerimonia + ricevimento</div>
-  <div class="badge">Inizio ore 16:00</div>
-  <div class="badge">Sorrento · vista mare</div>
-</div>
+      <div class="badges">
+        <div class="badge">Cerimonia + ricevimento</div>
+        <div class="badge">Inizio ore 16:00</div>
+        <div class="badge">Sorrento · vista mare</div>
+      </div>
 
-<a class="button" href="./rsvp.html">Conferma la presenza (RSVP)</a>
-
+      <a class="button" href="./rsvp.html">Conferma la presenza (RSVP)</a>
+    </div>
 
     <div class="card">
       <h2>Programma</h2>
       <p><b>16:00</b> Cerimonia · a seguire ricevimento.</p>
     </div>
+
   </div>
 </body>
 </html>
