@@ -420,6 +420,43 @@
       transform: translateY(-1px);
       box-shadow: 0 16px 40px rgba(0,0,0,.28);
     }
+/* ✅ Regalo background Pic9 */
+.giftBg{
+  background-image: url("../Pic9.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* overlay per leggibilità */
+.giftBg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background: radial-gradient(900px 650px at 50% 40%,
+    rgba(0,0,0,.12), rgba(0,0,0,.46));
+  pointer-events:none;
+}
+/* testo bianco in Regalo */
+.giftBg .content h2,
+.giftBg .content p{
+  color: rgba(255,255,255,.96);
+}
+/* bottoni più leggibili su sfondo */
+.giftBg .btn{
+  background: rgba(255,255,255,.88);
+  border: 1px solid rgba(255,255,255,.85);
+  color: rgba(20, 25, 18, .95);
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
+}
+.giftBg .btn.primary{
+  background: rgba(255,255,255,.94);
+}
+.giftBg .btn:hover{
+  background: rgba(255,255,255,.98);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.28);
+}
 
     /* Pic6 centered */
     .pic6Wrap{
@@ -491,10 +528,10 @@
 
     <!-- ✅ language links for structure: /it/index.html etc -->
    <div class="lang">
-  <a href="wedding/it/index.html">IT</a>
-  <a class="active" href="wedding/index.html">EN</a>
-  <a href="wedding/de/index.html">DE</a>
-  <a href="wedding/lt/index.html">LT</a>
+  <a href="../it/index.html">IT</a>
+  <a class="active" href="./index.html">EN</a>
+  <a href="../de/index.html">DE</a>
+  <a href="../lt/index.html">LT</a>
 </div>
 
   </div>
@@ -600,7 +637,7 @@
     </section>
 
     <!-- PAGE 5: GIFT -->
-    <section class="page" id="regalo" aria-label="Gift">
+    <section class="page giftBg" id="regalo" aria-label="Gift">
       <div class="content reveal">
         <h2>Gift</h2>
         <p>Your presence is the most important thing to us.</p>
