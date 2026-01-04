@@ -5,18 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Joris & Francesca — Invito</title>
 
-  <!-- Fonts (palette + typography from the model site variables) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Theme vars (from the site you extracted) */
       --background: 40 39% 91%;
       --foreground: 100 15% 24%;
       --card: 40 35% 88%;
-      --card-foreground: 100 15% 24%;
       --muted: 60 10% 82%;
       --muted-foreground: 77 15% 40%;
       --accent: 77 15% 50%;
@@ -24,7 +21,6 @@
       --gold-soft: 42 60% 70%;
       --border: 60 12% 75%;
       --countdown: 72 16% 43%;
-      --radius: .5rem;
 
       --font-display: "Cormorant Garamond", serif;
       --font-script: "Great Vibes", cursive;
@@ -35,6 +31,12 @@
       --shadow-lifted: 0 20px 50px -15px rgba(58, 69, 52, .2), 0 8px 20px -5px rgba(58, 69, 52, .1);
 
       --max: 1080px;
+
+      --frame: 1px solid hsla(var(--border)/.95);
+      --radius: 22px;
+
+      --intro-open-duration: 2600ms;
+      --intro-fade-duration: 850ms;
     }
 
     html{ scroll-behavior:smooth; }
@@ -47,7 +49,6 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Soft haze */
     body::before, body::after{
       content:"";
       position:fixed;
@@ -108,17 +109,19 @@
       text-underline-offset:4px;
     }
 
-    /* Generic section card */
+    /* Cards */
     .card{
-      border:1px solid hsl(var(--border));
-      border-radius: 22px;
+      border: var(--frame);
+      border-radius: var(--radius);
       background: hsla(var(--card)/.74);
       box-shadow: var(--shadow-elegant);
       overflow:hidden;
       margin-top: 18px;
     }
+
     .section{
       padding: 18px;
+      text-align:center; /* ✅ all text centered */
     }
     .section h2{
       font-family: var(--font-display);
@@ -126,12 +129,14 @@
       letter-spacing: .02em;
       margin: 0 0 10px;
       font-size: 22px;
+      text-align:center;
     }
     .section p{
       margin: 8px 0;
       line-height: 1.6;
       font-size: 16px;
       color: hsla(var(--foreground)/.88);
+      text-align:center;
     }
     .section a{
       color: inherit;
@@ -180,11 +185,11 @@
       border-color: hsla(var(--gold)/.60);
     }
 
-    /* 1) HERO Pic4 with overlay text */
+    /* 1) HERO Pic4 */
     .hero{
       position: relative;
       height: min(72vh, 640px);
-      border-radius: 22px;
+      border-radius: var(--radius);
     }
     .heroImg{
       width:100%;
@@ -206,6 +211,7 @@
       color: rgba(255,255,255,.96);
       max-width: 800px;
       padding: 12px 14px;
+      text-align:center;
     }
     .heroText .top{
       font-family: var(--font-display);
@@ -239,7 +245,7 @@
     /* 2) Countdown */
     .countdownWrap{
       text-align:center;
-      padding: 18px 18px 8px;
+      padding: 18px 18px 10px;
     }
     .countdownTitle{
       font-family: var(--font-display);
@@ -275,7 +281,7 @@
       letter-spacing: .10em;
     }
 
-    /* 3) Details: quick info grid */
+    /* 3) Details grid */
     .infoGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -283,11 +289,12 @@
       margin-top: 12px;
     }
     .infoBox{
-      border: 1px solid hsla(var(--border)/.95);
+      border: var(--frame);           /* ✅ same border everywhere */
       border-radius: 16px;
       background: hsla(var(--background)/.45);
       box-shadow: var(--shadow-soft);
       padding: 14px;
+      text-align:center;              /* ✅ centered */
     }
     .infoBox b{
       font-family: var(--font-display);
@@ -296,58 +303,57 @@
       margin-bottom: 6px;
     }
 
-    /* 4) Timeline */
+    /* 4) Timeline with bougainvillea flower icon */
     .timeline{
       position:relative;
       margin-top: 10px;
-      padding-left: 18px;
-    }
-    .timeline::before{
-      content:"";
-      position:absolute;
-      left: 6px;
-      top: 6px;
-      bottom: 6px;
-      width: 2px;
-      background: hsla(var(--border)/.95);
+      padding-left: 0; /* centered layout */
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      align-items:center;
     }
     .tlItem{
-      position:relative;
-      padding: 10px 0 10px 18px;
+      width: min(620px, 100%);
+      border: var(--frame);           /* ✅ framed items */
+      border-radius: 16px;
+      background: hsla(var(--background)/.45);
+      box-shadow: var(--shadow-soft);
+      padding: 12px 14px;
+      display:grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items:center;
+      text-align:left; /* time+text align nicely, but content overall centered section */
     }
-    .tlItem::before{
-      content:"";
-      position:absolute;
-      left: -1px;
-      top: 18px;
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: hsla(var(--gold)/.95);
-      box-shadow: 0 0 0 4px hsla(var(--gold-soft)/.20);
-      border: 1px solid hsla(var(--border)/.90);
+    .flower{
+      width: 22px;
+      height: 22px;
+      display:block;
     }
     .tlTime{
       font-family: var(--font-display);
       font-weight: 600;
       letter-spacing: .02em;
+      margin:0;
     }
     .tlText{
       margin-top: 2px;
       color: hsla(var(--foreground)/.86);
+      margin:0;
     }
 
-    /* 5) FAQ accordion */
-    .faq{
-      margin-top: 6px;
-    }
+    /* 5) FAQ accordion framed */
+    .faq{ margin-top: 6px; }
     details{
-      border: 1px solid hsla(var(--border)/.95);
+      border: var(--frame);
       border-radius: 16px;
       background: hsla(var(--background)/.45);
       box-shadow: var(--shadow-soft);
       padding: 10px 12px;
-      margin: 10px 0;
+      margin: 10px auto;
+      width: min(720px, 100%);
+      text-align:left;
     }
     summary{
       cursor:pointer;
@@ -370,12 +376,11 @@
       transition: transform .2s ease;
       flex: 0 0 auto;
     }
-    details[open] .chev{
-      transform: rotate(225deg);
-    }
+    details[open] .chev{ transform: rotate(225deg); }
     details p{
       margin: 10px 0 6px;
       color: hsla(var(--foreground)/.88);
+      text-align:left;
     }
 
     /* 6) Modal IBAN */
@@ -393,7 +398,7 @@
     .modal{
       width: min(520px, 100%);
       border-radius: 18px;
-      border: 1px solid hsla(var(--border)/.95);
+      border: var(--frame);
       background: hsl(var(--background));
       box-shadow: var(--shadow-lifted);
       overflow:hidden;
@@ -419,7 +424,7 @@
       opacity:.75;
     }
     .close:hover{ opacity:1; }
-    .modalBody{ padding: 14px 16px 16px; }
+    .modalBody{ padding: 14px 16px 16px; text-align:center; }
     .ibanBox{
       border: 1px dashed hsla(var(--border)/.95);
       border-radius: 14px;
@@ -443,14 +448,138 @@
     }
     .copyOk.show{ display:inline; }
 
+    /* Closing image after RSVP */
+    .closingImg{
+      margin-top: 18px;
+      border: var(--frame);
+      border-radius: var(--radius);
+      overflow:hidden;
+      background: hsla(var(--card)/.70);
+      box-shadow: var(--shadow-elegant);
+    }
+    .closingImg img{
+      width:100%;
+      height: min(55vh, 520px);
+      object-fit: cover;
+      display:block;
+    }
+
+    /* ===========================
+       INTRO: FULLSCREEN ENVELOPE (Pic5)
+       =========================== */
+    .intro{
+      position:fixed;
+      inset:0;
+      z-index:99999;
+      display:grid;
+      place-items:center;
+      background: hsl(var(--background));
+      overflow:hidden;
+    }
+
+    .envStage{
+      position:absolute;
+      inset:0;
+    }
+
+    .envBase{
+      position:absolute;
+      inset:0;
+    }
+    .envBase img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform: scale(1.01);
+    }
+
+    /* Flap effect: same image, clipped top triangle */
+    .envFlap{
+      position:absolute;
+      inset:0;
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform var(--intro-open-duration) cubic-bezier(.2,.9,.2,1);
+      will-change: transform;
+      perspective: 1200px;
+      backface-visibility: hidden;
+    }
+    .envFlap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      clip-path: polygon(0 0, 100% 0, 50% 55%);
+    }
+
+    .envShade{
+      position:absolute;
+      inset:0;
+      background: radial-gradient(1100px 850px at 50% 30%, rgba(255,255,255,.10), rgba(0,0,0,.22));
+      opacity:.35;
+      pointer-events:none;
+    }
+
+    .envOpenBtn{
+      position:absolute;
+      left:50%;
+      bottom: 7%;
+      transform: translateX(-50%);
+      padding: .85rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.40);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.95);
+      font-family: var(--font-body);
+      font-size: 14px;
+      letter-spacing: .05em;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.18);
+      cursor:pointer;
+      user-select:none;
+    }
+    .envOpenBtn:hover{ background: rgba(0,0,0,.28); }
+
+    /* Fade out intro */
+    .intro.fade{
+      opacity:0;
+      visibility:hidden;
+      transition: opacity var(--intro-fade-duration) ease;
+    }
+
+    /* Opening state */
+    .intro.open .envFlap{
+      transform: rotateX(165deg);
+    }
+
     @media (max-width: 860px){
       .infoGrid{ grid-template-columns: 1fr; }
       .hero{ height: min(70vh, 560px); }
+      .tlItem{ grid-template-columns: 24px 1fr; }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- INTRO (Envelope Pic5) -->
+  <div class="intro" id="intro" aria-label="Busta invito">
+    <div class="envStage">
+      <div class="envBase">
+        <img src="../Pic5.png" alt="Busta">
+      </div>
+      <div class="envFlap" aria-hidden="true">
+        <img src="../Pic5.png" alt="">
+      </div>
+      <div class="envShade" aria-hidden="true"></div>
+
+      <div class="envOpenBtn" id="openEnvelope" role="button" aria-label="Apri la busta">
+        Apri l'invito
+      </div>
+    </div>
+  </div>
+
   <div class="wrap">
 
     <div class="topbar">
@@ -528,34 +657,113 @@
     <!-- 4) PROGRAMMA TIMELINE -->
     <section class="card section" id="programma">
       <h2>Programma del giorno</h2>
+
       <div class="timeline" aria-label="Timeline programma">
+        <!-- Bougainvillea icon (stylized) -->
+        <!-- We keep it tiny and elegant, consistent -->
         <div class="tlItem">
-          <div class="tlTime">16:00</div>
-          <div class="tlText">Cerimonia</div>
+          <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
+            <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
+            <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
+            <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
+            <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
+            <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
+          </svg>
+          <div>
+            <div class="tlTime">16:00</div>
+            <div class="tlText">Cerimonia</div>
+          </div>
         </div>
+
         <div class="tlItem">
-          <div class="tlTime">17:00</div>
-          <div class="tlText">Aperitivo</div>
+          <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
+            <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
+            <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
+            <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
+            <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
+            <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
+          </svg>
+          <div>
+            <div class="tlTime">17:00</div>
+            <div class="tlText">Aperitivo</div>
+          </div>
         </div>
+
         <div class="tlItem">
-          <div class="tlTime">17:30</div>
-          <div class="tlText">Cocktail di benvenuto</div>
+          <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
+            <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
+            <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
+            <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
+            <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
+            <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
+          </svg>
+          <div>
+            <div class="tlTime">17:30</div>
+            <div class="tlText">Cocktail di benvenuto</div>
+          </div>
         </div>
+
         <div class="tlItem">
-          <div class="tlTime">18:00</div>
-          <div class="tlText">Cena</div>
+          <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
+            <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
+            <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
+            <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
+            <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
+            <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
+          </svg>
+          <div>
+            <div class="tlTime">18:00</div>
+            <div class="tlText">Cena</div>
+          </div>
         </div>
+
         <div class="tlItem">
-          <div class="tlTime">21:00</div>
-          <div class="tlText">Torta nuziale</div>
+          <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
+            <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
+            <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
+            <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
+            <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
+            <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
+          </svg>
+          <div>
+            <div class="tlTime">21:00</div>
+            <div class="tlText">Torta nuziale</div>
+          </div>
         </div>
+
         <div class="tlItem">
-          <div class="tlTime">21:30</div>
-          <div class="tlText">Free bar</div>
+          <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
+            <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
+            <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
+            <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
+            <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
+            <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
+          </svg>
+          <div>
+            <div class="tlTime">21:30</div>
+            <div class="tlText">Free bar</div>
+          </div>
         </div>
+
         <div class="tlItem">
-          <div class="tlTime">22:00</div>
-          <div class="tlText">Party</div>
+          <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
+            <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
+            <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
+            <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
+            <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
+            <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
+          </svg>
+          <div>
+            <div class="tlTime">22:00</div>
+            <div class="tlText">Party</div>
+          </div>
         </div>
       </div>
     </section>
@@ -578,7 +786,6 @@
     <!-- 6) FAQ -->
     <section class="card section" id="faq">
       <h2>Domande frequenti</h2>
-
       <div class="faq">
         <details>
           <summary>Dress code <span class="chev" aria-hidden="true"></span></summary>
@@ -595,7 +802,7 @@
       </div>
     </section>
 
-    <!-- 7) REGALO -->
+    <!-- 6) REGALO -->
     <section class="card section" id="regalo">
       <h2>Regalo</h2>
       <p>La tua presenza è la cosa più importante per noi.</p>
@@ -606,7 +813,7 @@
       </div>
     </section>
 
-    <!-- 8) RSVP -->
+    <!-- 7) RSVP -->
     <section class="card section" id="rsvp">
       <h2>Conferma la tua presenza</h2>
       <p>Per favore conferma compilando il nostro modulo.</p>
@@ -616,6 +823,11 @@
         </a>
       </div>
     </section>
+
+    <!-- ✅ Closing image Pic5 AFTER RSVP -->
+    <div class="closingImg" aria-label="Chiusura">
+      <img src="../Pic5.png" alt="Chiusura">
+    </div>
 
   </div>
 
@@ -630,7 +842,7 @@
         <div class="ibanBox" id="ibanText">IT 123456789111213</div>
         <div class="modalSmall">Intestatario: <b>Joris Vitulli</b></div>
 
-        <div class="btnRow" style="justify-content:flex-start;margin-top:12px;">
+        <div class="btnRow" style="justify-content:center;margin-top:12px;">
           <button class="btn" id="copyIban" type="button">Copia IBAN</button>
           <span class="copyOk" id="copyOk">Copiato ✅</span>
         </div>
@@ -639,6 +851,27 @@
   </div>
 
   <script>
+    // ✅ INTRO envelope must ALWAYS show first
+    (function(){
+      const intro = document.getElementById("intro");
+      const btn = document.getElementById("openEnvelope");
+
+      function open(){
+        intro.classList.add("open"); // flap animation
+        // after opening, fade away
+        setTimeout(() => intro.classList.add("fade"), 2600);
+        setTimeout(() => { intro.style.display = "none"; }, 2600 + 900);
+      }
+
+      // open on click button (or click anywhere on intro)
+      btn.addEventListener("click", open);
+      intro.addEventListener("click", (e) => {
+        // avoid double trigger when clicking the button
+        if(e.target === btn) return;
+        open();
+      });
+    })();
+
     // Countdown
     (function(){
       const wedding = new Date("2026-09-25T16:00:00+02:00");
@@ -658,15 +891,10 @@
           return;
         }
         const t = Math.floor(diff / 1000);
-        const days  = Math.floor(t / 86400);
-        const hours = Math.floor((t % 86400) / 3600);
-        const mins  = Math.floor((t % 3600) / 60);
-        const secs  = t % 60;
-
-        elDays.textContent = days;
-        elHours.textContent = pad(hours);
-        elMins.textContent = pad(mins);
-        elSecs.textContent = pad(secs);
+        elDays.textContent  = Math.floor(t / 86400);
+        elHours.textContent = pad(Math.floor((t % 86400) / 3600));
+        elMins.textContent  = pad(Math.floor((t % 3600) / 60));
+        elSecs.textContent  = pad(t % 60);
       }
 
       tick();
@@ -701,7 +929,6 @@
           copyOk.classList.add("show");
           setTimeout(() => copyOk.classList.remove("show"), 1800);
         }catch(err){
-          // fallback
           const range = document.createRange();
           range.selectNodeContents(ibanText);
           const sel = window.getSelection();
