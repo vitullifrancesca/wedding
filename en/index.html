@@ -26,10 +26,6 @@
       --shadow-elegant: 0 10px 40px -10px rgba(58, 69, 52, .15), 0 4px 15px -3px rgba(58, 69, 52, .08);
 
       --max: 1100px;
-
-      /* (kept, harmless) */
-      --intro-open-duration: 300ms;
-      --intro-fade-duration: 0ms;
     }
 
     html{ height:100%; scroll-behavior:smooth; }
@@ -179,7 +175,7 @@
       border-radius: 999px;
       border: 1px solid rgba(0,0,0,.10);
       background: hsla(var(--background)/.55);
-      box-shadow: var(--shadow-soft);
+      box-shadow: 0 2px 15px -3px rgba(58, 69, 52, .08), 0 4px 6px -2px rgba(58, 69, 52, .04);
       color: inherit;
       text-decoration:none;
       transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
@@ -191,7 +187,7 @@
     .btn:hover{
       transform: translateY(-1px);
       background: hsla(var(--gold-soft)/.24);
-      box-shadow: var(--shadow-elegant);
+      box-shadow: 0 10px 40px -10px rgba(58, 69, 52, .15), 0 4px 15px -3px rgba(58, 69, 52, .08);
     }
     .btn.primary{ background: hsla(var(--gold-soft)/.34); }
 
@@ -261,7 +257,7 @@
       opacity: .92;
     }
 
-    /* Combined Countdown + Details layout */
+    /* Combined Countdown + Details */
     .combo{
       display:flex;
       flex-direction:column;
@@ -274,7 +270,6 @@
       background: rgba(0,0,0,.10);
       margin: 6px auto 0;
     }
-
     .countdown{
       margin-top: 10px;
       display:flex;
@@ -345,7 +340,7 @@
     .modal{
       width: min(560px, 100%);
       background: hsl(var(--background));
-      box-shadow: var(--shadow-elegant);
+      box-shadow: 0 10px 40px -10px rgba(58, 69, 52, .15), 0 4px 15px -3px rgba(58, 69, 52, .08);
       border-radius: 16px;
       overflow:hidden;
       text-align:center;
@@ -434,7 +429,7 @@
       margin: 26px auto 0;
       overflow:hidden;
       border-radius: 18px;
-      box-shadow: var(--shadow-soft);
+      box-shadow: 0 2px 15px -3px rgba(58, 69, 52, .08), 0 4px 6px -2px rgba(58, 69, 52, .04);
     }
     .pic6Wrap img{
       width:100%;
@@ -493,13 +488,14 @@
       <a href="#regalo">Gift</a>
       <a href="#rsvp">RSVP</a>
     </div>
-   <div class="lang">
-  <a href="../it/index.html">IT</a>
-  <a class="active" href="./index.html">EN</a>
-  <a href="../de/">DE</a>
-  <a href="../lt/">LT</a>
-</div>
 
+    <!-- ✅ language links for structure: /it/index.html etc -->
+    <div class="lang">
+      <a href="/it/index.html">IT</a>
+      <a class="active" href="/en/index.html">EN</a>
+      <a href="/de/index.html">DE</a>
+      <a href="/lt/index.html">LT</a>
+    </div>
   </div>
 
   <main class="pages" id="pages">
@@ -579,25 +575,25 @@
 
         <details>
           <summary>Dress code <span class="chev" aria-hidden="true"></span></summary>
-          <p>Wear whatever you like. The reception will be during the day, so we recommend comfortable shoes.</p>
+          <p>Wear whatever you like. We recommend comfortable shoes.</p>
         </details>
 
         <details>
           <summary>How do I get there? <span class="chev" aria-hidden="true"></span></summary>
           <p>
-            The easiest way is by car: there will be parking available for guests.
+            The easiest way is by car: parking will be available for guests.
             Alternatively, from Naples you can take the Circumvesuviana to Sorrento and then a taxi.
           </p>
         </details>
 
         <details>
           <summary>Question 3 <span class="chev" aria-hidden="true"></span></summary>
-          <p>Wear whatever you like. The reception will be during the day, so we recommend comfortable shoes.</p>
+          <p>Wear whatever you like. We recommend comfortable shoes.</p>
         </details>
 
         <details>
           <summary>Question 4 <span class="chev" aria-hidden="true"></span></summary>
-          <p>Wear whatever you like. The reception will be during the day, so we recommend comfortable shoes.</p>
+          <p>Wear whatever you like. We recommend comfortable shoes.</p>
         </details>
       </div>
     </section>
@@ -655,8 +651,9 @@
   </div>
 
   <script>
-    // Hero text animation on first view (no envelope intro in EN)
+    // Mark intro as "seen" so switching EN->IT won't show the envelope again
     (function(){
+      sessionStorage.setItem("introSeen", "1");
       const ht = document.getElementById("heroText");
       if(ht) requestAnimationFrame(() => ht.classList.add("in"));
     })();
