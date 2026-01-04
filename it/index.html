@@ -461,6 +461,43 @@
       transform: translateY(-1px);
       box-shadow: 0 16px 40px rgba(0,0,0,.28);
     }
+/* ✅ Regalo background Pic9 */
+.giftBg{
+  background-image: url("../Pic9.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* overlay per leggibilità */
+.giftBg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background: radial-gradient(900px 650px at 50% 40%,
+    rgba(0,0,0,.12), rgba(0,0,0,.46));
+  pointer-events:none;
+}
+/* testo bianco in Regalo */
+.giftBg .content h2,
+.giftBg .content p{
+  color: rgba(255,255,255,.96);
+}
+/* bottoni più leggibili su sfondo */
+.giftBg .btn{
+  background: rgba(255,255,255,.88);
+  border: 1px solid rgba(255,255,255,.85);
+  color: rgba(20, 25, 18, .95);
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
+}
+.giftBg .btn.primary{
+  background: rgba(255,255,255,.94);
+}
+.giftBg .btn:hover{
+  background: rgba(255,255,255,.98);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.28);
+}
 
     /* ✅ Pic6 centrata */
     .pic6Wrap{
@@ -653,7 +690,7 @@
     </section>
 
     <!-- PAGE 5: REGALO -->
-    <section class="page" id="regalo" aria-label="Regalo">
+    <section class="page giftBg" id="regalo" aria-label="Regalo">
       <div class="content reveal">
         <h2>Regalo</h2>
         <p>La tua presenza è la cosa più importante per noi.</p>
