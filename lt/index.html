@@ -40,6 +40,7 @@
       overflow-x:hidden;
     }
 
+    /* haze */
     body::before, body::after{
       content:"";
       position:fixed;
@@ -52,12 +53,15 @@
       background:
         radial-gradient(650px 460px at 12% 14%, hsla(var(--gold) / .14), transparent 60%),
         radial-gradient(650px 460px at 90% 20%, hsla(var(--accent) / .10), transparent 65%);
+      filter: blur(1px);
     }
     body::after{
       background:
         radial-gradient(760px 560px at 85% 90%, hsla(var(--gold-soft) / .15), transparent 72%);
+      filter: blur(1px);
     }
 
+    /* topbar */
     .topbar{
       position:fixed;
       top:0; left:0; right:0;
@@ -65,281 +69,676 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-      padding:12px;
+      gap:12px;
+      flex-wrap:wrap;
+      padding:12px 12px;
       background: hsla(var(--background)/.82);
       backdrop-filter: blur(10px);
-      border-bottom:1px solid rgba(0,0,0,.08);
+      border-bottom: 1px solid rgba(0,0,0,.08);
     }
 
+    /* ✅ mobile-safe: horizontal scroll menu */
     .nav{
       display:flex;
       gap:14px;
+      align-items:center;
+      flex-wrap:nowrap;
       overflow-x:auto;
-      max-width:72vw;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      max-width: 72vw;
+      padding-bottom: 2px;
     }
+    .nav::-webkit-scrollbar{ display:none; }
+
+    .lang{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:nowrap;
+    }
+
     .nav a,.lang a{
       text-decoration:none;
       color:inherit;
       font-size:14px;
-      white-space:nowrap;
+      font-family: var(--font-body);
+      opacity:.95;
+      white-space: nowrap;
+      flex: 0 0 auto;
     }
+    .lang a{ font-size:13px; opacity:.82; }
+    .nav a:hover,.lang a:hover{ text-decoration:underline; text-underline-offset:4px; }
     .lang a.active{
-      text-decoration:underline;
+      opacity:1;
+      text-decoration: underline;
+      text-decoration-thickness:2px;
       text-underline-offset:4px;
     }
 
+    /* pages */
     .pages{
-      height:100vh;
-      overflow-y:auto;
-      scroll-snap-type:y mandatory;
-      scroll-padding-top:76px;
+      position:relative;
+      z-index:1;
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scroll-padding-top: 76px;
     }
     .page{
-      min-height:100vh;
-      scroll-snap-align:start;
+      min-height: 100vh;
+      scroll-snap-align: start;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:96px 18px 60px;
-      position:relative;
+      padding: 96px 18px 60px;
+      box-sizing:border-box;
+      position: relative;
     }
 
     .content{
-      width:min(var(--max),100%);
+      width: min(var(--max), 100%);
       text-align:center;
-      z-index:2;
+      padding: 14px 10px;
+      position: relative;
+      z-index: 2;
     }
 
+    /* typography */
     h2{
-      font-family:var(--font-display);
-      font-size:34px;
-      margin-bottom:12px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      margin: 0 0 12px;
+      font-size: 34px;
+      letter-spacing: .02em;
     }
     p{
-      font-size:20px;
-      line-height:1.7;
+      margin: 10px 0;
+      line-height: 1.75;
+      font-size: 20px;
+      color: hsla(var(--foreground)/.90);
     }
 
+    /* Buttons */
     .btnRow{
-      margin-top:18px;
+      margin-top: 18px;
       display:flex;
       justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
+      gap: 12px;
+      flex-wrap: wrap;
     }
     .btn{
-      padding:1rem 1.3rem;
-      border-radius:999px;
-      border:1px solid rgba(0,0,0,.1);
-      background:hsla(var(--background)/.6);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 1.05rem 1.35rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: hsla(var(--background)/.55);
+      box-shadow: var(--shadow-soft);
+      color: inherit;
       text-decoration:none;
-      color:inherit;
-      font-size:18px;
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+      font-family: var(--font-body);
+      font-size: 18px;
       cursor:pointer;
+      min-width: 210px;
     }
-    .btn.primary{ background:hsla(var(--gold-soft)/.4); }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: hsla(var(--gold-soft)/.24);
+      box-shadow: var(--shadow-elegant);
+    }
+    .btn.primary{ background: hsla(var(--gold-soft)/.34); }
 
+    /* Full-bleed hero */
     .fullBleed{
-      width:100vw;
-      height:100vh;
-      position:relative;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow:hidden;
     }
     .fullBleed img{
       width:100%;
       height:100%;
-      object-fit:cover;
+      object-fit: cover;
+      display:block;
     }
-
     .overlayCenter{
       position:absolute;
       inset:0;
       display:grid;
       place-items:center;
-      background:radial-gradient(900px 650px at 50% 42%, rgba(0,0,0,.15), rgba(0,0,0,.55));
+      text-align:center;
+      padding: 18px;
+      background: radial-gradient(900px 650px at 50% 42%, rgba(0,0,0,.14), rgba(0,0,0,.50));
     }
 
+    /* Hero text slide-up */
     .heroText{
-      color:white;
-      opacity:0;
-      transform:translateY(20px);
-      transition:all .9s ease;
+      color: rgba(255,255,255,.96);
+      max-width: 920px;
+      padding: 10px 12px;
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 900ms ease, transform 900ms ease;
+      will-change: opacity, transform;
     }
     .heroText.in{
-      opacity:1;
-      transform:none;
+      opacity: 1;
+      transform: translateY(0);
     }
     .heroText .top{
-      letter-spacing:.16em;
-      text-transform:uppercase;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 18px;
+      opacity: .92;
+      margin-bottom: 14px;
     }
     .heroText .nameLine{
-      font-family:var(--font-display);
-      font-size:clamp(52px,7vw,86px);
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(52px, 7.2vw, 86px);
+      line-height: 1.02;
+      margin: 6px 0;
     }
     .heroText .and{
-      font-size:clamp(30px,5vw,48px);
+      font-family: var(--font-display);
+      font-size: clamp(34px, 5.2vw, 52px);
+      margin: 10px 0 4px;
+      opacity: .96;
     }
     .heroText .date{
-      margin-top:14px;
-      font-size:26px;
+      font-family: var(--font-display);
+      margin-top: 18px;
+      font-size: clamp(22px, 3.6vw, 28px);
+      letter-spacing: .06em;
+      opacity: .92;
     }
 
+    /* Combined Countdown + Details */
+    .combo{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 28px;
+    }
+    .divider{
+      width: min(720px, 92%);
+      height: 1px;
+      background: rgba(0,0,0,.10);
+      margin: 6px auto 0;
+    }
     .countdown{
+      margin-top: 10px;
       display:flex;
       justify-content:center;
-      gap:26px;
-      margin-top:12px;
+      flex-wrap:wrap;
+      gap: 26px;
+      align-items:baseline;
     }
     .countdown .num{
-      font-family:var(--font-display);
-      font-size:56px;
+      font-family: var(--font-display);
+      font-size: 56px;
+      color: hsl(var(--countdown));
     }
     .countdown .lbl{
-      font-size:13px;
-      letter-spacing:.1em;
-      text-transform:uppercase;
+      font-size: 14px;
+      text-transform: uppercase;
+      opacity: .72;
+      margin-left: 8px;
+      letter-spacing: .12em;
     }
 
+    /* FAQ */
+    details{
+      width: min(900px, 100%);
+      margin: 14px auto;
+      padding: 12px 0;
+      text-align:left;
+      border-bottom: 1px solid rgba(0,0,0,.10);
+    }
+    details:last-of-type{ border-bottom:0; }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .chev{
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid hsla(var(--foreground)/.55);
+      border-bottom: 2px solid hsla(var(--foreground)/.55);
+      transform: rotate(45deg);
+      transition: transform .2s ease;
+      flex: 0 0 auto;
+      margin-left: 10px;
+    }
+    details[open] .chev{ transform: rotate(225deg); }
+    details p{ margin: 12px 0 6px; font-size: 20px; }
+
+    /* Modal */
+    .modalBackdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 9999;
+      padding: 18px;
+    }
+    .modalBackdrop.show{ display:flex; }
+    .modal{
+      width: min(560px, 100%);
+      background: hsl(var(--background));
+      box-shadow: var(--shadow-elegant);
+      border-radius: 16px;
+      overflow:hidden;
+      text-align:center;
+    }
+    .modalHead{
+      padding: 14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+    .modalHead b{
+      font-family: var(--font-display);
+      font-size: 20px;
+    }
+    .close{
+      border:0;
+      background: transparent;
+      font-size: 24px;
+      line-height: 1;
+      cursor:pointer;
+      opacity:.75;
+    }
+    .close:hover{ opacity:1; }
+    .modalBody{ padding: 14px 16px 16px; }
+    .ibanBox{
+      background: hsla(var(--card)/.60);
+      padding: 14px;
+      border-radius: 12px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: .04em;
+      word-break: break-word;
+    }
+    .modalSmall{ margin-top: 10px; opacity:.85; font-size: 16px; }
+    .copyOk{ margin-left: 10px; font-size: 14px; opacity: .85; display:none; }
+    .copyOk.show{ display:inline; }
+
+    /* reveal */
+    .reveal{ opacity:0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
+    .reveal.in{ opacity:1; transform: translateY(0); }
+
+    /* Hotel background Pic8 */
     .hotelBg{
-      background:url("../Pic8.png") center/cover no-repeat;
+      background-image: url("../Pic8.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
     .hotelBg::before{
       content:"";
       position:absolute;
       inset:0;
-      background:radial-gradient(900px 650px at 50% 40%, rgba(0,0,0,.1), rgba(0,0,0,.45));
       z-index:1;
+      background: radial-gradient(900px 650px at 50% 40%,
+        rgba(0,0,0,.10), rgba(0,0,0,.42));
+      pointer-events:none;
     }
-    .hotelBg .content{
-      color:white;
-    }
-    .hotelBg .btn{
-      background:white;
-      color:#222;
+    .hotelBg .content h2,
+    .hotelBg .content p{
+      color: rgba(255,255,255,.96);
     }
 
+    /* Buttons more readable on Hotel bg */
+    .hotelBg .btn{
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(255,255,255,.85);
+      color: rgba(20, 25, 18, .95);
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+    }
+    .hotelBg .btn.primary{
+      background: rgba(255,255,255,.94);
+    }
+    .hotelBg .btn:hover{
+      background: rgba(255,255,255,.98);
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.28);
+    }
+
+    /* Pic6 centered */
     .pic6Wrap{
-      width:min(920px,100%);
-      height:48vh;
-      margin:26px auto 0;
+      width: min(920px, 100%);
+      height: 48vh;
+      min-height: 320px;
+      margin: 26px auto 0;
       overflow:hidden;
-      border-radius:18px;
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
     }
     .pic6Wrap img{
       width:100%;
       height:100%;
-      object-fit:cover;
+      object-fit: cover;
+      display:block;
+    }
+
+    /* MOBILE */
+    @media (max-width: 860px){
+      .page{ padding: 94px 14px 56px; }
+      .content{ padding: 10px 6px; }
+
+      h2{ font-size: 28px; }
+      p{ font-size: 18px; line-height: 1.65; }
+
+      .btn{
+        min-width: unset;
+        width: 100%;
+        max-width: 420px;
+        font-size: 17px;
+        padding: .95rem 1.15rem;
+      }
+
+      .countdown{ gap: 18px; }
+      .countdown .num{ font-size: 44px; }
+      .countdown .lbl{ font-size: 12px; margin-left: 6px; }
+
+      .heroText .top{ font-size: 15px; }
+      .heroText .nameLine{ font-size: clamp(40px, 10vw, 62px); }
+      .heroText .and{ font-size: clamp(26px, 7vw, 40px); }
+      .heroText .date{ font-size: clamp(18px, 4.8vw, 22px); }
+
+      .pic6Wrap{ height: 38vh; min-height: 240px; border-radius: 16px; }
+      .nav{ max-width: 68vw; }
+    }
+
+    @media (max-width: 380px){
+      .nav{ max-width: 62vw; }
+      h2{ font-size: 26px; }
+      p{ font-size: 17px; }
+      .countdown .num{ font-size: 40px; }
     }
   </style>
 </head>
 
 <body>
 
-<div class="topbar">
-  <div class="nav">
-    <a href="#home">Pradžia</a>
-    <a href="#info">Informacija</a>
-    <a href="#alloggio">Viešbutis</a>
-    <a href="#faq">DUK</a>
-    <a href="#regalo">Dovana</a>
-    <a href="#rsvp">RSVP</a>
+  <!-- fixed topbar -->
+  <div class="topbar">
+    <div class="nav">
+      <a href="#home">Pradžia</a>
+      <a href="#info">Info</a>
+      <a href="#alloggio">Viešbutis</a>
+      <a href="#faq">DUK</a>
+      <a href="#regalo">Dovana</a>
+      <a href="#rsvp">RSVP</a>
+    </div>
+
+    <!-- ✅ relative language links (you are in /lt/) -->
+    <div class="lang">
+      <a href="../it/index.html">IT</a>
+      <a href="../en/index.html">EN</a>
+      <a href="../de/index.html">DE</a>
+      <a class="active" href="./index.html">LT</a>
+    </div>
   </div>
 
-  <div class="lang">
-    <a href="../it/index.html">IT</a>
-    <a href="../en/index.html">EN</a>
-    <a href="../de/index.html">DE</a>
-    <a class="active" href="./index.html">LT</a>
-  </div>
-</div>
+  <main class="pages" id="pages">
 
-<main class="pages">
+    <!-- PAGE 1: HERO -->
+    <section class="page" id="home" aria-label="Pradžia">
+      <div class="fullBleed reveal">
+        <img src="../Pic4.png" alt="Viršelis">
+        <div class="overlayCenter">
+          <div class="heroText" id="heroText">
+            <div class="top">Mes tuokiamės!</div>
+            <div class="nameLine">Joris</div>
+            <div class="and">ir</div>
+            <div class="nameLine">Francesca</div>
+            <div class="date">2026 m. rugsėjo 25 d.</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="page" id="home">
-  <div class="fullBleed">
-    <img src="../Pic4.png" alt="">
-    <div class="overlayCenter">
-      <div class="heroText" id="heroText">
-        <div class="top">Mes tuoksimės!</div>
-        <div class="nameLine">Joris</div>
-        <div class="and">ir</div>
-        <div class="nameLine">Francesca</div>
-        <div class="date">2026 m. rugsėjo 25 d.</div>
+    <!-- PAGE 2 -->
+    <section class="page" id="info" aria-label="Atgalinis skaičiavimas ir detalės">
+      <div class="content reveal">
+        <div class="combo">
+          <div>
+            <h2>Atgalinis skaičiavimas</h2>
+            <p>iki ypatingiausios mūsų gyvenimo dienos</p>
+
+            <div class="countdown" aria-label="Vestuvių atgalinis skaičiavimas">
+              <div><span class="num" id="cd-days">—</span><span class="lbl">dienos</span></div>
+              <div><span class="num" id="cd-hours">—</span><span class="lbl">val.</span></div>
+              <div><span class="num" id="cd-mins">—</span><span class="lbl">min.</span></div>
+              <div><span class="num" id="cd-secs">—</span><span class="lbl">sek.</span></div>
+            </div>
+          </div>
+
+          <div class="divider" aria-hidden="true"></div>
+
+          <div>
+            <h2>Dienos informacija</h2>
+            <p><b>2026 m. rugsėjo 25 d., penktadienis</b> · <b>16:00</b></p>
+            <p><b>Capo Santa Fortunata</b> · Sorrento, Italija</p>
+
+            <div class="btnRow">
+              <a class="btn" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">Vieta</a>
+              <a class="btn" href="https://www.google.com/maps/dir//Capo+Santa+Fortunata+Relais,+Via+Calata+Punta+Capo,+13,+80067+Sorrento+NA,+Italia/"
+                 target="_blank" rel="noopener noreferrer">Maršrutas</a>
+            </div>
+
+            <p style="margin-top:22px; opacity:.9;"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: HOTEL -->
+    <section class="page hotelBg" id="alloggio" aria-label="Viešbutis">
+      <div class="content reveal">
+        <h2>Viešbutis</h2>
+        <p>Sorrento ir aplinkui yra daug apgyvendinimo vietų netoli šventės vietos.</p>
+        <p> </p>
+
+        <div class="btnRow">
+          <a class="btn primary"
+             href="https://www.booking.com/searchresults.it.html?ss=Capo%20Santa%20Fortunata%20Relais%2C%20Sorrento"
+             target="_blank" rel="noopener noreferrer">
+            Booking
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4: FAQ -->
+    <section class="page" id="faq" aria-label="DUK">
+      <div class="content reveal">
+        <h2>Dažniausiai užduodami klausimai</h2>
+
+        <details>
+          <summary>Aprangos kodas <span class="chev" aria-hidden="true"></span></summary>
+          <p>Ateikite kaip norite. Rekomenduojame patogią avalynę.</p>
+        </details>
+
+        <details>
+          <summary>Kaip nuvykti į vietą? <span class="chev" aria-hidden="true"></span></summary>
+          <p>
+            Patogiausia – automobiliu: svečiams bus skirta automobilių stovėjimo vieta.
+            Taip pat iš Neapolio galima vykti Circumvesuviana traukiniu iki Sorrento ir tada pasiimti taksi.
+          </p>
+        </details>
+
+        <details>
+          <summary>Klausimas 3 <span class="chev" aria-hidden="true"></span></summary>
+          <p>Ateikite kaip norite. Rekomenduojame patogią avalynę.</p>
+        </details>
+
+        <details>
+          <summary>Klausimas 4 <span class="chev" aria-hidden="true"></span></summary>
+          <p>Ateikite kaip norite. Rekomenduojame patogią avalynę.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- PAGE 5: GIFT -->
+    <section class="page" id="regalo" aria-label="Dovana">
+      <div class="content reveal">
+        <h2>Dovana</h2>
+        <p>Jūsų dalyvavimas mums yra svarbiausias.</p>
+        <p>Jei norėtumėte padovanoti dovaną, paliekame mūsų IBAN.</p>
+
+        <div class="btnRow">
+          <button class="btn primary" id="openIban" type="button">IBAN</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 6: RSVP -->
+    <section class="page" id="rsvp" aria-label="RSVP">
+      <div class="content reveal">
+        <h2>Patvirtinkite dalyvavimą</h2>
+        <p></p>
+
+        <div class="btnRow">
+          <a class="btn primary" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank" rel="noopener noreferrer">
+            Atidaryti Google formą
+          </a>
+        </div>
+
+        <div class="pic6Wrap" aria-label="Paskutinė nuotrauka">
+          <img src="../Pic6.png" alt="Paskutinė nuotrauka">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- IBAN Modal -->
+  <div class="modalBackdrop" id="ibanModal" role="dialog" aria-modal="true" aria-label="IBAN">
+    <div class="modal">
+      <div class="modalHead">
+        <b>IBAN informacija</b>
+        <button class="close" id="closeIban" aria-label="Uždaryti">×</button>
+      </div>
+      <div class="modalBody">
+        <div class="ibanBox" id="ibanText">IT 123456789111213</div>
+        <div class="modalSmall">Sąskaitos savininkas: <b>Joris Vitulli</b></div>
+
+        <div class="btnRow" style="justify-content:center;margin-top:12px;">
+          <button class="btn" id="copyIban" type="button">Kopijuoti IBAN</button>
+          <span class="copyOk" id="copyOk">Nukopijuota ✅</span>
+        </div>
       </div>
     </div>
   </div>
-</section>
 
-<section class="page" id="info">
-  <div class="content">
-    <h2>Atgalinis skaičiavimas</h2>
-    <p>iki ypatingiausios mūsų gyvenimo dienos</p>
+  <script>
+    // ✅ Always mark intro as seen in non-IT pages (so switching back to IT won't show envelope again)
+    (function(){
+      sessionStorage.setItem("introSeen", "1");
+      const ht = document.getElementById("heroText");
+      if(ht) requestAnimationFrame(() => ht.classList.add("in"));
+    })();
 
-    <div class="countdown">
-      <div><span class="num" id="cd-days">—</span><span class="lbl">dienos</span></div>
-      <div><span class="num" id="cd-hours">—</span><span class="lbl">val.</span></div>
-      <div><span class="num" id="cd-mins">—</span><span class="lbl">min.</span></div>
-      <div><span class="num" id="cd-secs">—</span><span class="lbl">sek.</span></div>
-    </div>
-  </div>
-</section>
+    // Countdown
+    (function(){
+      const wedding = new Date("2026-09-25T16:00:00+02:00");
+      const elDays  = document.getElementById("cd-days");
+      const elHours = document.getElementById("cd-hours");
+      const elMins  = document.getElementById("cd-mins");
+      const elSecs  = document.getElementById("cd-secs");
+      const pad = n => String(n).padStart(2,"0");
 
-<section class="page hotelBg" id="alloggio">
-  <div class="content">
-    <h2>Viešbutis</h2>
-    <p>Sorrento ir apylinkėse yra daug apgyvendinimo galimybių netoli vietos.</p>
-    <div class="btnRow">
-      <a class="btn primary" href="https://www.booking.com" target="_blank">Booking</a>
-    </div>
-  </div>
-</section>
+      function tick(){
+        const diff = wedding - new Date();
+        if(diff <= 0){
+          elDays.textContent = "0";
+          elHours.textContent = "00";
+          elMins.textContent = "00";
+          elSecs.textContent = "00";
+          return;
+        }
+        const t = Math.floor(diff / 1000);
+        elDays.textContent  = Math.floor(t / 86400);
+        elHours.textContent = pad(Math.floor((t % 86400) / 3600));
+        elMins.textContent  = pad(Math.floor((t % 3600) / 60));
+        elSecs.textContent  = pad(t % 60);
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
 
-<section class="page" id="regalo">
-  <div class="content">
-    <h2>Dovana</h2>
-    <p>Jūsų dalyvavimas mums svarbiausias.</p>
-    <p>Jei norėtumėte padovanoti dovaną – pateikiame mūsų IBAN.</p>
-    <div class="btnRow">
-      <button class="btn primary">IBAN</button>
-    </div>
-  </div>
-</section>
+    // Reveal
+    (function(){
+      const els = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            e.target.classList.add("in");
+          }
+        });
+      }, { threshold: 0.35 });
+      els.forEach(el => io.observe(el));
+    })();
 
-<section class="page" id="rsvp">
-  <div class="content">
-    <h2>RSVP</h2>
-    <div class="btnRow">
-      <a class="btn primary" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank">
-        Atidaryti Google formą
-      </a>
-    </div>
+    // IBAN modal
+    (function(){
+      const modal = document.getElementById("ibanModal");
+      const openBtn = document.getElementById("openIban");
+      const closeBtn = document.getElementById("closeIban");
+      const copyBtn = document.getElementById("copyIban");
+      const ibanText = document.getElementById("ibanText");
+      const copyOk = document.getElementById("copyOk");
 
-    <div class="pic6Wrap">
-      <img src="../Pic6.png" alt="">
-    </div>
-  </div>
-</section>
+      function open(){
+        modal.classList.add("show");
+        copyOk.classList.remove("show");
+      }
+      function close(){
+        modal.classList.remove("show");
+      }
 
-</main>
+      openBtn.addEventListener("click", open);
+      closeBtn.addEventListener("click", close);
+      modal.addEventListener("click", (e) => { if(e.target === modal) close(); });
+      document.addEventListener("keydown", (e) => { if(e.key === "Escape") close(); });
 
-<script>
-  sessionStorage.setItem("introSeen","1");
-  document.getElementById("heroText")?.classList.add("in");
-
-  const wedding = new Date("2026-09-25T16:00:00+02:00");
-  const d=document.getElementById("cd-days"),
-        h=document.getElementById("cd-hours"),
-        m=document.getElementById("cd-mins"),
-        s=document.getElementById("cd-secs");
-
-  setInterval(()=>{
-    const t=Math.max(0,Math.floor((wedding-new Date())/1000));
-    d.textContent=Math.floor(t/86400);
-    h.textContent=String(Math.floor(t%86400/3600)).padStart(2,"0");
-    m.textContent=String(Math.floor(t%3600/60)).padStart(2,"0");
-    s.textContent=String(t%60).padStart(2,"0");
-  },1000);
-</script>
-
+      copyBtn.addEventListener("click", async () => {
+        try{
+          await navigator.clipboard.writeText(ibanText.textContent.trim());
+          copyOk.classList.add("show");
+          setTimeout(() => copyOk.classList.remove("show"), 1800);
+        }catch(err){
+          const range = document.createRange();
+          range.selectNodeContents(ibanText);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          document.execCommand("copy");
+          sel.removeAllRanges();
+          copyOk.classList.add("show");
+          setTimeout(() => copyOk.classList.remove("show"), 1800);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
