@@ -522,7 +522,7 @@
 
 <body>
 
-  <!-- INTRO -->
+  <!-- INTRO (shows only once per session) -->
   <div class="intro" id="intro" aria-label="Busta invito" role="button" tabindex="0">
     <div class="envStage">
       <div class="envBase">
@@ -541,14 +541,14 @@
       <a href="#regalo">Regalo</a>
       <a href="#rsvp">RSVP</a>
     </div>
-<div class="lang">
-  <a class="active" href="/it/index.html">IT</a>
-  <a href="/en/index.html">EN</a>
-  <a href="/de/index.html">DE</a>
-  <a href="/lt/index.html">LT</a>
-</div>
 
-
+    <!-- ✅ language links for structure: /it/index.html etc -->
+    <div class="lang">
+      <a class="active" href="/it/index.html">IT</a>
+      <a href="/en/index.html">EN</a>
+      <a href="/de/index.html">DE</a>
+      <a href="/lt/index.html">LT</a>
+    </div>
   </div>
 
   <main class="pages" id="pages">
@@ -604,7 +604,7 @@
       </div>
     </section>
 
-    <!-- PAGE 3: HOTEL (con sfondo Pic8) -->
+    <!-- PAGE 3: HOTEL -->
     <section class="page hotelBg" id="alloggio" aria-label="Hotel">
       <div class="content reveal">
         <h2>Hotel</h2>
@@ -704,7 +704,7 @@
   </div>
 
   <script>
-    // Intro: click/tap ovunque per entrare
+    // Intro: shows only once per session (so switching EN->IT won't show envelope again)
     (function(){
       const intro = document.getElementById("intro");
       const ht = document.getElementById("heroText");
@@ -714,6 +714,8 @@
         if(done) return;
         done = true;
 
+        sessionStorage.setItem("introSeen", "1");
+
         if(ht) requestAnimationFrame(() => ht.classList.add("in"));
 
         intro.classList.add("fade");
@@ -721,6 +723,12 @@
 
         const home = document.getElementById("home");
         if(home) home.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      if (sessionStorage.getItem("introSeen") === "1") {
+        intro.style.display = "none";
+        if(ht) requestAnimationFrame(() => ht.classList.add("in"));
+        return;
       }
 
       intro.addEventListener("click", enter);
