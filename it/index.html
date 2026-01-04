@@ -18,748 +18,227 @@
       --gold: 42 85% 55%;
       --gold-soft: 42 60% 70%;
       --countdown: 72 16% 43%;
-
       --font-display: "Cormorant Garamond", serif;
       --font-body: "Lora", serif;
-
-      --shadow-soft: 0 2px 15px -3px rgba(58, 69, 52, .08), 0 4px 6px -2px rgba(58, 69, 52, .04);
-      --shadow-elegant: 0 10px 40px -10px rgba(58, 69, 52, .15), 0 4px 15px -3px rgba(58, 69, 52, .08);
-
+      --shadow-soft: 0 2px 15px -3px rgba(58,69,52,.08),0 4px 6px -2px rgba(58,69,52,.04);
+      --shadow-elegant: 0 10px 40px -10px rgba(58,69,52,.15),0 4px 15px -3px rgba(58,69,52,.08);
       --max: 1100px;
-
-      /* (non più usati, ma lasciati innocui) */
-      --intro-open-duration: 300ms;
-      --intro-fade-duration: 0ms;
     }
 
-    html{ height:100%; scroll-behavior:smooth; }
+    html{height:100%;scroll-behavior:smooth}
     body{
-      margin:0;
-      min-height:100%;
-      background: hsl(var(--background));
-      color: hsl(var(--foreground));
-      font-family: var(--font-body);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      margin:0;min-height:100%;
+      background:hsl(var(--background));
+      color:hsl(var(--foreground));
+      font-family:var(--font-body);
       overflow-x:hidden;
     }
 
     /* haze */
-    body::before, body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      opacity:.55;
+    body::before,body::after{
+      content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.55
     }
     body::before{
       background:
-        radial-gradient(650px 460px at 12% 14%, hsla(var(--gold) / .14), transparent 60%),
-        radial-gradient(650px 460px at 90% 20%, hsla(var(--accent) / .10), transparent 65%);
-      filter: blur(1px);
+        radial-gradient(650px 460px at 12% 14%, hsla(var(--gold)/.14), transparent 60%),
+        radial-gradient(650px 460px at 90% 20%, hsla(var(--accent)/.10), transparent 65%);
     }
     body::after{
-      background:
-        radial-gradient(760px 560px at 85% 90%, hsla(var(--gold-soft) / .15), transparent 72%);
-      filter: blur(1px);
+      background:radial-gradient(760px 560px at 85% 90%, hsla(var(--gold-soft)/.15), transparent 72%);
     }
 
     /* topbar */
     .topbar{
-      position:fixed;
-      top:0; left:0; right:0;
-      z-index:20;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      padding:12px 12px;
-      background: hsla(var(--background)/.82);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0,0,0,.08);
+      position:fixed;top:0;left:0;right:0;z-index:20;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:12px;background:hsla(var(--background)/.82);
+      backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.08)
     }
-
-    /* ✅ mobile-safe: horizontal scroll menu */
-    .nav{
-      display:flex;
-      gap:14px;
-      align-items:center;
-      flex-wrap:nowrap;
-      overflow-x:auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      max-width: 72vw;
-      padding-bottom: 2px;
-    }
-    .nav::-webkit-scrollbar{ display:none; }
-
-    .lang{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      flex-wrap:nowrap;
-    }
-
-    .nav a,.lang a{
-      text-decoration:none;
-      color:inherit;
-      font-size:14px;
-      font-family: var(--font-body);
-      opacity:.95;
-      white-space: nowrap;
-      flex: 0 0 auto;
-    }
-    .lang a{ font-size:13px; opacity:.82; }
-    .nav a:hover,.lang a:hover{ text-decoration:underline; text-underline-offset:4px; }
-    .lang a.active{
-      opacity:1;
-      text-decoration: underline;
-      text-decoration-thickness:2px;
-      text-underline-offset:4px;
-    }
+    .nav{display:flex;gap:14px;overflow-x:auto;max-width:72vw}
+    .nav a,.lang a{text-decoration:none;color:inherit;font-size:14px}
+    .lang a.active{text-decoration:underline}
 
     /* pages */
-    .pages{
-      position:relative;
-      z-index:1;
-      height: 100vh;
-      overflow-y: auto;
-      scroll-snap-type: y mandatory;
-      scroll-padding-top: 76px;
-    }
+    .pages{height:100vh;overflow-y:auto;scroll-snap-type:y mandatory;scroll-padding-top:76px}
     .page{
-      min-height: 100vh;
-      scroll-snap-align: start;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 96px 18px 60px;
-      box-sizing:border-box;
+      min-height:100vh;scroll-snap-align:start;
+      display:flex;align-items:center;justify-content:center;
+      padding:96px 18px 60px
     }
+    .content{width:min(var(--max),100%);text-align:center}
 
-    .content{
-      width: min(var(--max), 100%);
-      text-align:center;
-      padding: 14px 10px;
-    }
+    h2{font-family:var(--font-display);font-size:34px;margin-bottom:12px}
+    p{font-size:20px;line-height:1.7}
 
-    /* ✅ base typography (desktop) */
-    h2{
-      font-family: var(--font-display);
-      font-weight: 600;
-      margin: 0 0 12px;
-      font-size: 34px;
-      letter-spacing: .02em;
-    }
-    p{
-      margin: 10px 0;
-      line-height: 1.75;
-      font-size: 20px;
-      color: hsla(var(--foreground)/.90);
-    }
-
-    /* Buttons */
-    .btnRow{
-      margin-top: 18px;
-      display:flex;
-      justify-content:center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 1.05rem 1.35rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,.10);
-      background: hsla(var(--background)/.55);
-      box-shadow: var(--shadow-soft);
-      color: inherit;
-      text-decoration:none;
-      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
-      font-family: var(--font-body);
-      font-size: 18px;
-      cursor:pointer;
-      min-width: 210px;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: hsla(var(--gold-soft)/.24);
-      box-shadow: var(--shadow-elegant);
-    }
-    .btn.primary{ background: hsla(var(--gold-soft)/.34); }
-
-    /* Full-bleed hero */
-    .fullBleed{
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      overflow:hidden;
-    }
-    .fullBleed img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
+    /* hero */
+    .fullBleed{width:100vw;height:100vh;position:relative}
+    .fullBleed img{width:100%;height:100%;object-fit:cover}
     .overlayCenter{
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-      text-align:center;
-      padding: 18px;
-      background: radial-gradient(900px 650px at 50% 42%, rgba(0,0,0,.14), rgba(0,0,0,.50));
+      position:absolute;inset:0;display:grid;place-items:center;
+      background:radial-gradient(900px 650px at 50% 42%, rgba(0,0,0,.14), rgba(0,0,0,.5))
     }
+    .heroText{color:#fff;opacity:0;transform:translateY(26px);transition:.9s}
+    .heroText.in{opacity:1;transform:none}
+    .heroText .nameLine{font-family:var(--font-display);font-size:clamp(52px,7vw,86px)}
 
-    /* Hero text slide-up */
-    .heroText{
-      color: rgba(255,255,255,.96);
-      max-width: 920px;
-      padding: 10px 12px;
-      opacity: 0;
-      transform: translateY(26px);
-      transition: opacity 900ms ease, transform 900ms ease;
-      will-change: opacity, transform;
+    /* buttons */
+    .btnRow{margin-top:18px;display:flex;justify-content:center}
+    .btn{
+      padding:1rem 1.3rem;border-radius:999px;border:1px solid rgba(0,0,0,.1);
+      background:hsla(var(--background)/.55);cursor:pointer;text-decoration:none
     }
-    .heroText.in{
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .heroText .top{
-      font-family: var(--font-display);
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      font-size: 18px;
-      opacity: .92;
-      margin-bottom: 14px;
-    }
-    .heroText .nameLine{
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-size: clamp(52px, 7.2vw, 86px);
-      line-height: 1.02;
-      margin: 6px 0;
-    }
-    .heroText .and{
-      font-family: var(--font-display);
-      font-size: clamp(34px, 5.2vw, 52px);
-      margin: 10px 0 4px;
-      opacity: .96;
-    }
-    .heroText .date{
-      font-family: var(--font-display);
-      margin-top: 18px;
-      font-size: clamp(22px, 3.6vw, 28px);
-      letter-spacing: .06em;
-      opacity: .92;
-    }
-
-    /* ✅ Combined Countdown + Details layout */
-    .combo{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap: 28px;
-    }
-    .divider{
-      width: min(720px, 92%);
-      height: 1px;
-      background: rgba(0,0,0,.10);
-      margin: 6px auto 0;
-    }
-
-    .countdown{
-      margin-top: 10px;
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap: 26px;
-      align-items:baseline;
-    }
-    .countdown .num{
-      font-family: var(--font-display);
-      font-size: 56px;
-      color: hsl(var(--countdown));
-    }
-    .countdown .lbl{
-      font-size: 14px;
-      text-transform: uppercase;
-      opacity: .72;
-      margin-left: 8px;
-      letter-spacing: .12em;
-    }
-
-    /* FAQ */
-    details{
-      width: min(900px, 100%);
-      margin: 14px auto;
-      padding: 12px 0;
-      text-align:left;
-      border-bottom: 1px solid rgba(0,0,0,.10);
-    }
-    details:last-of-type{ border-bottom:0; }
-    summary{
-      cursor:pointer;
-      list-style:none;
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: 20px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    summary::-webkit-details-marker{ display:none; }
-    .chev{
-      width: 12px;
-      height: 12px;
-      border-right: 2px solid hsla(var(--foreground)/.55);
-      border-bottom: 2px solid hsla(var(--foreground)/.55);
-      transform: rotate(45deg);
-      transition: transform .2s ease;
-      flex: 0 0 auto;
-      margin-left: 10px;
-    }
-    details[open] .chev{ transform: rotate(225deg); }
-    details p{ margin: 12px 0 6px; font-size: 20px; }
-
-    /* Modal */
-    .modalBackdrop{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.45);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index: 9999;
-      padding: 18px;
-    }
-    .modalBackdrop.show{ display:flex; }
-    .modal{
-      width: min(560px, 100%);
-      background: hsl(var(--background));
-      box-shadow: var(--shadow-elegant);
-      border-radius: 16px;
-      overflow:hidden;
-      text-align:center;
-    }
-    .modalHead{
-      padding: 14px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      border-bottom: 1px solid rgba(0,0,0,.08);
-    }
-    .modalHead b{
-      font-family: var(--font-display);
-      font-size: 20px;
-    }
-    .close{
-      border:0;
-      background: transparent;
-      font-size: 24px;
-      line-height: 1;
-      cursor:pointer;
-      opacity:.75;
-    }
-    .close:hover{ opacity:1; }
-    .modalBody{ padding: 14px 16px 16px; }
-    .ibanBox{
-      background: hsla(var(--card)/.60);
-      padding: 14px;
-      border-radius: 12px;
-      font-family: var(--font-display);
-      font-size: 18px;
-      letter-spacing: .04em;
-      word-break: break-word;
-    }
-    .modalSmall{ margin-top: 10px; opacity:.85; font-size: 16px; }
-    .copyOk{ margin-left: 10px; font-size: 14px; opacity: .85; display:none; }
-    .copyOk.show{ display:inline; }
+    .btn.primary{background:hsla(var(--gold-soft)/.35)}
 
     /* reveal */
-    .reveal{ opacity:0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
-    .reveal.in{ opacity:1; transform: translateY(0); }
+    .reveal{opacity:0;transform:translateY(14px);transition:.7s}
+    .reveal.in{opacity:1;transform:none}
 
-    /* ✅ INTRO: solo busta cliccabile, nessuna animazione */
+    /* INTRO envelope */
     .intro{
-      position:fixed;
-      inset:0;
-      z-index:99999;
-      display:grid;
-      place-items:center;
-      background: hsl(var(--background));
-      overflow:hidden;
-      cursor: pointer;
-      touch-action: manipulation;
+      position:fixed;inset:0;z-index:99999;
+      display:flex;align-items:center;justify-content:center;
+      background:hsl(var(--background));cursor:pointer
     }
-    .envStage{ position:absolute; inset:0; }
-    .envBase img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      transform: scale(1.01);
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-    /* tolti flap/animazione/bottone: non servono più */
-    .intro.fade{
-      opacity:0;
-      visibility:hidden;
-      transition: opacity 260ms ease;
-    }
+    .envStage{width:100%;max-width:520px;padding:18px}
+    .envBase img{width:100%;height:auto;display:block}
 
-    /* Pic6 under RSVP */
+    .intro.fade{opacity:0;visibility:hidden;transition:.25s}
+
+    /* Pic6 */
     .pic6Wrap{
-      width: 100vw;
-      height: 48vh;
-      min-height: 320px;
-      margin-top: 26px;
-      overflow:hidden;
+      width:min(920px,100%);
+      height:48vh;min-height:320px;
+      margin:26px auto 0;
+      overflow:hidden;border-radius:18px;
+      box-shadow:var(--shadow-soft)
     }
-    .pic6Wrap img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
+    .pic6Wrap img{width:100%;height:100%;object-fit:cover}
 
-    /* ✅ MOBILE: typography + layout */
-    @media (max-width: 860px){
-      .page{ padding: 94px 14px 56px; }
-      .content{ padding: 10px 6px; }
-
-      h2{ font-size: 28px; }
-      p{ font-size: 18px; line-height: 1.65; }
-
-      .btn{
-        min-width: unset;
-        width: 100%;
-        max-width: 420px;
-        font-size: 17px;
-        padding: .95rem 1.15rem;
-      }
-
-      .countdown{ gap: 18px; }
-      .countdown .num{ font-size: 44px; }
-      .countdown .lbl{ font-size: 12px; margin-left: 6px; }
-
-      .heroText .top{ font-size: 15px; }
-      .heroText .nameLine{ font-size: clamp(40px, 10vw, 62px); }
-      .heroText .and{ font-size: clamp(26px, 7vw, 40px); }
-      .heroText .date{ font-size: clamp(18px, 4.8vw, 22px); }
-
-      .pic6Wrap{ height: 38vh; min-height: 240px; }
-      .nav{ max-width: 68vw; }
-    }
-
-    /* smaller phones */
-    @media (max-width: 380px){
-      .nav{ max-width: 62vw; }
-      h2{ font-size: 26px; }
-      p{ font-size: 17px; }
-      .countdown .num{ font-size: 40px; }
+    @media(max-width:860px){
+      h2{font-size:28px} p{font-size:18px}
+      .pic6Wrap{height:38vh;min-height:240px}
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ✅ INTRO: solo immagine busta cliccabile -->
-  <div class="intro" id="intro" aria-label="Busta invito" role="button" tabindex="0">
-    <div class="envStage">
-      <div class="envBase">
-        <img src="../Pic5.png" alt="Busta (tocca/clicca per aprire)">
+<!-- INTRO -->
+<div class="intro" id="intro">
+  <div class="envStage">
+    <div class="envBase">
+      <img src="../Pic5.png" alt="Busta">
+    </div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="nav">
+    <a href="#home">Home</a>
+    <a href="#info">Info</a>
+    <a href="#alloggio">Hotel</a>
+    <a href="#faq">FAQ</a>
+    <a href="#regalo">Regalo</a>
+    <a href="#rsvp">RSVP</a>
+  </div>
+  <div class="lang">
+    <a class="active" href="./invito.html">IT</a>
+    <a href="../en/">EN</a>
+    <a href="../de/">DE</a>
+    <a href="../lt/">LT</a>
+  </div>
+</div>
+
+<main class="pages">
+
+<section class="page" id="home">
+  <div class="fullBleed reveal">
+    <img src="../Pic4.png">
+    <div class="overlayCenter">
+      <div class="heroText" id="heroText">
+        <div class="nameLine">Joris</div>
+        <div class="nameLine">Francesca</div>
+        <div>25 settembre 2026</div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- fixed topbar -->
-  <div class="topbar">
-    <div class="nav">
-      <a href="#home">Home</a>
-      <a href="#info">Info</a>
-      <a href="#alloggio">Hotel</a>
-      <a href="#faq">FAQ</a>
-      <a href="#regalo">Regalo</a>
-      <a href="#rsvp">RSVP</a>
-    </div>
-    <div class="lang">
-      <a class="active" href="./invito.html">IT</a>
-      <a href="../en/">EN</a>
-      <a href="../de/">DE</a>
-      <a href="../lt/">LT</a>
+<section class="page" id="info">
+  <div class="content reveal">
+    <h2>Dettagli</h2>
+    <p>Venerdì 25 settembre 2026 – ore 16:00</p>
+    <p>Capo Santa Fortunata · Sorrento</p>
+  </div>
+</section>
+
+<section class="page" id="alloggio">
+  <div class="content reveal">
+    <h2>Hotel</h2>
+    <div class="btnRow">
+      <a class="btn primary" href="https://www.booking.com/searchresults.it.html?ss=Capo%20Santa%20Fortunata%20Relais%2C%20Sorrento" target="_blank">
+        Cerca hotel
+      </a>
     </div>
   </div>
+</section>
 
-  <main class="pages" id="pages">
+<section class="page" id="faq">
+  <div class="content reveal">
+    <h2>FAQ</h2>
+    <p>Informazioni utili per il giorno del matrimonio</p>
+  </div>
+</section>
 
-    <!-- PAGE 1: HERO -->
-    <section class="page" id="home" aria-label="Copertina">
-      <div class="fullBleed reveal">
-        <img src="../Pic4.png" alt="Copertina">
-        <div class="overlayCenter">
-          <div class="heroText" id="heroText">
-            <div class="top">Ci sposiamo!</div>
-            <div class="nameLine">Joris</div>
-            <div class="and">e</div>
-            <div class="nameLine">Francesca</div>
-            <div class="date">25 settembre 2026</div>
-          </div>
-        </div>
-      </div>
-    </section>
+<section class="page" id="regalo">
+  <div class="content reveal">
+    <h2>Regalo</h2>
+    <p>La vostra presenza è il regalo più bello</p>
+  </div>
+</section>
 
-    <!-- ✅ PAGE 2: COMBINED (Countdown + Details) -->
-    <section class="page" id="info" aria-label="Countdown e dettagli">
-      <div class="content reveal">
-        <div class="combo">
-          <div>
-            <h2>Countdown</h2>
-            <p>per il giorno più speciale della nostra vita</p>
+<section class="page" id="rsvp">
+  <div class="content reveal">
+    <h2>Conferma la tua presenza</h2>
 
-            <div class="countdown" aria-label="Countdown matrimonio">
-              <div><span class="num" id="cd-days">—</span><span class="lbl">giorni</span></div>
-              <div><span class="num" id="cd-hours">—</span><span class="lbl">ore</span></div>
-              <div><span class="num" id="cd-mins">—</span><span class="lbl">min</span></div>
-              <div><span class="num" id="cd-secs">—</span><span class="lbl">sec</span></div>
-            </div>
-          </div>
+    <div class="btnRow">
+      <a class="btn primary"
+         href="https://forms.gle/h6XL3gbPdXJWDUQN8"
+         target="_blank">
+        Apri il Google Form
+      </a>
+    </div>
 
-          <div class="divider" aria-hidden="true"></div>
-
-          <div>
-            <h2>Dettagli del giorno</h2>
-            <p><b>Venerdì 25 settembre 2026</b> · ore <b>16:00</b></p>
-            <p><b>Capo Santa Fortunata</b> · Sorrento, Italy</p>
-
-            <div class="btnRow">
-              <a class="btn" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">Localizzazione</a>
-              <a class="btn" href="https://www.google.com/maps/dir//Capo+Santa+Fortunata+Relais,+Via+Calata+Punta+Capo,+13,+80067+Sorrento+NA,+Italia/"
-                 target="_blank" rel="noopener noreferrer">Google Maps</a>
-            </div>
-
-            <p style="margin-top:22px; opacity:.9;"></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAGE 3: ALLOGGIO -->
-    <section class="page" id="Hotel" aria-label="Hotel">
-      <div class="content reveal">
-        <h2>Hotel</h2>
-        <p>Sorrento e dintorni offrono tante soluzioni vicine alla location.</p>
-        <p>Puoi iniziare da qui con una ricerca già pronta</p>
-
-        <div class="btnRow">
-          <a class="btn primary"
-             href="https://www.booking.com/searchresults.it.html?ss=Capo%20Santa%20Fortunata%20Relais%2C%20Sorrento"
-             target="_blank" rel="noopener noreferrer">
-            Cerca hotel su Booking
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAGE 4: FAQ -->
-    <section class="page" id="faq" aria-label="FAQ">
-      <div class="content reveal">
-        <h2>Domande frequenti</h2>
-
-        <details>
-          <summary>Dress code <span class="chev" aria-hidden="true"></span></summary>
-          <p>Vieni come preferisci. Il ricevimento sarà di giorno, ti consigliamo scarpe comode.</p>
-        </details>
-
-        <details>
-          <summary>Come raggiungo la struttura? <span class="chev" aria-hidden="true"></span></summary>
-          <p>
-            Il modo più comodo è in macchina: ci sarà un parcheggio messo a disposizione degli ospiti.
-            In alternativa, da Napoli puoi prendere la Circumvesuviana fino a Sorrento e poi un taxi.
-          </p>
-        </details>
-        
-        <details>
-          <summary>Domanda 3 <span class="chev" aria-hidden="true"></span></summary>
-          <p>Vieni come preferisci. Il ricevimento sarà di giorno, ti consigliamo scarpe comode.</p>
-        </details>
-
-        <details>
-          <summary>Domanda 4 <span class="chev" aria-hidden="true"></span></summary>
-          <p>Vieni come preferisci. Il ricevimento sarà di giorno, ti consigliamo scarpe comode.</p>
-        </details>
-      </div>
-    </section>
-
-    <!-- PAGE 5: REGALO -->
-    <section class="page" id="regalo" aria-label="Regalo">
-      <div class="content reveal">
-        <h2>Regalo</h2>
-        <p>La tua presenza è la cosa più importante per noi.</p>
-        <p>Se vuoi farci un regalo, ti lasciamo il nostro IBAN.</p>
-
-        <div class="btnRow">
-          <button class="btn primary" id="openIban" type="button">IBAN</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAGE 6: RSVP + Pic6 -->
-    <section class="page" id="rsvp" aria-label="RSVP">
-      <div class="content reveal">
-        <h2>Conferma la tua presenza</h2>
-        <p></p>
-
-        <div class="btnRow">
-          <a class="btn primary" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank" rel="noopener noreferrer">
-            Apri il Google Form
-          </a>
-        </div>
-
-        <div class="pic6Wrap" aria-label="Foto finale">
-          <img src="../Pic6.png" alt="Foto finale">
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- IBAN Modal -->
-  <div class="modalBackdrop" id="ibanModal" role="dialog" aria-modal="true" aria-label="IBAN">
-    <div class="modal">
-      <div class="modalHead">
-        <b>Dettagli IBAN</b>
-        <button class="close" id="closeIban" aria-label="Chiudi">×</button>
-      </div>
-      <div class="modalBody">
-        <div class="ibanBox" id="ibanText">IT 123456789111213</div>
-        <div class="modalSmall">Intestatario: <b>Joris Vitulli</b></div>
-
-        <div class="btnRow" style="justify-content:center;margin-top:12px;">
-          <button class="btn" id="copyIban" type="button">Copia IBAN</button>
-          <span class="copyOk" id="copyOk">Copiato ✅</span>
-        </div>
-      </div>
+    <div class="pic6Wrap">
+      <img src="../Pic6.png" alt="Foto finale">
     </div>
   </div>
+</section>
 
-  <script>
-    // ✅ INTRO: click/tap ovunque sulla busta per entrare nel sito (senza animazione)
-    (function(){
-      const intro = document.getElementById("intro");
-      const ht = document.getElementById("heroText");
-      let done = false;
+</main>
 
-      function enter(){
-        if(done) return;
-        done = true;
+<script>
+  // intro click
+  (function(){
+    const intro=document.getElementById("intro");
+    const hero=document.getElementById("heroText");
+    intro.addEventListener("click",()=>{
+      intro.classList.add("fade");
+      setTimeout(()=>intro.style.display="none",260);
+      hero.classList.add("in");
+    });
+  })();
 
-        // mostra subito l'hero text (opzionale: rimuovi se la vuoi ancora "a comparsa" con reveal)
-        if(ht) requestAnimationFrame(() => ht.classList.add("in"));
+  // reveal
+  (function(){
+    const els=document.querySelectorAll(".reveal");
+    const io=new IntersectionObserver(e=>{
+      e.forEach(x=>x.isIntersecting&&x.target.classList.add("in"));
+    },{threshold:.35});
+    els.forEach(el=>io.observe(el));
+  })();
+</script>
 
-        // chiude overlay busta
-        intro.classList.add("fade");
-        setTimeout(() => { intro.style.display = "none"; }, 280);
-
-        // porta all'inizio (home)
-        const home = document.getElementById("home");
-        if(home) home.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-
-      intro.addEventListener("click", enter);
-      intro.addEventListener("keydown", (e) => {
-        if(e.key === "Enter" || e.key === " ") enter();
-      });
-    })();
-
-    // Countdown
-    (function(){
-      const wedding = new Date("2026-09-25T16:00:00+02:00");
-      const elDays  = document.getElementById("cd-days");
-      const elHours = document.getElementById("cd-hours");
-      const elMins  = document.getElementById("cd-mins");
-      const elSecs  = document.getElementById("cd-secs");
-      const pad = n => String(n).padStart(2,"0");
-
-      function tick(){
-        const diff = wedding - new Date();
-        if(diff <= 0){
-          elDays.textContent = "0";
-          elHours.textContent = "00";
-          elMins.textContent = "00";
-          elSecs.textContent = "00";
-          return;
-        }
-        const t = Math.floor(diff / 1000);
-        elDays.textContent  = Math.floor(t / 86400);
-        elHours.textContent = pad(Math.floor((t % 86400) / 3600));
-        elMins.textContent  = pad(Math.floor((t % 3600) / 60));
-        elSecs.textContent  = pad(t % 60);
-      }
-      tick();
-      setInterval(tick, 1000);
-    })();
-
-    // Reveal per section
-    (function(){
-      const els = document.querySelectorAll(".reveal");
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if(e.isIntersecting){
-            e.target.classList.add("in");
-          }
-        });
-      }, { threshold: 0.35 });
-      els.forEach(el => io.observe(el));
-    })();
-
-    // IBAN modal
-    (function(){
-      const modal = document.getElementById("ibanModal");
-      const openBtn = document.getElementById("openIban");
-      const closeBtn = document.getElementById("closeIban");
-      const copyBtn = document.getElementById("copyIban");
-      const ibanText = document.getElementById("ibanText");
-      const copyOk = document.getElementById("copyOk");
-
-      function open(){
-        modal.classList.add("show");
-        copyOk.classList.remove("show");
-      }
-      function close(){
-        modal.classList.remove("show");
-      }
-
-      openBtn.addEventListener("click", open);
-      closeBtn.addEventListener("click", close);
-      modal.addEventListener("click", (e) => { if(e.target === modal) close(); });
-      document.addEventListener("keydown", (e) => { if(e.key === "Escape") close(); });
-
-      copyBtn.addEventListener("click", async () => {
-        try{
-          await navigator.clipboard.writeText(ibanText.textContent.trim());
-          copyOk.classList.add("show");
-          setTimeout(() => copyOk.classList.remove("show"), 1800);
-        }catch(err){
-          const range = document.createRange();
-          range.selectNodeContents(ibanText);
-          const sel = window.getSelection();
-          sel.removeAllRanges();
-          sel.addRange(range);
-          document.execCommand("copy");
-          sel.removeAllRanges();
-          copyOk.classList.add("show");
-          setTimeout(() => copyOk.classList.remove("show"), 1800);
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
