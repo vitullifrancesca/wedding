@@ -27,6 +27,7 @@
 
       --max: 1100px;
 
+      /* (non più usati, ma lasciati innocui) */
       --intro-open-duration: 300ms;
       --intro-fade-duration: 0ms;
     }
@@ -385,7 +386,7 @@
     .reveal{ opacity:0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
     .reveal.in{ opacity:1; transform: translateY(0); }
 
-    /* Intro envelope fullscreen */
+    /* ✅ INTRO: solo busta cliccabile, nessuna animazione */
     .intro{
       position:fixed;
       inset:0;
@@ -394,6 +395,8 @@
       place-items:center;
       background: hsl(var(--background));
       overflow:hidden;
+      cursor: pointer;
+      touch-action: manipulation;
     }
     .envStage{ position:absolute; inset:0; }
     .envBase img{
@@ -402,56 +405,15 @@
       object-fit:cover;
       display:block;
       transform: scale(1.01);
+      user-select: none;
+      -webkit-user-drag: none;
     }
-    .envFlap{
-      position:absolute;
-      inset:0;
-      transform-origin: top center;
-      transform: rotateX(0deg);
-      transition: transform var(--intro-open-duration) cubic-bezier(.2,.9,.2,1);
-      will-change: transform;
-      perspective: 1200px;
-      backface-visibility: hidden;
-    }
-    .envFlap img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      clip-path: polygon(0 0, 100% 0, 50% 55%);
-    }
-    .envShade{
-      position:absolute;
-      inset:0;
-      background: radial-gradient(1100px 850px at 50% 30%, rgba(255,255,255,.10), rgba(0,0,0,.22));
-      opacity:.35;
-      pointer-events:none;
-    }
-    .envOpenBtn{
-      position:absolute;
-      left:50%;
-      bottom: 7%;
-      transform: translateX(-50%);
-      padding: .9rem 1.25rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.40);
-      background: rgba(0,0,0,.22);
-      color: rgba(255,255,255,.95);
-      font-family: var(--font-body);
-      font-size: 15px;
-      letter-spacing: .05em;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 16px 40px rgba(0,0,0,.18);
-      cursor:pointer;
-      user-select:none;
-    }
-    .envOpenBtn:hover{ background: rgba(0,0,0,.28); }
+    /* tolti flap/animazione/bottone: non servono più */
     .intro.fade{
       opacity:0;
       visibility:hidden;
-      transition: opacity var(--intro-fade-duration) ease;
+      transition: opacity 260ms ease;
     }
-    .intro.open .envFlap{ transform: rotateX(165deg); }
 
     /* Pic6 under RSVP */
     .pic6Wrap{
@@ -509,19 +471,11 @@
 
 <body>
 
-  <!-- INTRO (Envelope Pic5) -->
-  <div class="intro" id="intro" aria-label="Busta invito">
+  <!-- ✅ INTRO: solo immagine busta cliccabile -->
+  <div class="intro" id="intro" aria-label="Busta invito" role="button" tabindex="0">
     <div class="envStage">
       <div class="envBase">
-        <img src="../Pic5.png" alt="Busta">
-      </div>
-      <div class="envFlap" aria-hidden="true">
-        <img src="../Pic5.png" alt="">
-      </div>
-      <div class="envShade" aria-hidden="true"></div>
-
-      <div class="envOpenBtn" id="openEnvelope" role="button" aria-label="Apri la busta">
-        Apri l'invito
+        <img src="../Pic5.png" alt="Busta (tocca/clicca per aprire)">
       </div>
     </div>
   </div>
@@ -591,9 +545,7 @@
                  target="_blank" rel="noopener noreferrer">Google Maps</a>
             </div>
 
-            <p style="margin-top:22px; opacity:.9;">
-            
-            </p>
+            <p style="margin-top:22px; opacity:.9;"></p>
           </div>
         </div>
       </div>
@@ -699,34 +651,32 @@
   </div>
 
   <script>
-    // Intro envelope: open -> show home and animate hero text from bottom
+    // ✅ INTRO: click/tap ovunque sulla busta per entrare nel sito (senza animazione)
     (function(){
       const intro = document.getElementById("intro");
-      const btn = document.getElementById("openEnvelope");
-      let opened = false;
+      const ht = document.getElementById("heroText");
+      let done = false;
 
-      function open(){
-        if(opened) return;
-        opened = true;
+      function enter(){
+        if(done) return;
+        done = true;
 
-        intro.classList.add("open");
+        // mostra subito l'hero text (opzionale: rimuovi se la vuoi ancora "a comparsa" con reveal)
+        if(ht) requestAnimationFrame(() => ht.classList.add("in"));
 
-        setTimeout(() => {
-          const home = document.getElementById("home");
-          if(home) home.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 850);
+        // chiude overlay busta
+        intro.classList.add("fade");
+        setTimeout(() => { intro.style.display = "none"; }, 280);
 
-        setTimeout(() => intro.classList.add("fade"), 1400);
-
-        setTimeout(() => {
-          intro.style.display = "none";
-          const ht = document.getElementById("heroText");
-          if(ht) requestAnimationFrame(() => ht.classList.add("in"));
-        }, 1400 + 520);
+        // porta all'inizio (home)
+        const home = document.getElementById("home");
+        if(home) home.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
-      btn.addEventListener("click", open);
-      intro.addEventListener("click", (e) => { if(e.target !== btn) open(); });
+      intro.addEventListener("click", enter);
+      intro.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " ") enter();
+      });
     })();
 
     // Countdown
