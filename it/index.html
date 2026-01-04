@@ -137,12 +137,15 @@
       justify-content:center;
       padding: 96px 18px 60px;
       box-sizing:border-box;
+      position: relative;
     }
 
     .content{
       width: min(var(--max), 100%);
       text-align:center;
       padding: 14px 10px;
+      position: relative;
+      z-index: 2;
     }
 
     /* ✅ base typography (desktop) */
@@ -386,7 +389,7 @@
     .reveal{ opacity:0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
     .reveal.in{ opacity:1; transform: translateY(0); }
 
-    /* ✅ INTRO: solo busta cliccabile, senza flap/bottone */
+    /* ✅ INTRO: solo busta cliccabile */
     .intro{
       position:fixed;
       inset:0;
@@ -402,7 +405,7 @@
     }
     .envStage{
       width: 100%;
-      max-width: 760px; /* desktop: busta grande ma centrata */
+      max-width: 760px;
       margin: 0 auto;
     }
     .envBase img{
@@ -420,15 +423,38 @@
       transition: opacity 260ms ease;
     }
 
-    /* ✅ Pic6 (RSVP) centrata */
+    /* ✅ Hotel background Pic8 */
+    .hotelBg{
+      background-image: url("../Pic8.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    /* overlay per leggibilità */
+    .hotelBg::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:1;
+      background: radial-gradient(900px 650px at 50% 40%,
+        rgba(0,0,0,.10), rgba(0,0,0,.42));
+      pointer-events:none;
+    }
+    /* testo bianco in Hotel */
+    .hotelBg .content h2,
+    .hotelBg .content p{
+      color: rgba(255,255,255,.96);
+    }
+
+    /* ✅ Pic6 centrata */
     .pic6Wrap{
       width: min(920px, 100%);
       height: 48vh;
       min-height: 320px;
-      margin: 26px auto 0;   /* centra */
+      margin: 26px auto 0;
       overflow:hidden;
-      border-radius: 18px;   /* opzionale estetico */
-      box-shadow: var(--shadow-soft); /* opzionale */
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
     }
     .pic6Wrap img{
       width:100%;
@@ -437,7 +463,7 @@
       display:block;
     }
 
-    /* ✅ MOBILE: typography + layout */
+    /* ✅ MOBILE */
     @media (max-width: 860px){
       .page{ padding: 94px 14px 56px; }
       .content{ padding: 10px 6px; }
@@ -462,18 +488,12 @@
       .heroText .and{ font-size: clamp(26px, 7vw, 40px); }
       .heroText .date{ font-size: clamp(18px, 4.8vw, 22px); }
 
-      /* ✅ intro: busta centrata e dimensionata su mobile */
-      .envStage{
-        max-width: 520px;
-      }
-
-      /* ✅ Pic6 mobile */
+      .envStage{ max-width: 520px; }
       .pic6Wrap{ height: 38vh; min-height: 240px; border-radius: 16px; }
 
       .nav{ max-width: 68vw; }
     }
 
-    /* smaller phones */
     @media (max-width: 380px){
       .nav{ max-width: 62vw; }
       h2{ font-size: 26px; }
@@ -486,7 +506,7 @@
 
 <body>
 
-  <!-- ✅ INTRO (solo busta) -->
+  <!-- INTRO -->
   <div class="intro" id="intro" aria-label="Busta invito" role="button" tabindex="0">
     <div class="envStage">
       <div class="envBase">
@@ -531,7 +551,7 @@
       </div>
     </section>
 
-    <!-- PAGE 2: COMBINED (Countdown + Details) -->
+    <!-- PAGE 2 -->
     <section class="page" id="info" aria-label="Countdown e dettagli">
       <div class="content reveal">
         <div class="combo">
@@ -555,9 +575,9 @@
             <p><b>Capo Santa Fortunata</b> · Sorrento, Italy</p>
 
             <div class="btnRow">
-              <a class="btn" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">Venue</a>
+              <a class="btn" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">Localizzazione</a>
               <a class="btn" href="https://www.google.com/maps/dir//Capo+Santa+Fortunata+Relais,+Via+Calata+Punta+Capo,+13,+80067+Sorrento+NA,+Italia/"
-                 target="_blank" rel="noopener noreferrer">Come raggiungerci</a>
+                 target="_blank" rel="noopener noreferrer">Google Maps</a>
             </div>
 
             <p style="margin-top:22px; opacity:.9;"></p>
@@ -566,19 +586,18 @@
       </div>
     </section>
 
-    <!-- PAGE 3: ALLOGGIO -->
-    <!-- ✅ id sistemato: alloggio -->
-    <section class="page" id="alloggio" aria-label="Hotel">
+    <!-- PAGE 3: HOTEL (con sfondo Pic8) -->
+    <section class="page hotelBg" id="alloggio" aria-label="Hotel">
       <div class="content reveal">
         <h2>Hotel</h2>
         <p>Sorrento e dintorni offrono tante soluzioni vicine alla location.</p>
-        <p>  </p>
+        <p>Puoi iniziare da qui con una ricerca già pronta</p>
 
         <div class="btnRow">
           <a class="btn primary"
              href="https://www.booking.com/searchresults.it.html?ss=Capo%20Santa%20Fortunata%20Relais%2C%20Sorrento"
              target="_blank" rel="noopener noreferrer">
-            Booking
+            Cerca hotel su Booking
           </a>
         </div>
       </div>
@@ -627,7 +646,7 @@
       </div>
     </section>
 
-    <!-- PAGE 6: RSVP + Pic6 -->
+    <!-- PAGE 6: RSVP -->
     <section class="page" id="rsvp" aria-label="RSVP">
       <div class="content reveal">
         <h2>Conferma la tua presenza</h2>
@@ -635,7 +654,7 @@
 
         <div class="btnRow">
           <a class="btn primary" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank" rel="noopener noreferrer">
-            Google Form
+            Apri il Google Form
           </a>
         </div>
 
@@ -667,7 +686,7 @@
   </div>
 
   <script>
-    // ✅ Intro: click/tap ovunque per entrare (senza animazione busta)
+    // Intro: click/tap ovunque per entrare
     (function(){
       const intro = document.getElementById("intro");
       const ht = document.getElementById("heroText");
@@ -677,7 +696,6 @@
         if(done) return;
         done = true;
 
-        // mostra l'hero text subito (così non resta invisibile se sei già su home)
         if(ht) requestAnimationFrame(() => ht.classList.add("in"));
 
         intro.classList.add("fade");
@@ -721,7 +739,7 @@
       setInterval(tick, 1000);
     })();
 
-    // Reveal per section
+    // Reveal
     (function(){
       const els = document.querySelectorAll(".reveal");
       const io = new IntersectionObserver((entries) => {
