@@ -3,432 +3,377 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Joris and Francesca — Dettagli</title>
+  <title>Joris & Francesca — Invito</title>
 
-  <!-- Fonts: cursive names + typewriter text -->
+  <!-- Fonts (same visual identity as reference site) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Special+Elite&display=swap" rel="stylesheet">
-
-  <script defer src="../assets/app.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#FBFAF6;
-      --ink:#152B25;
-      --muted:rgba(21,43,37,.72);
-      --border:rgba(0,0,0,.10);
-      --card:rgba(255,255,255,.66);
-      --shadow:0 18px 60px rgba(0,0,0,.10);
-      --gold:#C9A04A;
-      --max: 1100px;
+      --background: 40 39% 91%;
+      --foreground: 100 15% 24%;
+      --card: 40 35% 88%;
+      --muted: 60 10% 82%;
+      --accent: 77 15% 50%;
+      --gold: 42 85% 55%;
+      --gold-soft: 42 60% 70%;
+      --border: 60 12% 75%;
+      --countdown: 72 16% 43%;
+      --radius: .5rem;
+
+      --font-display: "Cormorant Garamond", serif;
+      --font-script: "Great Vibes", cursive;
+      --font-body: "Lora", serif;
+
+      --shadow-soft: 0 6px 20px rgba(0,0,0,.08);
+      --shadow-elegant: 0 20px 60px rgba(0,0,0,.15);
+
+      --max: 1120px;
     }
 
-    html{ scroll-behavior: smooth; }
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family:"Special Elite", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      letter-spacing:.18px;
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+      font-family: var(--font-body);
     }
 
-    /* Asymmetric watercolor accents */
     body::before, body::after{
       content:"";
       position:fixed;
       inset:0;
       pointer-events:none;
       z-index:0;
-      opacity:.70;
     }
     body::before{
       background:
-        radial-gradient(420px 320px at 10% 10%, rgba(201,160,74,.14), transparent 62%),
-        radial-gradient(420px 320px at 92% 20%, rgba(18,59,90,.10), transparent 64%),
-        radial-gradient(360px 280px at 18% 42%, rgba(47,93,80,.08), transparent 66%);
-      filter: blur(1px);
+        radial-gradient(600px 400px at 12% 14%, hsla(var(--gold) / .14), transparent 60%),
+        radial-gradient(600px 400px at 90% 20%, hsla(var(--accent) / .10), transparent 65%);
     }
     body::after{
       background:
-        radial-gradient(520px 420px at 92% 92%, rgba(201,124,93,.10), transparent 68%),
-        radial-gradient(340px 280px at 14% 88%, rgba(18,59,90,.07), transparent 70%);
-      filter: blur(1px);
+        radial-gradient(700px 500px at 85% 90%, hsla(var(--gold-soft) / .15), transparent 70%);
     }
 
     .wrap{
       position:relative;
       z-index:1;
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px 18px 80px;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:20px 18px 80px;
     }
 
-    /* Top bar */
+    /* Topbar */
     .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 5;
+      position:sticky;
+      top:0;
+      z-index:10;
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:12px;
       flex-wrap:wrap;
-      padding: 12px 10px;
-      margin: 0 -10px;
-      background: rgba(251,250,246,.72);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0,0,0,.06);
+      padding:12px 10px;
+      background:hsla(var(--background)/.75);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid hsla(var(--border)/.6);
     }
-
-    .nav{
-      display:flex;
-      gap:16px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .nav a{
+    .nav,.lang{display:flex;gap:16px;}
+    .nav a,.lang a{
       text-decoration:none;
-      color: inherit;
-      font-size: 14px;
-      padding: 0;
-      background: transparent;
+      color:inherit;
+      font-size:14px;
     }
-    .nav a:hover{
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-
-    .lang{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      opacity: .9;
-      font-size: 13px;
-    }
-    .lang a{
-      text-decoration:none;
-      color: inherit;
-    }
-    .lang a:hover{
-      text-decoration: underline;
-      text-underline-offset: 4px;
+    .nav a:hover,.lang a:hover{
+      text-decoration:underline;
+      text-underline-offset:4px;
     }
     .lang a.active{
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      text-decoration-thickness: 2px;
-      opacity: 1;
+      text-decoration:underline;
+      text-decoration-thickness:2px;
+    }
+
+    /* Card */
+    .card{
+      border:1px solid hsl(var(--border));
+      border-radius:22px;
+      background:hsla(var(--card)/.75);
+      box-shadow:var(--shadow-elegant);
+      overflow:hidden;
+      margin-top:18px;
     }
 
     /* Hero */
-    .hero{
-      margin-top: 16px;
-      display:grid;
-      gap: 18px;
-      align-items:center;
-    }
-
-    .names{
-      text-align:center;
-      margin-top: 8px;
-    }
-    .names h1{
-      font-family:"Great Vibes", cursive;
-      font-weight:400;
-      font-size: clamp(72px, 8.5vw, 118px);
-      line-height: 1;
-      margin: 0;
-      letter-spacing: 0;
-      text-shadow: 0 14px 34px rgba(0,0,0,.06);
-    }
-    .names .meta{
-      margin-top: 12px;
-      font-size: 18px;
-      color: var(--muted);
-    }
-
-    .heroCard{
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: var(--card);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-
-    .heroImg{
-      width: 100%;
+    .hero img{
+      width:100%;
+      height:min(55vh,560px);
+      object-fit:cover;
       display:block;
-      height: min(52vh, 520px);
-      object-fit: cover;
     }
-
     .heroInner{
-      padding: 18px 18px 20px;
       text-align:center;
+      padding:20px;
+    }
+    .names{
+      font-family:var(--font-script);
+      font-size:clamp(78px,9vw,120px);
+      line-height:1;
+      margin:10px 0;
+    }
+    .meta{
+      font-family:var(--font-display);
+      font-size:18px;
+      opacity:.85;
     }
 
-    .heroInner p{
-      margin: 8px 0;
-      color: rgba(21,43,37,.88);
-    }
-
-    .ctaRow{
-      margin-top: 14px;
-      display:flex;
-      justify-content:center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: .9rem 1.2rem;
-      border-radius: 999px;
-      text-decoration:none;
-      color: var(--ink);
-      border: 1px solid rgba(0,0,0,.10);
-      background: rgba(255,255,255,.72);
-      box-shadow: 0 10px 22px rgba(0,0,0,.06);
-    }
-    .btn:hover{
-      background: rgba(201,160,74,.12);
-      border-color: rgba(201,160,74,.35);
-    }
-
-    /* Countdown (numbers only) */
+    /* Countdown */
     .countdown{
-      margin-top: 12px;
+      margin-top:14px;
       display:flex;
       justify-content:center;
+      gap:18px;
       flex-wrap:wrap;
-      gap: 18px;
-      align-items:baseline;
-      letter-spacing: .06em;
     }
     .countdown .num{
-      font-size: 34px;
-      font-weight: 400;
+      font-family:var(--font-display);
+      font-size:34px;
+      color:hsl(var(--countdown));
     }
     .countdown .lbl{
-      font-size: 12px;
-      text-transform: uppercase;
-      opacity: .70;
-      margin-left: 6px;
+      font-size:12px;
+      text-transform:uppercase;
+      margin-left:6px;
+      opacity:.7;
     }
 
-    /* Sections */
+    .btnRow{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      padding:.9rem 1.2rem;
+      border-radius:999px;
+      border:1px solid hsl(var(--border));
+      background:hsla(var(--background)/.6);
+      box-shadow:var(--shadow-soft);
+      text-decoration:none;
+      color:inherit;
+      transition:.3s;
+    }
+    .btn:hover{
+      background:hsla(var(--gold-soft)/.25);
+      border-color:hsl(var(--gold));
+    }
+    .btn.primary{
+      background:hsla(var(--gold-soft)/.35);
+      border-color:hsl(var(--gold));
+    }
+
     .section{
-      margin-top: 26px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: rgba(255,255,255,.62);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 28px rgba(0,0,0,.06);
-      padding: 18px;
+      padding:18px;
     }
     .section h2{
-      margin: 0 0 12px;
-      font-size: 18px;
-      font-weight: 400;
+      font-family:var(--font-display);
+      font-size:20px;
+      margin:0 0 10px;
     }
-    .section p{ margin: 8px 0; color: rgba(21,43,37,.88); }
-    .section a{ color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 10px;
+    .section p{
+      font-size:16px;
+      line-height:1.55;
+      margin:8px 0;
     }
-    .mini{
-      border: 1px solid rgba(0,0,0,.08);
-      border-radius: 16px;
-      padding: 14px;
-      background: rgba(255,255,255,.62);
-    }
-    .mini b{ display:block; margin-bottom: 6px; }
 
     .divider{
-      margin: 22px 0;
-      border-top: 1px solid rgba(0,0,0,.10);
-      opacity: .7;
+      margin:22px auto;
+      border-top:1px solid hsl(var(--border));
+      max-width:var(--max);
     }
 
-    .anchorHint{
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 8px;
+    /* Envelope intro */
+    .intro{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:grid;
+      place-items:center;
+      background:hsl(var(--background));
     }
-
-    @media (max-width: 860px){
-      .grid2{ grid-template-columns: 1fr; }
-      .heroImg{ height: min(46vh, 420px); }
+    .envelope{
+      width:min(560px,90vw);
+      aspect-ratio:4/3;
+      position:relative;
+      filter:drop-shadow(0 25px 70px rgba(0,0,0,.25));
     }
+    .env-body{
+      position:absolute;
+      inset:0;
+      background:hsl(var(--card));
+      border:1px solid hsl(var(--border));
+      border-radius:22px;
+    }
+    .env-flap{
+      position:absolute;
+      top:0;left:0;right:0;
+      height:55%;
+      background:hsl(var(--muted));
+      clip-path:polygon(0 0,100% 0,50% 100%);
+      transform-origin:top;
+      transition:.9s cubic-bezier(.2,.9,.2,1);
+    }
+    .env-paper{
+      position:absolute;
+      inset:8% 6% 10%;
+      background:hsl(var(--background));
+      border:1px solid hsl(var(--border));
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      transform:translateY(30%);
+      transition:.9s cubic-bezier(.2,.9,.2,1);
+    }
+    .paper-text .big{
+      font-family:var(--font-script);
+      font-size:64px;
+      margin-bottom:10px;
+    }
+    .paper-text .small{
+      font-family:var(--font-display);
+      font-size:16px;
+    }
+    .seal{
+      position:absolute;
+      top:56%;left:50%;
+      transform:translate(-50%,-50%);
+      width:96px;height:96px;
+      border-radius:50%;
+      background:linear-gradient(180deg,hsl(0 65% 55%),hsl(0 65% 45%));
+      box-shadow:0 16px 40px rgba(0,0,0,.3);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      font-family:var(--font-display);
+      font-size:18px;
+    }
+    .intro.open .env-flap{transform:rotateX(160deg);}
+    .intro.open .env-paper{transform:translateY(-6%);}
+    .intro.fade{opacity:0;visibility:hidden;transition:.7s;}
   </style>
 </head>
 
 <body>
-  <div class="wrap">
 
-    <!-- Sticky top navigation (anchors like the example site) -->
-    <div class="topbar">
-      <nav class="nav" aria-label="Navigazione pagina">
-        <a href="./">← Home</a>
-        <a href="#quando">Quando</a>
-        <a href="#dove">Dove</a>
-        <a href="#logistica">Logistica</a>
-        <a href="#rsvp">RSVP</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-
-      <div class="lang" aria-label="Lingua">
-        <a data-lang="it" href="../it/evento.html">IT</a>
-        <a data-lang="lt" href="../lt/">LT</a>
-        <a data-lang="en" href="../en/">EN</a>
-        <a data-lang="de" href="../de/">DE</a>
+<!-- INTRO -->
+<div class="intro" id="intro">
+  <div class="envelope">
+    <div class="env-body"></div>
+    <div class="env-flap"></div>
+    <div class="env-paper">
+      <div class="paper-text">
+        <div class="big">Joris & Francesca</div>
+        <div class="small">25 settembre 2026 · Sorrento</div>
       </div>
     </div>
+    <div class="seal" id="seal">JF</div>
+  </div>
+</div>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="names">
-        <h1>Joris and Francesca</h1>
-        <div class="meta">25.09.2026 · Sorrento · ore 16:00</div>
-      </div>
+<div class="wrap">
 
-      <div class="heroCard">
-        <img class="heroImg" src="../Pic2.jpg" alt="Joris e Francesca">
-        <div class="heroInner" id="quando">
-          <p><b>Data:</b> 25.09.2026 · <b>Ora:</b> 16:00</p>
-
-          <div class="countdown" aria-label="Countdown matrimonio">
-            <div><span class="num" id="cd-days">—</span><span class="lbl">giorni</span></div>
-            <div><span class="num" id="cd-hours">—</span><span class="lbl">ore</span></div>
-            <div><span class="num" id="cd-mins">—</span><span class="lbl">min</span></div>
-            <div><span class="num" id="cd-secs">—</span><span class="lbl">sec</span></div>
-          </div>
-
-          <div class="ctaRow">
-            <a class="btn" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">
-              Vedi la location
-            </a>
-
-            <a class="btn" href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=/maps/place//data%3D!4m2!3m1!1s0x133b9e986aa46351:0xbe2d4093f462f012%3Fsa%3DX%26ved%3D1t:8290%26ictx%3D111&ved=2ahUKEwjEjfHAo-iRAxU10wIHHSO2FGoQ4kB6BAgtEAM&usg=AOvVaw1gh97ZW31etVubnu-uzFdj"
-               target="_blank" rel="noopener noreferrer">
-              Come raggiungerci
-            </a>
-          </div>
-
-          <div class="anchorHint">Scorri per vedere tutti i dettagli ↓</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- DOVE -->
-    <section class="section" id="dove">
-      <h2>Dove</h2>
-      <p><b>Capo Santa Fortunata</b> · Sorrento, Italy</p>
-      <div class="grid2">
-        <div class="mini">
-          <b>Sito</b>
-          <p><a href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">caposantafortunata.com</a></p>
-        </div>
-        <div class="mini">
-          <b>Indicazioni</b>
-          <p><a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=/maps/place//data%3D!4m2!3m1!1s0x133b9e986aa46351:0xbe2d4093f462f012%3Fsa%3DX%26ved%3D1t:8290%26ictx%3D111&ved=2ahUKEwjEjfHAo-iRAxU10wIHHSO2FGoQ4kB6BAgtEAM&usg=AOvVaw1gh97ZW31etVubnu-uzFdj"
-                 target="_blank" rel="noopener noreferrer">Apri Google Maps</a></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- LOGISTICA -->
-    <section class="section" id="logistica">
-      <h2>Logistica</h2>
-      <div class="grid2">
-        <div class="mini">
-          <b>Arrivo</b>
-          <p>Aeroporto consigliato: Napoli (NAP). Da Napoli a Sorrento: treno / taxi / NCC.</p>
-          <p>Dettagli completi nella pagina <a href="./logistica.html">Logistica</a>.</p>
-        </div>
-        <div class="mini">
-          <b>Orari</b>
-          <p>Cerimonia e ricevimento nello stesso posto.</p>
-          <p><b>Inizio:</b> 16:00</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- RSVP -->
-    <section class="section" id="rsvp">
-      <h2>Speriamo che tu possa partecipare</h2>
-      <p>Per favore conferma la tua presenza compilando il modulo.</p>
-      <div class="ctaRow" style="margin-top:12px;">
-        <a class="btn" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank" rel="noopener noreferrer">
-          Apri RSVP (Google Form)
-        </a>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section" id="faq">
-      <h2>FAQ</h2>
-      <div class="grid2">
-        <div class="mini">
-          <b>Dress code</b>
-          <p>(Inserire qui: es. “Elegante estivo”.)</p>
-        </div>
-        <div class="mini">
-          <b>Contatti</b>
-          <p>Se hai dubbi scrivici: vitullifrancesca@gmail.com</p>
-        </div>
-      </div>
-    </section>
-
+  <div class="topbar">
+    <div class="nav">
+      <a href="./">Home</a>
+      <a href="#quando">Quando</a>
+      <a href="#dove">Dove</a>
+      <a href="#logistica">Logistica</a>
+      <a href="#rsvp">RSVP</a>
+    </div>
+    <div class="lang">
+      <a class="active" href="./invito.html">IT</a>
+      <a href="../en/">EN</a>
+      <a href="../de/">DE</a>
+      <a href="../lt/">LT</a>
+    </div>
   </div>
 
-  <!-- Countdown script -->
-  <script>
-    (function(){
-      const wedding = new Date("2026-09-25T16:00:00+02:00");
-      const elDays  = document.getElementById("cd-days");
-      const elHours = document.getElementById("cd-hours");
-      const elMins  = document.getElementById("cd-mins");
-      const elSecs  = document.getElementById("cd-secs");
+  <!-- HERO -->
+  <section class="card hero" id="quando">
+    <img src="../Pic2.jpg" alt="Joris e Francesca">
+    <div class="heroInner">
+      <div class="names">Joris and Francesca</div>
+      <div class="meta">25 settembre 2026 · ore 16:00 · Sorrento</div>
 
-      function pad(n){ return String(n).padStart(2,"0"); }
+      <div class="countdown">
+        <div><span class="num" id="d">—</span><span class="lbl">giorni</span></div>
+        <div><span class="num" id="h">—</span><span class="lbl">ore</span></div>
+        <div><span class="num" id="m">—</span><span class="lbl">min</span></div>
+        <div><span class="num" id="s">—</span><span class="lbl">sec</span></div>
+      </div>
 
-      function tick(){
-        const now = new Date();
-        let diff = wedding - now;
+      <div class="btnRow">
+        <a class="btn" href="https://www.caposantafortunata.com" target="_blank">Vedi la location</a>
+        <a class="btn" href="https://www.google.com/maps/dir//Capo+Santa+Fortunata+Relais,+Via+Calata+Punta+Capo,+13,+80067+Sorrento+NA,+Italia/" target="_blank">Come raggiungerci</a>
+        <a class="btn primary" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank">RSVP</a>
+      </div>
+    </div>
+  </section>
 
-        if(diff <= 0){
-          elDays.textContent = "0";
-          elHours.textContent = "00";
-          elMins.textContent = "00";
-          elSecs.textContent = "00";
-          return;
-        }
+  <div class="divider"></div>
 
-        const totalSeconds = Math.floor(diff / 1000);
-        const days  = Math.floor(totalSeconds / 86400);
-        const hours = Math.floor((totalSeconds % 86400) / 3600);
-        const mins  = Math.floor((totalSeconds % 3600) / 60);
-        const secs  = totalSeconds % 60;
+  <section class="card section" id="dove">
+    <h2>Dove</h2>
+    <p>Capo Santa Fortunata è una storica villa affacciata sul mare, immersa nella natura della penisola sorrentina.</p>
+    <p>Cerimonia e ricevimento si terranno nello stesso luogo.</p>
+  </section>
 
-        elDays.textContent  = days;
-        elHours.textContent = pad(hours);
-        elMins.textContent  = pad(mins);
-        elSecs.textContent  = pad(secs);
-      }
+  <section class="card section" id="logistica">
+    <h2>Logistica</h2>
+    <p>Troverai tutte le informazioni su come arrivare e sugli hotel consigliati nella pagina dedicata.</p>
+    <p><a href="./logistica.html">Vai alla pagina Logistica</a></p>
+  </section>
 
-      tick();
-      setInterval(tick, 1000);
-    })();
-  </script>
+  <section class="card section" id="rsvp">
+    <h2>Speriamo che tu possa partecipare</h2>
+    <p>La tua presenza per noi è molto importante. Ti chiediamo gentilmente di confermare.</p>
+    <div class="btnRow">
+      <a class="btn primary" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank">Conferma la presenza</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Envelope open
+  const intro=document.getElementById("intro");
+  document.getElementById("seal").onclick=()=>{
+    intro.classList.add("open");
+    setTimeout(()=>intro.classList.add("fade"),900);
+  };
+
+  // Countdown
+  const wedding=new Date("2026-09-25T16:00:00+02:00");
+  const d=document.getElementById("d"),
+        h=document.getElementById("h"),
+        m=document.getElementById("m"),
+        s=document.getElementById("s");
+  const pad=n=>String(n).padStart(2,"0");
+  setInterval(()=>{
+    const diff=wedding-new Date();
+    if(diff<=0){d.textContent=0;h.textContent="00";m.textContent="00";s.textContent="00";return;}
+    const t=Math.floor(diff/1000);
+    d.textContent=Math.floor(t/86400);
+    h.textContent=pad(Math.floor(t%86400/3600));
+    m.textContent=pad(Math.floor(t%3600/60));
+    s.textContent=pad(t%60);
+  },1000);
+</script>
+
 </body>
 </html>
