@@ -412,10 +412,41 @@
       color: rgba(20, 25, 18, .95);
       box-shadow: 0 10px 30px rgba(0,0,0,.22);
     }
-    .hotelBg .btn.primary{
-      background: rgba(255,255,255,.94);
-    }
+    .hotelBg .btn.primary{ background: rgba(255,255,255,.94); }
     .hotelBg .btn:hover{
+      background: rgba(255,255,255,.98);
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.28);
+    }
+
+    /* ✅ Gift background Pic9 */
+    .giftBg{
+      background-image: url("../Pic9.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .giftBg::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:1;
+      background: radial-gradient(900px 650px at 50% 40%,
+        rgba(0,0,0,.12), rgba(0,0,0,.46));
+      pointer-events:none;
+    }
+    .giftBg .content h2,
+    .giftBg .content p{
+      color: rgba(255,255,255,.96);
+    }
+    .giftBg .btn{
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(255,255,255,.85);
+      color: rgba(20, 25, 18, .95);
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+    }
+    .giftBg .btn.primary{ background: rgba(255,255,255,.94); }
+    .giftBg .btn:hover{
       background: rgba(255,255,255,.98);
       transform: translateY(-1px);
       box-shadow: 0 16px 40px rgba(0,0,0,.28);
@@ -478,7 +509,6 @@
 
 <body>
 
-  <!-- fixed topbar -->
   <div class="topbar">
     <div class="nav">
       <a href="#home">Pradžia</a>
@@ -489,7 +519,6 @@
       <a href="#rsvp">RSVP</a>
     </div>
 
-    <!-- ✅ relative language links (you are in /lt/) -->
     <div class="lang">
       <a href="../it/index.html">IT</a>
       <a href="../en/index.html">EN</a>
@@ -500,7 +529,6 @@
 
   <main class="pages" id="pages">
 
-    <!-- PAGE 1: HERO -->
     <section class="page" id="home" aria-label="Pradžia">
       <div class="fullBleed reveal">
         <img src="../Pic4.png" alt="Viršelis">
@@ -516,7 +544,6 @@
       </div>
     </section>
 
-    <!-- PAGE 2 -->
     <section class="page" id="info" aria-label="Atgalinis skaičiavimas ir detalės">
       <div class="content reveal">
         <div class="combo">
@@ -551,7 +578,6 @@
       </div>
     </section>
 
-    <!-- PAGE 3: HOTEL -->
     <section class="page hotelBg" id="alloggio" aria-label="Viešbutis">
       <div class="content reveal">
         <h2>Viešbutis</h2>
@@ -568,7 +594,6 @@
       </div>
     </section>
 
-    <!-- PAGE 4: FAQ -->
     <section class="page" id="faq" aria-label="DUK">
       <div class="content reveal">
         <h2>Dažniausiai užduodami klausimai</h2>
@@ -598,8 +623,8 @@
       </div>
     </section>
 
-    <!-- PAGE 5: GIFT -->
-    <section class="page" id="regalo" aria-label="Dovana">
+    <!-- ✅ Regalo with Pic9 background -->
+    <section class="page giftBg" id="regalo" aria-label="Dovana">
       <div class="content reveal">
         <h2>Dovana</h2>
         <p>Jūsų dalyvavimas mums yra svarbiausias.</p>
@@ -611,7 +636,6 @@
       </div>
     </section>
 
-    <!-- PAGE 6: RSVP -->
     <section class="page" id="rsvp" aria-label="RSVP">
       <div class="content reveal">
         <h2>Patvirtinkite dalyvavimą</h2>
@@ -651,14 +675,12 @@
   </div>
 
   <script>
-    // ✅ Always mark intro as seen in non-IT pages (so switching back to IT won't show envelope again)
     (function(){
       sessionStorage.setItem("introSeen", "1");
       const ht = document.getElementById("heroText");
       if(ht) requestAnimationFrame(() => ht.classList.add("in"));
     })();
 
-    // Countdown
     (function(){
       const wedding = new Date("2026-09-25T16:00:00+02:00");
       const elDays  = document.getElementById("cd-days");
@@ -686,7 +708,6 @@
       setInterval(tick, 1000);
     })();
 
-    // Reveal
     (function(){
       const els = document.querySelectorAll(".reveal");
       const io = new IntersectionObserver((entries) => {
@@ -699,7 +720,6 @@
       els.forEach(el => io.observe(el));
     })();
 
-    // IBAN modal
     (function(){
       const modal = document.getElementById("ibanModal");
       const openBtn = document.getElementById("openIban");
