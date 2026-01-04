@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -43,7 +43,7 @@
       overflow-x:hidden;
     }
 
-    /* soft haze */
+    /* haze */
     body::before, body::after{
       content:"";
       position:fixed;
@@ -64,7 +64,7 @@
       filter: blur(1px);
     }
 
-    /* sticky nav (unchanged size) */
+    /* topbar */
     .topbar{
       position:fixed;
       top:0; left:0; right:0;
@@ -74,18 +74,41 @@
       align-items:center;
       gap:12px;
       flex-wrap:wrap;
-      padding:12px 16px;
-      background: hsla(var(--background)/.78);
+      padding:12px 12px;
+      background: hsla(var(--background)/.82);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(0,0,0,.08);
     }
-    .nav,.lang{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+
+    /* ✅ mobile-safe: horizontal scroll menu */
+    .nav{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      max-width: 72vw;
+      padding-bottom: 2px;
+    }
+    .nav::-webkit-scrollbar{ display:none; }
+
+    .lang{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:nowrap;
+    }
+
     .nav a,.lang a{
       text-decoration:none;
       color:inherit;
       font-size:14px;
       font-family: var(--font-body);
       opacity:.95;
+      white-space: nowrap;
+      flex: 0 0 auto;
     }
     .lang a{ font-size:13px; opacity:.82; }
     .nav a:hover,.lang a:hover{ text-decoration:underline; text-underline-offset:4px; }
@@ -96,14 +119,14 @@
       text-underline-offset:4px;
     }
 
-    /* one section per screen */
+    /* pages */
     .pages{
       position:relative;
       z-index:1;
       height: 100vh;
       overflow-y: auto;
       scroll-snap-type: y mandatory;
-      scroll-padding-top: 70px;
+      scroll-padding-top: 76px;
     }
     .page{
       min-height: 100vh;
@@ -115,29 +138,25 @@
       box-sizing:border-box;
     }
 
-    /* ✅ bigger text for ALL content (except nav) */
     .content{
       width: min(var(--max), 100%);
       text-align:center;
       padding: 14px 10px;
     }
+
+    /* ✅ base typography (desktop) */
     h2{
       font-family: var(--font-display);
       font-weight: 600;
-      letter-spacing: .02em;
       margin: 0 0 12px;
-      font-size: 34px;     /* bigger */
+      font-size: 34px;
+      letter-spacing: .02em;
     }
     p{
       margin: 10px 0;
       line-height: 1.75;
-      font-size: 20px;     /* bigger */
+      font-size: 20px;
       color: hsla(var(--foreground)/.90);
-    }
-    a{
-      color: inherit;
-      text-decoration: underline;
-      text-underline-offset: 3px;
     }
 
     /* Buttons */
@@ -152,7 +171,7 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding: 1.05rem 1.35rem;  /* bigger */
+      padding: 1.05rem 1.35rem;
       border-radius: 999px;
       border: 1px solid rgba(0,0,0,.10);
       background: hsla(var(--background)/.55);
@@ -161,8 +180,9 @@
       text-decoration:none;
       transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
       font-family: var(--font-body);
-      font-size: 18px; /* bigger */
+      font-size: 18px;
       cursor:pointer;
+      min-width: 210px;
     }
     .btn:hover{
       transform: translateY(-1px);
@@ -171,7 +191,7 @@
     }
     .btn.primary{ background: hsla(var(--gold-soft)/.34); }
 
-    /* Full-bleed images (no rounded corners) */
+    /* Full-bleed hero */
     .fullBleed{
       width: 100vw;
       height: 100vh;
@@ -194,7 +214,7 @@
       background: radial-gradient(900px 650px at 50% 42%, rgba(0,0,0,.14), rgba(0,0,0,.50));
     }
 
-    /* ✅ Hero text bigger + slide-up animation */
+    /* Hero text slide-up */
     .heroText{
       color: rgba(255,255,255,.96);
       max-width: 920px;
@@ -208,7 +228,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-
     .heroText .top{
       font-family: var(--font-display);
       text-transform: uppercase;
@@ -220,27 +239,40 @@
     .heroText .nameLine{
       font-family: var(--font-display);
       font-weight: 500;
-      font-size: clamp(52px, 7.2vw, 86px); /* bigger */
+      font-size: clamp(52px, 7.2vw, 86px);
       line-height: 1.02;
       margin: 6px 0;
     }
     .heroText .and{
       font-family: var(--font-display);
-      font-size: clamp(34px, 5.2vw, 52px); /* bigger */
+      font-size: clamp(34px, 5.2vw, 52px);
       margin: 10px 0 4px;
       opacity: .96;
     }
     .heroText .date{
       font-family: var(--font-display);
       margin-top: 18px;
-      font-size: clamp(22px, 3.6vw, 28px); /* bigger */
+      font-size: clamp(22px, 3.6vw, 28px);
       letter-spacing: .06em;
       opacity: .92;
     }
 
-    /* Countdown bigger */
+    /* ✅ Combined Countdown + Details layout */
+    .combo{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 28px;
+    }
+    .divider{
+      width: min(720px, 92%);
+      height: 1px;
+      background: rgba(0,0,0,.10);
+      margin: 6px auto 0;
+    }
+
     .countdown{
-      margin-top: 18px;
+      margin-top: 10px;
       display:flex;
       justify-content:center;
       flex-wrap:wrap;
@@ -249,56 +281,15 @@
     }
     .countdown .num{
       font-family: var(--font-display);
-      font-size: 56px; /* bigger */
+      font-size: 56px;
       color: hsl(var(--countdown));
     }
     .countdown .lbl{
-      font-size: 14px; /* bigger */
+      font-size: 14px;
       text-transform: uppercase;
       opacity: .72;
       margin-left: 8px;
       letter-spacing: .12em;
-    }
-
-    /* ✅ Timeline HORIZONTAL */
-    .timeline{
-      margin: 22px auto 0;
-      width: min(980px, 100%);
-      display:flex;
-      gap: 18px;
-      align-items:stretch;
-      justify-content:flex-start;
-      overflow-x:auto;
-      padding: 8px 6px 12px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .timeline::-webkit-scrollbar{ height: 8px; }
-    .timeline::-webkit-scrollbar-thumb{
-      background: rgba(0,0,0,.16);
-      border-radius: 999px;
-    }
-
-    .tlCard{
-      flex: 0 0 auto;
-      width: min(260px, 75vw);
-      background: hsla(var(--background)/.50);
-      box-shadow: var(--shadow-soft);
-      padding: 14px 14px;
-      text-align:center;
-      scroll-snap-align: start;
-    }
-    .flower{ width:26px;height:26px; display:block; margin: 0 auto 10px; }
-    .tlTime{
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: 22px;
-      margin:0;
-    }
-    .tlText{
-      margin:6px 0 0;
-      font-size: 18px;
-      color: hsla(var(--foreground)/.88);
     }
 
     /* FAQ */
@@ -315,7 +306,7 @@
       list-style:none;
       font-family: var(--font-display);
       font-weight: 600;
-      font-size: 20px; /* bigger */
+      font-size: 20px;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -462,11 +453,11 @@
     }
     .intro.open .envFlap{ transform: rotateX(165deg); }
 
-    /* ✅ Pic6 under RSVP, but not as separate "Fine" page */
+    /* Pic6 under RSVP */
     .pic6Wrap{
       width: 100vw;
       height: 48vh;
-      min-height: 360px;
+      min-height: 320px;
       margin-top: 26px;
       overflow:hidden;
     }
@@ -477,12 +468,41 @@
       display:block;
     }
 
+    /* ✅ MOBILE: typography + layout */
     @media (max-width: 860px){
-      .page{ padding: 96px 16px 60px; }
-      h2{ font-size: 30px; }
-      p{ font-size: 19px; }
-      .countdown .num{ font-size: 50px; }
-      .tlCard{ width: min(240px, 78vw); }
+      .page{ padding: 94px 14px 56px; }
+      .content{ padding: 10px 6px; }
+
+      h2{ font-size: 28px; }
+      p{ font-size: 18px; line-height: 1.65; }
+
+      .btn{
+        min-width: unset;
+        width: 100%;
+        max-width: 420px;
+        font-size: 17px;
+        padding: .95rem 1.15rem;
+      }
+
+      .countdown{ gap: 18px; }
+      .countdown .num{ font-size: 44px; }
+      .countdown .lbl{ font-size: 12px; margin-left: 6px; }
+
+      .heroText .top{ font-size: 15px; }
+      .heroText .nameLine{ font-size: clamp(40px, 10vw, 62px); }
+      .heroText .and{ font-size: clamp(26px, 7vw, 40px); }
+      .heroText .date{ font-size: clamp(18px, 4.8vw, 22px); }
+
+      .pic6Wrap{ height: 38vh; min-height: 240px; }
+      .nav{ max-width: 68vw; }
+    }
+
+    /* smaller phones */
+    @media (max-width: 380px){
+      .nav{ max-width: 62vw; }
+      h2{ font-size: 26px; }
+      p{ font-size: 17px; }
+      .countdown .num{ font-size: 40px; }
     }
   </style>
 </head>
@@ -510,9 +530,7 @@
   <div class="topbar">
     <div class="nav">
       <a href="#home">Home</a>
-      <a href="#countdown">Countdown</a>
-      <a href="#dettagli">Dettagli</a>
-      <a href="#programma">Programma</a>
+      <a href="#info">Info</a>
       <a href="#alloggio">Alloggio</a>
       <a href="#faq">FAQ</a>
       <a href="#regalo">Regalo</a>
@@ -544,146 +562,44 @@
       </div>
     </section>
 
-    <!-- PAGE 2: COUNTDOWN -->
-    <section class="page" id="countdown" aria-label="Countdown">
+    <!-- ✅ PAGE 2: COMBINED (Countdown + Details) -->
+    <section class="page" id="info" aria-label="Countdown e dettagli">
       <div class="content reveal">
-        <h2>Countdown</h2>
-        <p>per il giorno più speciale della nostra vita</p>
+        <div class="combo">
+          <div>
+            <h2>Countdown</h2>
+            <p>per il giorno più speciale della nostra vita</p>
 
-        <div class="countdown" aria-label="Countdown matrimonio">
-          <div><span class="num" id="cd-days">—</span><span class="lbl">giorni</span></div>
-          <div><span class="num" id="cd-hours">—</span><span class="lbl">ore</span></div>
-          <div><span class="num" id="cd-mins">—</span><span class="lbl">min</span></div>
-          <div><span class="num" id="cd-secs">—</span><span class="lbl">sec</span></div>
+            <div class="countdown" aria-label="Countdown matrimonio">
+              <div><span class="num" id="cd-days">—</span><span class="lbl">giorni</span></div>
+              <div><span class="num" id="cd-hours">—</span><span class="lbl">ore</span></div>
+              <div><span class="num" id="cd-mins">—</span><span class="lbl">min</span></div>
+              <div><span class="num" id="cd-secs">—</span><span class="lbl">sec</span></div>
+            </div>
+          </div>
+
+          <div class="divider" aria-hidden="true"></div>
+
+          <div>
+            <h2>Dettagli del giorno</h2>
+            <p><b>Venerdì 25 settembre 2026</b> · ore <b>16:00</b></p>
+            <p><b>Capo Santa Fortunata</b> · Sorrento, Italy</p>
+
+            <div class="btnRow">
+              <a class="btn" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">Localizzazione</a>
+              <a class="btn" href="https://www.google.com/maps/dir//Capo+Santa+Fortunata+Relais,+Via+Calata+Punta+Capo,+13,+80067+Sorrento+NA,+Italia/"
+                 target="_blank" rel="noopener noreferrer">Google Maps</a>
+            </div>
+
+            <p style="margin-top:22px; opacity:.9;">
+              Cerimonia e ricevimento nello stesso luogo, vista mare.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 3: DETTAGLI -->
-    <section class="page" id="dettagli" aria-label="Dettagli">
-      <div class="content reveal">
-        <h2>Dettagli del giorno</h2>
-        <p><b>Venerdì 25 settembre 2026</b> · ore <b>16:00</b></p>
-        <p><b>Capo Santa Fortunata</b> · Sorrento, Italy</p>
-
-        <div class="btnRow">
-          <a class="btn" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">Localizzazione</a>
-          <a class="btn" href="https://www.google.com/maps/dir//Capo+Santa+Fortunata+Relais,+Via+Calata+Punta+Capo,+13,+80067+Sorrento+NA,+Italia/"
-             target="_blank" rel="noopener noreferrer">Google Maps</a>
-        </div>
-
-        <p style="margin-top:24px; opacity:.9;">
-          Cerimonia e ricevimento nello stesso luogo, vista mare.
-        </p>
-      </div>
-    </section>
-
-    <!-- PAGE 4: PROGRAMMA -->
-    <section class="page" id="programma" aria-label="Programma">
-      <div class="content reveal">
-        <h2>Programma del giorno</h2>
-
-        <div class="timeline" aria-label="Timeline programma (orizzontale)">
-          <!-- card 1 -->
-          <div class="tlCard">
-            <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
-              <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
-              <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
-              <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
-              <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
-              <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
-            </svg>
-            <div class="tlTime">16:00</div>
-            <div class="tlText">Cerimonia</div>
-          </div>
-
-          <div class="tlCard">
-            <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
-              <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
-              <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
-              <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
-              <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
-              <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
-            </svg>
-            <div class="tlTime">17:00</div>
-            <div class="tlText">Aperitivo</div>
-          </div>
-
-          <div class="tlCard">
-            <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
-              <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
-              <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
-              <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
-              <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
-              <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
-            </svg>
-            <div class="tlTime">17:30</div>
-            <div class="tlText">Cocktail di benvenuto</div>
-          </div>
-
-          <div class="tlCard">
-            <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
-              <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
-              <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
-              <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
-              <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
-              <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
-            </svg>
-            <div class="tlTime">18:00</div>
-            <div class="tlText">Cena</div>
-          </div>
-
-          <div class="tlCard">
-            <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
-              <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
-              <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
-              <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
-              <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
-              <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
-            </svg>
-            <div class="tlTime">21:00</div>
-            <div class="tlText">Torta nuziale</div>
-          </div>
-
-          <div class="tlCard">
-            <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
-              <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
-              <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
-              <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
-              <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
-              <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
-            </svg>
-            <div class="tlTime">21:30</div>
-            <div class="tlText">Free bar</div>
-          </div>
-
-          <div class="tlCard">
-            <svg class="flower" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M32 12c3 6-3 10-8 10s-9-4-6-10c3-6 11-6 14 0Z" fill="rgba(170,72,128,.85)"/>
-              <path d="M52 28c-6 3-10-3-10-8s4-9 10-6c6 3 6 11 0 14Z" fill="rgba(170,72,128,.80)"/>
-              <path d="M32 52c-3-6 3-10 8-10s9 4 6 10c-3 6-11 6-14 0Z" fill="rgba(170,72,128,.78)"/>
-              <path d="M12 28c6-3 10 3 10 8s-4 9-10 6c-6-3-6-11 0-14Z" fill="rgba(170,72,128,.82)"/>
-              <circle cx="32" cy="32" r="7" fill="rgba(246,241,232,.92)"/>
-              <circle cx="32" cy="32" r="3" fill="rgba(90,120,90,.55)"/>
-            </svg>
-            <div class="tlTime">22:00</div>
-            <div class="tlText">Party</div>
-          </div>
-        </div>
-
-        <p style="opacity:.8; margin-top: 14px; font-size:18px;">
-          (Scorri lateralmente per vedere tutti gli orari)
-        </p>
-      </div>
-    </section>
-
-    <!-- PAGE 5: ALLOGGIO -->
+    <!-- PAGE 3: ALLOGGIO -->
     <section class="page" id="alloggio" aria-label="Alloggio">
       <div class="content reveal">
         <h2>Alloggio</h2>
@@ -700,7 +616,7 @@
       </div>
     </section>
 
-    <!-- PAGE 6: FAQ -->
+    <!-- PAGE 4: FAQ -->
     <section class="page" id="faq" aria-label="FAQ">
       <div class="content reveal">
         <h2>Domande frequenti</h2>
@@ -720,7 +636,7 @@
       </div>
     </section>
 
-    <!-- PAGE 7: REGALO -->
+    <!-- PAGE 5: REGALO -->
     <section class="page" id="regalo" aria-label="Regalo">
       <div class="content reveal">
         <h2>Regalo</h2>
@@ -733,7 +649,7 @@
       </div>
     </section>
 
-    <!-- PAGE 8: RSVP + Pic6 BELOW -->
+    <!-- PAGE 6: RSVP + Pic6 -->
     <section class="page" id="rsvp" aria-label="RSVP">
       <div class="content reveal">
         <h2>Conferma la tua presenza</h2>
@@ -745,7 +661,6 @@
           </a>
         </div>
 
-        <!-- ✅ Pic6 under RSVP (same section) -->
         <div class="pic6Wrap" aria-label="Foto finale">
           <img src="../Pic6.png" alt="Foto finale">
         </div>
@@ -795,7 +710,6 @@
 
         setTimeout(() => {
           intro.style.display = "none";
-          // trigger hero text animation
           const ht = document.getElementById("heroText");
           if(ht) requestAnimationFrame(() => ht.classList.add("in"));
         }, 1400 + 520);
@@ -833,7 +747,7 @@
       setInterval(tick, 1000);
     })();
 
-    // Reveal animation per section (helps “page feel”)
+    // Reveal per section
     (function(){
       const els = document.querySelectorAll(".reveal");
       const io = new IntersectionObserver((entries) => {
