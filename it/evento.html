@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Joris & Francesca — Invito</title>
 
-  <!-- Fonts (same visual identity as reference site) -->
+  <!-- Fonts (palette + typography from the model site variables) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
+      /* Theme vars (from the site you extracted) */
       --background: 40 39% 91%;
       --foreground: 100 15% 24%;
       --card: 40 35% 88%;
+      --card-foreground: 100 15% 24%;
       --muted: 60 10% 82%;
+      --muted-foreground: 77 15% 40%;
       --accent: 77 15% 50%;
       --gold: 42 85% 55%;
       --gold-soft: 42 60% 70%;
@@ -27,10 +30,11 @@
       --font-script: "Great Vibes", cursive;
       --font-body: "Lora", serif;
 
-      --shadow-soft: 0 6px 20px rgba(0,0,0,.08);
-      --shadow-elegant: 0 20px 60px rgba(0,0,0,.15);
+      --shadow-soft: 0 2px 15px -3px rgba(58, 69, 52, .08), 0 4px 6px -2px rgba(58, 69, 52, .04);
+      --shadow-elegant: 0 10px 40px -10px rgba(58, 69, 52, .15), 0 4px 15px -3px rgba(58, 69, 52, .08);
+      --shadow-lifted: 0 20px 50px -15px rgba(58, 69, 52, .2), 0 8px 20px -5px rgba(58, 69, 52, .1);
 
-      --max: 1120px;
+      --max: 1080px;
     }
 
     html{ scroll-behavior:smooth; }
@@ -39,31 +43,37 @@
       background: hsl(var(--background));
       color: hsl(var(--foreground));
       font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Soft haze */
     body::before, body::after{
       content:"";
       position:fixed;
       inset:0;
       pointer-events:none;
       z-index:0;
+      opacity:.55;
     }
     body::before{
       background:
-        radial-gradient(600px 400px at 12% 14%, hsla(var(--gold) / .14), transparent 60%),
-        radial-gradient(600px 400px at 90% 20%, hsla(var(--accent) / .10), transparent 65%);
+        radial-gradient(600px 420px at 12% 14%, hsla(var(--gold) / .14), transparent 60%),
+        radial-gradient(600px 420px at 90% 20%, hsla(var(--accent) / .10), transparent 65%);
+      filter: blur(1px);
     }
     body::after{
       background:
-        radial-gradient(700px 500px at 85% 90%, hsla(var(--gold-soft) / .15), transparent 70%);
+        radial-gradient(720px 520px at 85% 90%, hsla(var(--gold-soft) / .15), transparent 72%);
+      filter: blur(1px);
     }
 
     .wrap{
       position:relative;
       z-index:1;
-      max-width:var(--max);
+      max-width: var(--max);
       margin:0 auto;
-      padding:20px 18px 80px;
+      padding: 18px 18px 80px;
     }
 
     /* Topbar */
@@ -74,306 +84,636 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
+      gap:12px;
       flex-wrap:wrap;
       padding:12px 10px;
-      background:hsla(var(--background)/.75);
-      backdrop-filter:blur(10px);
-      border-bottom:1px solid hsla(var(--border)/.6);
+      margin: 0 -10px;
+      background: hsla(var(--background)/.75);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid hsla(var(--border)/.60);
     }
-    .nav,.lang{display:flex;gap:16px;}
+    .nav,.lang{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
     .nav a,.lang a{
       text-decoration:none;
       color:inherit;
       font-size:14px;
+      font-family: var(--font-body);
     }
-    .nav a:hover,.lang a:hover{
-      text-decoration:underline;
+    .lang a{ font-size:13px; opacity:.85; }
+    .nav a:hover,.lang a:hover{ text-decoration:underline; text-underline-offset:4px; }
+    .lang a.active{
+      opacity:1;
+      text-decoration: underline;
+      text-decoration-thickness:2px;
       text-underline-offset:4px;
     }
-    .lang a.active{
-      text-decoration:underline;
-      text-decoration-thickness:2px;
-    }
 
-    /* Card */
+    /* Generic section card */
     .card{
       border:1px solid hsl(var(--border));
-      border-radius:22px;
-      background:hsla(var(--card)/.75);
-      box-shadow:var(--shadow-elegant);
+      border-radius: 22px;
+      background: hsla(var(--card)/.74);
+      box-shadow: var(--shadow-elegant);
       overflow:hidden;
-      margin-top:18px;
+      margin-top: 18px;
     }
-
-    /* Hero */
-    .hero img{
-      width:100%;
-      height:min(55vh,560px);
-      object-fit:cover;
-      display:block;
-    }
-    .heroInner{
-      text-align:center;
-      padding:20px;
-    }
-    .names{
-      font-family:var(--font-script);
-      font-size:clamp(78px,9vw,120px);
-      line-height:1;
-      margin:10px 0;
-    }
-    .meta{
-      font-family:var(--font-display);
-      font-size:18px;
-      opacity:.85;
-    }
-
-    /* Countdown */
-    .countdown{
-      margin-top:14px;
-      display:flex;
-      justify-content:center;
-      gap:18px;
-      flex-wrap:wrap;
-    }
-    .countdown .num{
-      font-family:var(--font-display);
-      font-size:34px;
-      color:hsl(var(--countdown));
-    }
-    .countdown .lbl{
-      font-size:12px;
-      text-transform:uppercase;
-      margin-left:6px;
-      opacity:.7;
-    }
-
-    .btnRow{
-      margin-top:18px;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .btn{
-      padding:.9rem 1.2rem;
-      border-radius:999px;
-      border:1px solid hsl(var(--border));
-      background:hsla(var(--background)/.6);
-      box-shadow:var(--shadow-soft);
-      text-decoration:none;
-      color:inherit;
-      transition:.3s;
-    }
-    .btn:hover{
-      background:hsla(var(--gold-soft)/.25);
-      border-color:hsl(var(--gold));
-    }
-    .btn.primary{
-      background:hsla(var(--gold-soft)/.35);
-      border-color:hsl(var(--gold));
-    }
-
     .section{
-      padding:18px;
+      padding: 18px;
     }
     .section h2{
-      font-family:var(--font-display);
-      font-size:20px;
-      margin:0 0 10px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      letter-spacing: .02em;
+      margin: 0 0 10px;
+      font-size: 22px;
     }
     .section p{
-      font-size:16px;
-      line-height:1.55;
-      margin:8px 0;
+      margin: 8px 0;
+      line-height: 1.6;
+      font-size: 16px;
+      color: hsla(var(--foreground)/.88);
+    }
+    .section a{
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     .divider{
-      margin:22px auto;
-      border-top:1px solid hsl(var(--border));
-      max-width:var(--max);
+      margin: 22px auto;
+      border-top: 1px solid hsla(var(--border)/.75);
+      opacity:.8;
+      max-width: var(--max);
     }
 
-    /* Envelope intro */
-    .intro{
-      position:fixed;
-      inset:0;
-      z-index:9999;
-      display:grid;
-      place-items:center;
-      background:hsl(var(--background));
-    }
-    .envelope{
-      width:min(560px,90vw);
-      aspect-ratio:4/3;
-      position:relative;
-      filter:drop-shadow(0 25px 70px rgba(0,0,0,.25));
-    }
-    .env-body{
-      position:absolute;
-      inset:0;
-      background:hsl(var(--card));
-      border:1px solid hsl(var(--border));
-      border-radius:22px;
-    }
-    .env-flap{
-      position:absolute;
-      top:0;left:0;right:0;
-      height:55%;
-      background:hsl(var(--muted));
-      clip-path:polygon(0 0,100% 0,50% 100%);
-      transform-origin:top;
-      transition:.9s cubic-bezier(.2,.9,.2,1);
-    }
-    .env-paper{
-      position:absolute;
-      inset:8% 6% 10%;
-      background:hsl(var(--background));
-      border:1px solid hsl(var(--border));
-      border-radius:16px;
+    /* Buttons */
+    .btnRow{
+      margin-top: 14px;
       display:flex;
+      justify-content:center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn{
+      display:inline-flex;
       align-items:center;
       justify-content:center;
-      text-align:center;
-      transform:translateY(30%);
-      transition:.9s cubic-bezier(.2,.9,.2,1);
+      padding: .92rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid hsla(var(--border)/.95);
+      background: hsla(var(--background)/.60);
+      box-shadow: var(--shadow-soft);
+      color: inherit;
+      text-decoration:none;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      font-family: var(--font-body);
+      cursor:pointer;
     }
-    .paper-text .big{
-      font-family:var(--font-script);
-      font-size:64px;
-      margin-bottom:10px;
+    .btn:hover{
+      transform: translateY(-1px);
+      background: hsla(var(--gold-soft)/.24);
+      border-color: hsla(var(--gold)/.55);
+      box-shadow: var(--shadow-elegant);
     }
-    .paper-text .small{
-      font-family:var(--font-display);
-      font-size:16px;
+    .btn.primary{
+      background: hsla(var(--gold-soft)/.34);
+      border-color: hsla(var(--gold)/.60);
     }
-    .seal{
+
+    /* 1) HERO Pic4 with overlay text */
+    .hero{
+      position: relative;
+      height: min(72vh, 640px);
+      border-radius: 22px;
+    }
+    .heroImg{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.02) contrast(1.02);
+    }
+    .heroOverlay{
       position:absolute;
-      top:56%;left:50%;
-      transform:translate(-50%,-50%);
-      width:96px;height:96px;
-      border-radius:50%;
-      background:linear-gradient(180deg,hsl(0 65% 55%),hsl(0 65% 45%));
-      box-shadow:0 16px 40px rgba(0,0,0,.3);
-      color:#fff;
+      inset:0;
       display:grid;
       place-items:center;
-      cursor:pointer;
-      font-family:var(--font-display);
-      font-size:18px;
+      text-align:center;
+      padding: 18px;
+      background: radial-gradient(900px 650px at 50% 42%, rgba(0,0,0,.16), rgba(0,0,0,.42));
     }
-    .intro.open .env-flap{transform:rotateX(160deg);}
-    .intro.open .env-paper{transform:translateY(-6%);}
-    .intro.fade{opacity:0;visibility:hidden;transition:.7s;}
+    .heroText{
+      color: rgba(255,255,255,.96);
+      max-width: 800px;
+      padding: 12px 14px;
+    }
+    .heroText .top{
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: 14px;
+      opacity: .92;
+      margin-bottom: 12px;
+    }
+    .heroText .nameLine{
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(34px, 6vw, 52px);
+      line-height: 1.05;
+      margin: 6px 0;
+    }
+    .heroText .and{
+      font-family: var(--font-display);
+      font-size: clamp(22px, 4.6vw, 34px);
+      margin: 10px 0 4px;
+      opacity: .95;
+    }
+    .heroText .date{
+      font-family: var(--font-display);
+      margin-top: 16px;
+      font-size: clamp(16px, 3.2vw, 20px);
+      letter-spacing: .06em;
+      opacity: .92;
+    }
+
+    /* 2) Countdown */
+    .countdownWrap{
+      text-align:center;
+      padding: 18px 18px 8px;
+    }
+    .countdownTitle{
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+    .countdownSub{
+      font-family: var(--font-body);
+      font-size: 16px;
+      margin: 0 0 10px;
+      color: hsla(var(--foreground)/.86);
+    }
+    .countdown{
+      margin-top: 10px;
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap: 18px;
+      align-items:baseline;
+    }
+    .countdown .num{
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: hsl(var(--countdown));
+    }
+    .countdown .lbl{
+      font-family: var(--font-body);
+      font-size: 12px;
+      text-transform: uppercase;
+      opacity: .72;
+      margin-left: 6px;
+      letter-spacing: .10em;
+    }
+
+    /* 3) Details: quick info grid */
+    .infoGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .infoBox{
+      border: 1px solid hsla(var(--border)/.95);
+      border-radius: 16px;
+      background: hsla(var(--background)/.45);
+      box-shadow: var(--shadow-soft);
+      padding: 14px;
+    }
+    .infoBox b{
+      font-family: var(--font-display);
+      font-weight: 600;
+      display:block;
+      margin-bottom: 6px;
+    }
+
+    /* 4) Timeline */
+    .timeline{
+      position:relative;
+      margin-top: 10px;
+      padding-left: 18px;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left: 6px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: hsla(var(--border)/.95);
+    }
+    .tlItem{
+      position:relative;
+      padding: 10px 0 10px 18px;
+    }
+    .tlItem::before{
+      content:"";
+      position:absolute;
+      left: -1px;
+      top: 18px;
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: hsla(var(--gold)/.95);
+      box-shadow: 0 0 0 4px hsla(var(--gold-soft)/.20);
+      border: 1px solid hsla(var(--border)/.90);
+    }
+    .tlTime{
+      font-family: var(--font-display);
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+    .tlText{
+      margin-top: 2px;
+      color: hsla(var(--foreground)/.86);
+    }
+
+    /* 5) FAQ accordion */
+    .faq{
+      margin-top: 6px;
+    }
+    details{
+      border: 1px solid hsla(var(--border)/.95);
+      border-radius: 16px;
+      background: hsla(var(--background)/.45);
+      box-shadow: var(--shadow-soft);
+      padding: 10px 12px;
+      margin: 10px 0;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .chev{
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid hsla(var(--foreground)/.55);
+      border-bottom: 2px solid hsla(var(--foreground)/.55);
+      transform: rotate(45deg);
+      transition: transform .2s ease;
+      flex: 0 0 auto;
+    }
+    details[open] .chev{
+      transform: rotate(225deg);
+    }
+    details p{
+      margin: 10px 0 6px;
+      color: hsla(var(--foreground)/.88);
+    }
+
+    /* 6) Modal IBAN */
+    .modalBackdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 9999;
+      padding: 18px;
+    }
+    .modalBackdrop.show{ display:flex; }
+    .modal{
+      width: min(520px, 100%);
+      border-radius: 18px;
+      border: 1px solid hsla(var(--border)/.95);
+      background: hsl(var(--background));
+      box-shadow: var(--shadow-lifted);
+      overflow:hidden;
+    }
+    .modalHead{
+      padding: 14px 16px;
+      border-bottom: 1px solid hsla(var(--border)/.70);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .modalHead b{
+      font-family: var(--font-display);
+      font-size: 18px;
+    }
+    .close{
+      border:0;
+      background: transparent;
+      font-size: 22px;
+      line-height: 1;
+      cursor:pointer;
+      opacity:.75;
+    }
+    .close:hover{ opacity:1; }
+    .modalBody{ padding: 14px 16px 16px; }
+    .ibanBox{
+      border: 1px dashed hsla(var(--border)/.95);
+      border-radius: 14px;
+      background: hsla(var(--card)/.60);
+      padding: 12px;
+      font-family: var(--font-display);
+      font-size: 16px;
+      letter-spacing: .04em;
+      word-break: break-word;
+    }
+    .modalSmall{
+      margin-top: 10px;
+      color: hsla(var(--foreground)/.80);
+      font-size: 14px;
+    }
+    .copyOk{
+      margin-left: 10px;
+      font-size: 13px;
+      opacity: .85;
+      display:none;
+    }
+    .copyOk.show{ display:inline; }
+
+    @media (max-width: 860px){
+      .infoGrid{ grid-template-columns: 1fr; }
+      .hero{ height: min(70vh, 560px); }
+    }
   </style>
 </head>
 
 <body>
+  <div class="wrap">
 
-<!-- INTRO -->
-<div class="intro" id="intro">
-  <div class="envelope">
-    <div class="env-body"></div>
-    <div class="env-flap"></div>
-    <div class="env-paper">
-      <div class="paper-text">
-        <div class="big">Joris & Francesca</div>
-        <div class="small">25 settembre 2026 · Sorrento</div>
+    <div class="topbar">
+      <div class="nav">
+        <a href="#home">Home</a>
+        <a href="#countdown">Countdown</a>
+        <a href="#dettagli">Dettagli</a>
+        <a href="#programma">Programma</a>
+        <a href="#alloggio">Alloggio</a>
+        <a href="#faq">FAQ</a>
+        <a href="#regalo">Regalo</a>
+        <a href="#rsvp">RSVP</a>
+      </div>
+      <div class="lang">
+        <a class="active" href="./invito.html">IT</a>
+        <a href="../en/">EN</a>
+        <a href="../de/">DE</a>
+        <a href="../lt/">LT</a>
       </div>
     </div>
-    <div class="seal" id="seal">JF</div>
-  </div>
-</div>
 
-<div class="wrap">
-
-  <div class="topbar">
-    <div class="nav">
-      <a href="./">Home</a>
-      <a href="#quando">Quando</a>
-      <a href="#dove">Dove</a>
-      <a href="#logistica">Logistica</a>
-      <a href="#rsvp">RSVP</a>
-    </div>
-    <div class="lang">
-      <a class="active" href="./invito.html">IT</a>
-      <a href="../en/">EN</a>
-      <a href="../de/">DE</a>
-      <a href="../lt/">LT</a>
-    </div>
-  </div>
-
-  <!-- HERO -->
-  <section class="card hero" id="quando">
-    <img src="../Pic2.jpg" alt="Joris e Francesca">
-    <div class="heroInner">
-      <div class="names">Joris and Francesca</div>
-      <div class="meta">25 settembre 2026 · ore 16:00 · Sorrento</div>
-
-      <div class="countdown">
-        <div><span class="num" id="d">—</span><span class="lbl">giorni</span></div>
-        <div><span class="num" id="h">—</span><span class="lbl">ore</span></div>
-        <div><span class="num" id="m">—</span><span class="lbl">min</span></div>
-        <div><span class="num" id="s">—</span><span class="lbl">sec</span></div>
+    <!-- 1) HERO Pic4 -->
+    <section class="card hero" id="home" aria-label="Copertina invito">
+      <img class="heroImg" src="../Pic4.png" alt="Copertina">
+      <div class="heroOverlay">
+        <div class="heroText">
+          <div class="top">Ci sposiamo</div>
+          <div class="nameLine">Joris</div>
+          <div class="and">e</div>
+          <div class="nameLine">Francesca</div>
+          <div class="date">25 settembre 2026</div>
+        </div>
       </div>
+    </section>
+
+    <!-- 2) COUNTDOWN -->
+    <section class="card" id="countdown">
+      <div class="countdownWrap">
+        <div class="countdownTitle">Countdown</div>
+        <p class="countdownSub">per il giorno più speciale della nostra vita</p>
+
+        <div class="countdown" aria-label="Countdown matrimonio">
+          <div><span class="num" id="cd-days">—</span><span class="lbl">giorni</span></div>
+          <div><span class="num" id="cd-hours">—</span><span class="lbl">ore</span></div>
+          <div><span class="num" id="cd-mins">—</span><span class="lbl">min</span></div>
+          <div><span class="num" id="cd-secs">—</span><span class="lbl">sec</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3) DETTAGLI -->
+    <section class="card section" id="dettagli">
+      <h2>Dettagli del giorno</h2>
+      <p><b>Venerdì 25 settembre 2026</b> · ore <b>16:00</b></p>
+      <p><b>Capo Santa Fortunata</b> · Sorrento, Italy</p>
 
       <div class="btnRow">
-        <a class="btn" href="https://www.caposantafortunata.com" target="_blank">Vedi la location</a>
-        <a class="btn" href="https://www.google.com/maps/dir//Capo+Santa+Fortunata+Relais,+Via+Calata+Punta+Capo,+13,+80067+Sorrento+NA,+Italia/" target="_blank">Come raggiungerci</a>
-        <a class="btn primary" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank">RSVP</a>
+        <a class="btn" href="https://www.caposantafortunata.com" target="_blank" rel="noopener noreferrer">Localizzazione</a>
+        <a class="btn" href="https://www.google.com/maps/dir//Capo+Santa+Fortunata+Relais,+Via+Calata+Punta+Capo,+13,+80067+Sorrento+NA,+Italia/"
+           target="_blank" rel="noopener noreferrer">Google Maps</a>
+      </div>
+
+      <div class="infoGrid">
+        <div class="infoBox">
+          <b>Cerimonia + ricevimento</b>
+          <p>Nello stesso luogo, vista mare.</p>
+        </div>
+        <div class="infoBox">
+          <b>Orario</b>
+          <p>Inizio cerimonia alle <b>16:00</b>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4) PROGRAMMA TIMELINE -->
+    <section class="card section" id="programma">
+      <h2>Programma del giorno</h2>
+      <div class="timeline" aria-label="Timeline programma">
+        <div class="tlItem">
+          <div class="tlTime">16:00</div>
+          <div class="tlText">Cerimonia</div>
+        </div>
+        <div class="tlItem">
+          <div class="tlTime">17:00</div>
+          <div class="tlText">Aperitivo</div>
+        </div>
+        <div class="tlItem">
+          <div class="tlTime">17:30</div>
+          <div class="tlText">Cocktail di benvenuto</div>
+        </div>
+        <div class="tlItem">
+          <div class="tlTime">18:00</div>
+          <div class="tlText">Cena</div>
+        </div>
+        <div class="tlItem">
+          <div class="tlTime">21:00</div>
+          <div class="tlText">Torta nuziale</div>
+        </div>
+        <div class="tlItem">
+          <div class="tlTime">21:30</div>
+          <div class="tlText">Free bar</div>
+        </div>
+        <div class="tlItem">
+          <div class="tlTime">22:00</div>
+          <div class="tlText">Party</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5) ALLOGGIO -->
+    <section class="card section" id="alloggio">
+      <h2>Alloggio</h2>
+      <p>Raccomandazioni su dove alloggiare: Sorrento e dintorni offrono tante soluzioni vicine alla location.</p>
+      <p>Puoi iniziare da qui con una ricerca già pronta:</p>
+
+      <div class="btnRow">
+        <a class="btn primary"
+           href="https://www.booking.com/searchresults.it.html?ss=Capo%20Santa%20Fortunata%20Relais%2C%20Sorrento"
+           target="_blank" rel="noopener noreferrer">
+          Cerca hotel su Booking
+        </a>
+      </div>
+    </section>
+
+    <!-- 6) FAQ -->
+    <section class="card section" id="faq">
+      <h2>Domande frequenti</h2>
+
+      <div class="faq">
+        <details>
+          <summary>Dress code <span class="chev" aria-hidden="true"></span></summary>
+          <p>Vieni come preferisci. Il ricevimento sarà di giorno, ti consigliamo scarpe comode.</p>
+        </details>
+
+        <details>
+          <summary>Come raggiungo la struttura? <span class="chev" aria-hidden="true"></span></summary>
+          <p>
+            Il modo più comodo è in macchina: ci sarà un parcheggio messo a disposizione degli ospiti.
+            In alternativa, da Napoli puoi prendere la Circumvesuviana fino a Sorrento e poi un taxi.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- 7) REGALO -->
+    <section class="card section" id="regalo">
+      <h2>Regalo</h2>
+      <p>La tua presenza è la cosa più importante per noi.</p>
+      <p>Se vuoi farci un regalo, ti lasciamo il nostro IBAN.</p>
+
+      <div class="btnRow">
+        <button class="btn primary" id="openIban" type="button">IBAN</button>
+      </div>
+    </section>
+
+    <!-- 8) RSVP -->
+    <section class="card section" id="rsvp">
+      <h2>Conferma la tua presenza</h2>
+      <p>Per favore conferma compilando il nostro modulo.</p>
+      <div class="btnRow">
+        <a class="btn primary" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank" rel="noopener noreferrer">
+          Apri il Google Form
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- IBAN Modal -->
+  <div class="modalBackdrop" id="ibanModal" role="dialog" aria-modal="true" aria-label="IBAN">
+    <div class="modal">
+      <div class="modalHead">
+        <b>Dettagli IBAN</b>
+        <button class="close" id="closeIban" aria-label="Chiudi">×</button>
+      </div>
+      <div class="modalBody">
+        <div class="ibanBox" id="ibanText">IT 123456789111213</div>
+        <div class="modalSmall">Intestatario: <b>Joris Vitulli</b></div>
+
+        <div class="btnRow" style="justify-content:flex-start;margin-top:12px;">
+          <button class="btn" id="copyIban" type="button">Copia IBAN</button>
+          <span class="copyOk" id="copyOk">Copiato ✅</span>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <div class="divider"></div>
+  <script>
+    // Countdown
+    (function(){
+      const wedding = new Date("2026-09-25T16:00:00+02:00");
+      const elDays  = document.getElementById("cd-days");
+      const elHours = document.getElementById("cd-hours");
+      const elMins  = document.getElementById("cd-mins");
+      const elSecs  = document.getElementById("cd-secs");
+      const pad = n => String(n).padStart(2,"0");
 
-  <section class="card section" id="dove">
-    <h2>Dove</h2>
-    <p>Capo Santa Fortunata è una storica villa affacciata sul mare, immersa nella natura della penisola sorrentina.</p>
-    <p>Cerimonia e ricevimento si terranno nello stesso luogo.</p>
-  </section>
+      function tick(){
+        const diff = wedding - new Date();
+        if(diff <= 0){
+          elDays.textContent = "0";
+          elHours.textContent = "00";
+          elMins.textContent = "00";
+          elSecs.textContent = "00";
+          return;
+        }
+        const t = Math.floor(diff / 1000);
+        const days  = Math.floor(t / 86400);
+        const hours = Math.floor((t % 86400) / 3600);
+        const mins  = Math.floor((t % 3600) / 60);
+        const secs  = t % 60;
 
-  <section class="card section" id="logistica">
-    <h2>Logistica</h2>
-    <p>Troverai tutte le informazioni su come arrivare e sugli hotel consigliati nella pagina dedicata.</p>
-    <p><a href="./logistica.html">Vai alla pagina Logistica</a></p>
-  </section>
+        elDays.textContent = days;
+        elHours.textContent = pad(hours);
+        elMins.textContent = pad(mins);
+        elSecs.textContent = pad(secs);
+      }
 
-  <section class="card section" id="rsvp">
-    <h2>Speriamo che tu possa partecipare</h2>
-    <p>La tua presenza per noi è molto importante. Ti chiediamo gentilmente di confermare.</p>
-    <div class="btnRow">
-      <a class="btn primary" href="https://forms.gle/h6XL3gbPdXJWDUQN8" target="_blank">Conferma la presenza</a>
-    </div>
-  </section>
+      tick();
+      setInterval(tick, 1000);
+    })();
 
-</div>
+    // IBAN modal
+    (function(){
+      const modal = document.getElementById("ibanModal");
+      const openBtn = document.getElementById("openIban");
+      const closeBtn = document.getElementById("closeIban");
+      const copyBtn = document.getElementById("copyIban");
+      const ibanText = document.getElementById("ibanText");
+      const copyOk = document.getElementById("copyOk");
 
-<script>
-  // Envelope open
-  const intro=document.getElementById("intro");
-  document.getElementById("seal").onclick=()=>{
-    intro.classList.add("open");
-    setTimeout(()=>intro.classList.add("fade"),900);
-  };
+      function open(){
+        modal.classList.add("show");
+        copyOk.classList.remove("show");
+      }
+      function close(){
+        modal.classList.remove("show");
+      }
 
-  // Countdown
-  const wedding=new Date("2026-09-25T16:00:00+02:00");
-  const d=document.getElementById("d"),
-        h=document.getElementById("h"),
-        m=document.getElementById("m"),
-        s=document.getElementById("s");
-  const pad=n=>String(n).padStart(2,"0");
-  setInterval(()=>{
-    const diff=wedding-new Date();
-    if(diff<=0){d.textContent=0;h.textContent="00";m.textContent="00";s.textContent="00";return;}
-    const t=Math.floor(diff/1000);
-    d.textContent=Math.floor(t/86400);
-    h.textContent=pad(Math.floor(t%86400/3600));
-    m.textContent=pad(Math.floor(t%3600/60));
-    s.textContent=pad(t%60);
-  },1000);
-</script>
+      openBtn.addEventListener("click", open);
+      closeBtn.addEventListener("click", close);
+      modal.addEventListener("click", (e) => { if(e.target === modal) close(); });
+      document.addEventListener("keydown", (e) => { if(e.key === "Escape") close(); });
 
+      copyBtn.addEventListener("click", async () => {
+        try{
+          await navigator.clipboard.writeText(ibanText.textContent.trim());
+          copyOk.classList.add("show");
+          setTimeout(() => copyOk.classList.remove("show"), 1800);
+        }catch(err){
+          // fallback
+          const range = document.createRange();
+          range.selectNodeContents(ibanText);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          document.execCommand("copy");
+          sel.removeAllRanges();
+          copyOk.classList.add("show");
+          setTimeout(() => copyOk.classList.remove("show"), 1800);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
