@@ -119,6 +119,23 @@
       text-underline-offset:4px;
     }
 
+    .musicBtn{
+      border: none;
+      background: transparent;
+      font-size: 18px;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: transform .2s ease, opacity .2s ease;
+      margin-left: 8px;
+      color: inherit;
+      padding: 0;
+      line-height: 1;
+    }
+    .musicBtn:hover{
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
     /* pages */
     .pages{
       position:relative;
@@ -590,7 +607,7 @@
   <a href="../lt/index.html">LT</a>
   <a href="../en/index.html">EN</a>
   <a href="../de/index.html">DE</a>
-
+  <button id="musicToggle" class="musicBtn" type="button" aria-label="Attiva o disattiva la musica">🔇</button>
 </div>
 
   </div>
@@ -801,44 +818,78 @@ Siamo davvero felici di condividere questa gioia con voi.</p>
     (function(){
       const intro = document.getElementById("intro");
       const ht = document.getElementById("heroText");
+      const music = document.getElementById("bgMusic");
+      const musicBtn = document.getElementById("musicToggle");
       let done = false;
 
-     function enter(){
-  if(done) return;
-  done = true;
+      function updateMusicButton(){
+        if(!musicBtn || !music) return;
+        musicBtn.textContent = music.paused ? "🔇" : "🔊";
+      }
 
-  // 🎶 parte musica al click sulla busta (Pic5)
-  const music = document.getElementById("bgMusic");
-  if(music){
-    music.currentTime = 0;
-    music.volume = 0.5;
-    music.play().catch(()=>{});
-  }
+      function playMusicFrom18(){
+        if(!music) return;
+        music.currentTime = 18;
+        music.volume = 0;
+        music.play().then(() => {
+          let v = 0;
+          const fade = setInterval(() => {
+            if(v < 0.4){
+              v += 0.02;
+              music.volume = Math.min(v, 0.4);
+            } else {
+              clearInterval(fade);
+            }
+          }, 120);
+          updateMusicButton();
+        }).catch(()=>{});
+      }
 
-  sessionStorage.setItem("introSeen", "1");
+      function enter(){
+        if(done) return;
+        done = true;
 
-  if(ht) requestAnimationFrame(() => ht.classList.add("in"));
+        playMusicFrom18();
 
-  intro.classList.add("fade");
+        sessionStorage.setItem("introSeen", "1");
 
-  setTimeout(() => {
-    intro.style.display = "none";
-  }, 2000);
+        if(ht) requestAnimationFrame(() => ht.classList.add("in"));
 
-  const home = document.getElementById("home");
-  if(home) home.scrollIntoView({ behavior: "smooth", block: "start" });
-}
+        intro.classList.add("fade");
+
+        setTimeout(() => {
+          intro.style.display = "none";
+        }, 2000);
+
+        const home = document.getElementById("home");
+        if(home) home.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
 
       if (sessionStorage.getItem("introSeen") === "1") {
         intro.style.display = "none";
         if(ht) requestAnimationFrame(() => ht.classList.add("in"));
-        return;
+      } else {
+        intro.addEventListener("click", enter);
+        intro.addEventListener("keydown", (e) => {
+          if(e.key === "Enter" || e.key === " ") enter();
+        });
       }
 
-      intro.addEventListener("click", enter);
-      intro.addEventListener("keydown", (e) => {
-        if(e.key === "Enter" || e.key === " ") enter();
-      });
+      if(musicBtn && music){
+        updateMusicButton();
+
+        musicBtn.addEventListener("click", () => {
+          if(music.paused){
+            playMusicFrom18();
+          } else {
+            music.pause();
+            updateMusicButton();
+          }
+        });
+
+        music.addEventListener("pause", updateMusicButton);
+        music.addEventListener("play", updateMusicButton);
+      }
     })();
 
     // Countdown
