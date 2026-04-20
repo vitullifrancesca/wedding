@@ -562,7 +562,8 @@
 </head>
 
 <body>
-
+<audio id="bgMusic" src="../musica.mp3"></audio>
+  
   <!-- INTRO (shows only once per session) -->
   <div class="intro" id="intro" aria-label="Busta invito" role="button" tabindex="0">
     <div class="envStage">
@@ -802,20 +803,31 @@ Siamo davvero felici di condividere questa gioia con voi.</p>
       const ht = document.getElementById("heroText");
       let done = false;
 
-      function enter(){
-        if(done) return;
-        done = true;
+     function enter(){
+  if(done) return;
+  done = true;
 
-        sessionStorage.setItem("introSeen", "1");
+  // 🎶 parte musica al click sulla busta (Pic5)
+  const music = document.getElementById("bgMusic");
+  if(music){
+    music.currentTime = 0;
+    music.volume = 0.5;
+    music.play().catch(()=>{});
+  }
 
-        if(ht) requestAnimationFrame(() => ht.classList.add("in"));
+  sessionStorage.setItem("introSeen", "1");
 
-        intro.classList.add("fade");
-        setTimeout(() => { intro.style.display = "none"; }, 2000);
+  if(ht) requestAnimationFrame(() => ht.classList.add("in"));
 
-        const home = document.getElementById("home");
-        if(home) home.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+  intro.classList.add("fade");
+
+  setTimeout(() => {
+    intro.style.display = "none";
+  }, 2000);
+
+  const home = document.getElementById("home");
+  if(home) home.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
       if (sessionStorage.getItem("introSeen") === "1") {
         intro.style.display = "none";
