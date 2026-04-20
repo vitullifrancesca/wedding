@@ -390,7 +390,7 @@
     .reveal.in{ opacity:1; transform: translateY(0); }
 
     /* ✅ INTRO: solo busta cliccabile */
-    .intro{
+     .intro{
       position:fixed;
       inset:0;
       z-index:99999;
@@ -401,17 +401,22 @@
       overflow:hidden;
       cursor:pointer;
       touch-action: manipulation;
-      padding: 18px;
+      padding: 0;
     }
     .envStage{
+      width: 100vw;
+      height: 100vh;
+      max-width: none;
+      margin: 0;
+    }
+    .envBase{
       width: 100%;
-      max-width: 760px;
-      margin: 0 auto;
+      height: 100%;
     }
     .envBase img{
       width:100%;
-      height:auto;
-      object-fit: contain;
+      height:100%;
+      object-fit: cover;
       display:block;
       transform: none;
       user-select:none;
