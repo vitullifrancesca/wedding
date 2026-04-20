@@ -425,7 +425,7 @@
     .intro.fade{
       opacity:0;
       visibility:hidden;
-      transition: opacity 260ms ease;
+      transition: opacity 2s ease;
     }
 
     /* ✅ Hotel background Pic8 */
@@ -812,7 +812,7 @@ Siamo davvero felici di condividere questa gioia con voi.</p>
         if(ht) requestAnimationFrame(() => ht.classList.add("in"));
 
         intro.classList.add("fade");
-        setTimeout(() => { intro.style.display = "none"; }, 280);
+        setTimeout(() => { intro.style.display = "none"; }, 2000);
 
         const home = document.getElementById("home");
         if(home) home.scrollIntoView({ behavior: "smooth", block: "start" });
