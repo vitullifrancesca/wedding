@@ -807,22 +807,12 @@ Siamo davvero felici di condividere questa gioia con voi.</p>
   if(done) return;
   done = true;
 
-  // 🎶 MUSICA (parte da 18s + fade-in)
+  // 🎶 parte musica al click sulla busta (Pic5)
   const music = document.getElementById("bgMusic");
   if(music){
-    music.currentTime = 00:18;   // parte dal secondo 18
-    music.volume = 0;         // parte muta
+    music.currentTime = 0;
+    music.volume = 0.5;
     music.play().catch(()=>{});
-
-    let v = 0;
-    const fade = setInterval(() => {
-      if(v < 0.4){           // volume finale (puoi aumentare a 0.5 se vuoi)
-        v += 0.02;
-        music.volume = v;
-      } else {
-        clearInterval(fade);
-      }
-    }, 120); // velocità del fade (più alto = più lento)
   }
 
   sessionStorage.setItem("introSeen", "1");
