@@ -397,7 +397,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      background: hsl(var(--background));
+      background: #fff;
       overflow:hidden;
       cursor:pointer;
       touch-action: manipulation;
@@ -408,19 +408,23 @@
       height: 100vh;
       max-width: none;
       margin: 0;
+      background: #fff;
     }
     .envBase{
       width: 100%;
       height: 100%;
+      background: #fff;
     }
     .envBase img{
       width:100%;
       height:100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
       display:block;
       transform: none;
       user-select:none;
       -webkit-user-drag:none;
+      background: #fff;
     }
     .intro.fade{
       opacity:0;
