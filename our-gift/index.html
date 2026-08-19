@@ -8,10 +8,8 @@
 
   <title>Our Wedding Gift | Francesca & Joris</title>
 
-  <!-- Non indicizzare questa pagina -->
   <meta name="robots" content="noindex, nofollow, noarchive">
 
-  <!-- Stessi font del sito -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -33,10 +31,6 @@
 
       --font-display: "Cormorant Garamond", serif;
       --font-body: "Lora", serif;
-
-      --shadow-soft:
-        0 2px 15px -3px rgba(58, 69, 52, .08),
-        0 4px 6px -2px rgba(58, 69, 52, .04);
 
       --shadow-elegant:
         0 10px 40px -10px rgba(58, 69, 52, .15),
@@ -72,9 +66,7 @@
     }
 
 
-    /* ========================================
-       SFONDO
-       ======================================== */
+    /* SFONDO */
 
     body::before,
     body::after {
@@ -119,9 +111,7 @@
     }
 
 
-    /* ========================================
-       PAGINA
-       ======================================== */
+    /* PAGINA */
 
     .giftPage {
       position: relative;
@@ -140,9 +130,7 @@
     }
 
 
-    /* ========================================
-       PICCOLO TITOLO
-       ======================================== */
+    /* PICCOLO TITOLO */
 
     .smallTitle {
       font-family: var(--font-body);
@@ -161,9 +149,7 @@
     }
 
 
-    /* ========================================
-       FRASE PRINCIPALE
-       ======================================== */
+    /* FRASE PRINCIPALE */
 
     .introText {
       max-width: 930px;
@@ -194,9 +180,7 @@
     }
 
 
-    /* ========================================
-       LINEA DECORATIVA
-       ======================================== */
+    /* DIVISORE */
 
     .divider {
       width: min(520px, 72%);
@@ -209,9 +193,7 @@
     }
 
 
-    /* ========================================
-       VIDEO
-       ======================================== */
+    /* VIDEO */
 
     .videoSection {
       width: min(960px, 100%);
@@ -237,126 +219,6 @@
     }
 
 
-    /* ========================================
-       PREVIEW
-       ======================================== */
-
-    .videoPreview {
-      position: absolute;
-
-      inset: 0;
-
-      width: 100%;
-      height: 100%;
-
-      padding: 0;
-
-      border: 0;
-
-      display: block;
-
-      cursor: pointer;
-
-      background: #000;
-    }
-
-
-    .videoPreview img {
-      position: absolute;
-
-      inset: 0;
-
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-
-      display: block;
-    }
-
-
-    /* Velo leggero sopra la preview */
-
-    .videoPreview::after {
-      content: "";
-
-      position: absolute;
-
-      inset: 0;
-
-      background: rgba(0, 0, 0, .08);
-
-      transition: background .25s ease;
-    }
-
-
-    .videoPreview:hover::after {
-      background: rgba(0, 0, 0, .15);
-    }
-
-
-    /* ========================================
-       PULSANTE PLAY
-       ======================================== */
-
-    .playButton {
-      position: absolute;
-
-      top: 50%;
-      left: 50%;
-
-      transform: translate(-50%, -50%);
-
-      z-index: 2;
-
-      width: 82px;
-      height: 82px;
-
-      border-radius: 50%;
-
-      background: rgba(255, 255, 255, .92);
-
-      box-shadow:
-        0 8px 30px rgba(0, 0, 0, .22);
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      transition:
-        transform .25s ease,
-        background .25s ease;
-    }
-
-
-    .videoPreview:hover .playButton {
-      transform:
-        translate(-50%, -50%)
-        scale(1.06);
-
-      background: #fff;
-    }
-
-
-    .playTriangle {
-      width: 0;
-      height: 0;
-
-      border-top: 13px solid transparent;
-      border-bottom: 13px solid transparent;
-
-      border-left:
-        21px solid hsl(var(--countdown));
-
-      margin-left: 5px;
-    }
-
-
-    /* ========================================
-       PLAYER GOOGLE DRIVE
-       ======================================== */
-
     .videoFrame iframe {
       position: absolute;
 
@@ -368,14 +230,10 @@
       border: 0;
 
       display: block;
-
-      background: #000;
     }
 
 
-    /* ========================================
-       FRASE FINALE
-       ======================================== */
+    /* FINALE */
 
     .closing {
       max-width: 850px;
@@ -399,10 +257,6 @@
     }
 
 
-    /* ========================================
-       FIRMA
-       ======================================== */
-
     .signature {
       margin-top: 24px;
 
@@ -418,9 +272,7 @@
     }
 
 
-    /* ========================================
-       ANIMAZIONE
-       ======================================== */
+    /* ANIMAZIONE */
 
     .reveal {
       opacity: 0;
@@ -452,9 +304,7 @@
     }
 
 
-    /* ========================================
-       MOBILE
-       ======================================== */
+    /* MOBILE */
 
     @media (max-width: 700px) {
 
@@ -492,20 +342,6 @@
 
       .videoFrame {
         border-radius: 14px;
-      }
-
-
-      .playButton {
-        width: 68px;
-        height: 68px;
-      }
-
-
-      .playTriangle {
-        border-top-width: 11px;
-        border-bottom-width: 11px;
-
-        border-left-width: 18px;
       }
 
 
@@ -552,9 +388,7 @@
   <main class="giftPage">
 
 
-    <!-- ======================================
-         INTRO
-         ====================================== -->
+    <!-- INTRO -->
 
     <section class="introText reveal">
 
@@ -582,41 +416,18 @@
 
 
 
-    <!-- ======================================
-         VIDEO
-         ====================================== -->
+    <!-- VIDEO -->
 
     <section class="videoSection reveal">
 
-      <div
-        class="videoFrame"
-        id="videoFrame"
-      >
+      <div class="videoFrame">
 
-
-        <button
-          class="videoPreview"
-          id="videoPreview"
-          type="button"
-          aria-label="Play our wedding gift video"
-        >
-
-
-          <img
-            src="video_preview.jpg"
-            alt="Our wedding gift in Mombasa"
-          >
-
-
-          <span class="playButton">
-
-            <span class="playTriangle"></span>
-
-          </span>
-
-
-        </button>
-
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/TbQPJLyR5OA?rel=0&playsinline=1"
+          title="Our Wedding Gift"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
 
       </div>
 
@@ -624,9 +435,7 @@
 
 
 
-    <!-- ======================================
-         FINALE
-         ====================================== -->
+    <!-- FINALE -->
 
     <section class="closing reveal">
 
@@ -643,66 +452,6 @@
 
 
   </main>
-
-
-
-  <!-- ========================================
-       SCRIPT VIDEO
-       ======================================== -->
-
-  <script>
-
-    const videoPreview =
-      document.getElementById("videoPreview");
-
-
-    const videoFrame =
-      document.getElementById("videoFrame");
-
-
-    videoPreview.addEventListener(
-      "click",
-      function () {
-
-
-        const iframe =
-          document.createElement("iframe");
-
-
-        iframe.src =
-          "https://drive.google.com/file/d/1Ny-MsbXD-gemGKuo0fdeRk8xx7Tx6LEY/preview?autoplay=1";
-
-
-        iframe.title =
-          "Our Wedding Gift";
-
-
-        iframe.allow =
-          "autoplay; fullscreen";
-
-
-        iframe.setAttribute(
-          "allowfullscreen",
-          ""
-        );
-
-
-        iframe.setAttribute(
-          "webkitallowfullscreen",
-          ""
-        );
-
-
-        videoFrame.innerHTML = "";
-
-
-        videoFrame.appendChild(iframe);
-
-
-      }
-    );
-
-  </script>
 
 
 </body>
