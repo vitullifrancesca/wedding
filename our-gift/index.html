@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Our Wedding Gift | Francesca & Joris</title>
+
+  <!-- Impedisce ai motori di ricerca di indicizzare questa pagina -->
+  <meta name="robots" content="noindex, nofollow, noarchive">
+
+  <!-- Stessi font del sito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Lora:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    :root {
+      --background: 200 60% 95%;
+      --foreground: 100 15% 24%;
+      --card: 200 50% 92%;
+      --accent: 195 55% 70%;
+      --gold: 42 85% 55%;
+      --gold-soft: 42 60% 70%;
+      --countdown: 195 35% 50%;
+
+      --font-display: "Cormorant Garamond", serif;
+      --font-body: "Lora", serif;
+
+      --shadow-soft:
+        0 2px 15px -3px rgba(58, 69, 52, .08),
+        0 4px 6px -2px rgba(58, 69, 52, .04);
+
+      --shadow-elegant:
+        0 10px 40px -10px rgba(58, 69, 52, .15),
+        0 4px 15px -3px rgba(58, 69, 52, .08);
+
+      --max: 1100px;
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    html {
+      min-height: 100%;
+    }
+
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+
+      font-family: var(--font-body);
+
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+
+      overflow-x: hidden;
+    }
+
+
+    /* Stessi aloni delicati dello sfondo del sito */
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+
+      pointer-events: none;
+
+      z-index: 0;
+
+      opacity: .55;
+    }
+
+
+    body::before {
+      background:
+        radial-gradient(
+          650px 460px at 12% 14%,
+          hsla(var(--gold) / .14),
+          transparent 60%
+        ),
+
+        radial-gradient(
+          650px 460px at 90% 20%,
+          hsla(var(--accent) / .10),
+          transparent 65%
+        );
+
+      filter: blur(1px);
+    }
+
+
+    body::after {
+      background:
+        radial-gradient(
+          760px 560px at 85% 90%,
+          hsla(var(--gold-soft) / .15),
+          transparent 72%
+        );
+
+      filter: blur(1px);
+    }
+
+
+    /* CONTENUTO PRINCIPALE */
+
+    .giftPage {
+
+      position: relative;
+      z-index: 1;
+
+      width: min(var(--max), 100%);
+
+      margin: 0 auto;
+
+      padding:
+        clamp(70px, 9vw, 115px)
+        20px
+        clamp(70px, 9vw, 110px);
+
+      text-align: center;
+    }
+
+
+    /* PICCOLO TITOLO */
+
+    .smallTitle {
+
+      font-family: var(--font-body);
+
+      font-size: 14px;
+
+      text-transform: uppercase;
+
+      letter-spacing: .16em;
+
+      color: hsl(var(--countdown));
+
+      opacity: .82;
+
+      margin-bottom: 22px;
+    }
+
+
+    /* FRASE PRINCIPALE */
+
+    .introText {
+
+      max-width: 930px;
+
+      margin: 0 auto 52px;
+    }
+
+
+    .introText h1 {
+
+      margin: 0;
+
+      font-family: var(--font-display);
+
+      font-weight: 500;
+
+      font-size: clamp(38px, 5vw, 60px);
+
+      line-height: 1.10;
+
+      letter-spacing: .01em;
+
+      color: hsl(var(--foreground));
+    }
+
+
+    .introText .highlight {
+
+      color: hsl(var(--countdown));
+    }
+
+
+    /* LINEA DECORATIVA */
+
+    .divider {
+
+      width: min(520px, 72%);
+
+      height: 1px;
+
+      background: rgba(0, 0, 0, .10);
+
+      margin: 34px auto 0;
+    }
+
+
+    /* VIDEO */
+
+    .videoSection {
+
+      width: min(960px, 100%);
+
+      margin: 0 auto;
+    }
+
+
+    .videoFrame {
+
+      width: 100%;
+
+      background: #000;
+
+      border-radius: 18px;
+
+      overflow: hidden;
+
+      box-shadow: var(--shadow-elegant);
+    }
+
+
+    .videoFrame video {
+
+      display: block;
+
+      width: 100%;
+
+      height: auto;
+
+      background: #000;
+    }
+
+
+    /* FRASE FINALE */
+
+    .closing {
+
+      max-width: 850px;
+
+      margin: 55px auto 0;
+    }
+
+
+    .closing p {
+
+      margin: 0;
+
+      font-family: var(--font-display);
+
+      font-size: clamp(38px, 4.8vw, 56px);
+
+      font-weight: 500;
+
+      line-height: 1.12;
+
+      color: hsl(var(--countdown));
+    }
+
+
+    /* FIRMA */
+
+    .signature {
+
+      margin-top: 24px;
+
+      font-family: var(--font-body);
+
+      font-size: 13px;
+
+      letter-spacing: .16em;
+
+      text-transform: uppercase;
+
+      color: hsla(var(--foreground) / .62);
+    }
+
+
+    /* ANIMAZIONE DELICATA */
+
+    .reveal {
+
+      opacity: 0;
+
+      transform: translateY(14px);
+
+      animation: reveal 900ms ease forwards;
+    }
+
+
+    .videoSection {
+
+      animation-delay: 180ms;
+    }
+
+
+    .closing {
+
+      animation-delay: 350ms;
+    }
+
+
+    @keyframes reveal {
+
+      to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+      }
+
+    }
+
+
+    /* VERSIONE TELEFONO */
+
+    @media (max-width: 700px) {
+
+      .giftPage {
+
+        padding:
+          55px
+          14px
+          65px;
+      }
+
+
+      .smallTitle {
+
+        font-size: 12px;
+
+        margin-bottom: 18px;
+      }
+
+
+      .introText {
+
+        margin-bottom: 36px;
+      }
+
+
+      .introText h1 {
+
+        font-size: clamp(32px, 9.5vw, 43px);
+
+        line-height: 1.08;
+      }
+
+
+      .divider {
+
+        margin-top: 27px;
+      }
+
+
+      .videoFrame {
+
+        border-radius: 14px;
+      }
+
+
+      .closing {
+
+        margin-top: 42px;
+      }
+
+
+      .closing p {
+
+        font-size: clamp(32px, 9vw, 43px);
+      }
+
+
+      .signature {
+
+        font-size: 11px;
+
+        margin-top: 20px;
+      }
+
+    }
+
+
+    @media (max-width: 380px) {
+
+      .introText h1 {
+
+        font-size: 31px;
+      }
+
+
+      .closing p {
+
+        font-size: 31px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <main class="giftPage">
+
+
+    <!-- INTRO -->
+
+    <section class="introText reveal">
+
+      <div class="smallTitle">
+        Our Wedding Gift
+      </div>
+
+      <h1>
+
+        Instead of traditional wedding favours,<br>
+
+        we chose to support<br>
+
+        <span class="highlight">
+          a children's home in Mombasa.
+        </span>
+
+      </h1>
+
+      <div class="divider"></div>
+
+    </section>
+
+
+
+    <!-- VIDEO -->
+
+    <section class="videoSection reveal">
+
+      <div class="videoFrame">
+
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster="video_preview.jpg"
+        >
+
+          <source
+            src="video_def.mp4"
+            type="video/mp4"
+          >
+
+          Your browser does not support the video tag.
+
+        </video>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- FINALE -->
+
+    <section class="closing reveal">
+
+      <p>
+        Thank you for knocking with us.
+      </p>
+
+      <div class="signature">
+        Francesca &amp; Joris
+      </div>
+
+    </section>
+
+
+  </main>
+
+</body>
+
+</html>
