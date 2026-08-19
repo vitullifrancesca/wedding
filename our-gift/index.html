@@ -72,7 +72,7 @@
     }
 
 
-    /* Stessi aloni delicati dello sfondo del sito */
+    /* SFONDO */
 
     body::before,
     body::after {
@@ -81,7 +81,6 @@
       inset: 0;
 
       pointer-events: none;
-
       z-index: 0;
 
       opacity: .55;
@@ -121,7 +120,6 @@
     /* CONTENUTO PRINCIPALE */
 
     .giftPage {
-
       position: relative;
       z-index: 1;
 
@@ -141,7 +139,6 @@
     /* PICCOLO TITOLO */
 
     .smallTitle {
-
       font-family: var(--font-body);
 
       font-size: 14px;
@@ -161,7 +158,6 @@
     /* FRASE PRINCIPALE */
 
     .introText {
-
       max-width: 930px;
 
       margin: 0 auto 52px;
@@ -169,7 +165,6 @@
 
 
     .introText h1 {
-
       margin: 0;
 
       font-family: var(--font-display);
@@ -187,7 +182,6 @@
 
 
     .introText .highlight {
-
       color: hsl(var(--countdown));
     }
 
@@ -195,7 +189,6 @@
     /* LINEA DECORATIVA */
 
     .divider {
-
       width: min(520px, 72%);
 
       height: 1px;
@@ -209,7 +202,6 @@
     /* VIDEO */
 
     .videoSection {
-
       width: min(960px, 100%);
 
       margin: 0 auto;
@@ -217,8 +209,11 @@
 
 
     .videoFrame {
+      position: relative;
 
       width: 100%;
+
+      aspect-ratio: 16 / 9;
 
       background: #000;
 
@@ -230,22 +225,137 @@
     }
 
 
-    .videoFrame video {
+    /* ANTEPRIMA VIDEO */
 
-      display: block;
+    .videoPreview {
+      position: absolute;
+
+      inset: 0;
 
       width: 100%;
+      height: 100%;
 
-      height: auto;
+      cursor: pointer;
 
       background: #000;
+
+      border: 0;
+
+      padding: 0;
+
+      display: block;
+    }
+
+
+    .videoPreview img {
+      position: absolute;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      display: block;
+    }
+
+
+    /* Leggerissimo velo sulla preview */
+
+    .videoPreview::after {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background: rgba(0, 0, 0, .08);
+
+      transition: background .25s ease;
+    }
+
+
+    .videoPreview:hover::after {
+      background: rgba(0, 0, 0, .15);
+    }
+
+
+    /* PULSANTE PLAY */
+
+    .playButton {
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      transform: translate(-50%, -50%);
+
+      z-index: 2;
+
+      width: 82px;
+      height: 82px;
+
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, .92);
+
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, .22);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      transition:
+        transform .25s ease,
+        background .25s ease;
+    }
+
+
+    .videoPreview:hover .playButton {
+      transform:
+        translate(-50%, -50%)
+        scale(1.06);
+
+      background: #fff;
+    }
+
+
+    .playTriangle {
+      width: 0;
+      height: 0;
+
+      border-top: 13px solid transparent;
+      border-bottom: 13px solid transparent;
+
+      border-left:
+        21px solid hsl(var(--countdown));
+
+      margin-left: 5px;
+    }
+
+
+    /* GOOGLE DRIVE PLAYER */
+
+    .videoFrame iframe {
+      position: absolute;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      border: 0;
+
+      display: block;
     }
 
 
     /* FRASE FINALE */
 
     .closing {
-
       max-width: 850px;
 
       margin: 55px auto 0;
@@ -253,7 +363,6 @@
 
 
     .closing p {
-
       margin: 0;
 
       font-family: var(--font-display);
@@ -271,7 +380,6 @@
     /* FIRMA */
 
     .signature {
-
       margin-top: 24px;
 
       font-family: var(--font-body);
@@ -286,10 +394,9 @@
     }
 
 
-    /* ANIMAZIONE DELICATA */
+    /* ANIMAZIONE */
 
     .reveal {
-
       opacity: 0;
 
       transform: translateY(14px);
@@ -299,27 +406,21 @@
 
 
     .videoSection {
-
       animation-delay: 180ms;
     }
 
 
     .closing {
-
       animation-delay: 350ms;
     }
 
 
     @keyframes reveal {
-
       to {
-
         opacity: 1;
 
         transform: translateY(0);
-
       }
-
     }
 
 
@@ -328,7 +429,6 @@
     @media (max-width: 700px) {
 
       .giftPage {
-
         padding:
           55px
           14px
@@ -337,7 +437,6 @@
 
 
       .smallTitle {
-
         font-size: 12px;
 
         margin-bottom: 18px;
@@ -345,13 +444,11 @@
 
 
       .introText {
-
         margin-bottom: 36px;
       }
 
 
       .introText h1 {
-
         font-size: clamp(32px, 9.5vw, 43px);
 
         line-height: 1.08;
@@ -359,31 +456,40 @@
 
 
       .divider {
-
         margin-top: 27px;
       }
 
 
       .videoFrame {
-
         border-radius: 14px;
       }
 
 
-      .closing {
+      .playButton {
+        width: 68px;
+        height: 68px;
+      }
 
+
+      .playTriangle {
+        border-top-width: 11px;
+        border-bottom-width: 11px;
+
+        border-left-width: 18px;
+      }
+
+
+      .closing {
         margin-top: 42px;
       }
 
 
       .closing p {
-
         font-size: clamp(32px, 9vw, 43px);
       }
 
 
       .signature {
-
         font-size: 11px;
 
         margin-top: 20px;
@@ -395,13 +501,11 @@
     @media (max-width: 380px) {
 
       .introText h1 {
-
         font-size: 31px;
       }
 
 
       .closing p {
-
         font-size: 31px;
       }
 
@@ -447,23 +551,30 @@
 
     <section class="videoSection reveal">
 
-      <div class="videoFrame">
+      <div
+        class="videoFrame"
+        id="videoFrame"
+      >
 
-        <video
-          controls
-          playsinline
-          preload="metadata"
-          poster="video_preview.jpg"
+        <button
+          class="videoPreview"
+          id="videoPreview"
+          type="button"
+          aria-label="Play our wedding gift video"
         >
 
-          <source
-            src="video_def.mp4"
-            type="video/mp4"
+          <img
+            src="video_preview.jpg"
+            alt="Our wedding gift in Mombasa"
           >
 
-          Your browser does not support the video tag.
+          <span class="playButton">
 
-        </video>
+            <span class="playTriangle"></span>
+
+          </span>
+
+        </button>
 
       </div>
 
@@ -487,6 +598,50 @@
 
 
   </main>
+
+
+  <script>
+
+    const videoPreview =
+      document.getElementById("videoPreview");
+
+    const videoFrame =
+      document.getElementById("videoFrame");
+
+
+    videoPreview.addEventListener(
+      "click",
+      function () {
+
+        const iframe =
+          document.createElement("iframe");
+
+
+        iframe.src =
+          "https://drive.google.com/file/d/1Ny-MsbXD-gemGKuo0fdeRk8xx7Tx6LEY/preview";
+
+
+        iframe.title =
+          "Our Wedding Gift";
+
+
+        iframe.allow =
+          "autoplay; fullscreen";
+
+
+        iframe.allowFullscreen =
+          true;
+
+
+        videoFrame.innerHTML = "";
+
+        videoFrame.appendChild(iframe);
+
+      }
+    );
+
+  </script>
+
 
 </body>
 
